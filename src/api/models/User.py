@@ -20,6 +20,6 @@ class User(db.Model):
             "id": self.id,
             "email": self.email,
             "name": self.name,
-            "status": self.status,
-            "role": self.role,
+            "status": self.status.value,
+            "role": self.role.value
         }
