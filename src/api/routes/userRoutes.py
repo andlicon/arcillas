@@ -92,3 +92,21 @@ def get_all_users():
     }
 
     return jsonify(response), 200
+
+
+@api.route('/users/<int:id>', methods=['DELETE'])
+def delete_user(id):
+    user = User.query.filter_by(id=id).one_or_none()
+
+    if user is None:
+        return jsonify({'message': 'User not found'}), 404
+
+    try:
+        db.session.delete(user)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        print(e.args)
+        return jsonify({'message': 'Some error ocurred'}), 500
+
+    return jsonify({'message': 'ok'}), 204
