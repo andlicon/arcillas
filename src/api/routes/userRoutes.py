@@ -2,12 +2,12 @@ import string
 import os
 from flask import Flask, request, jsonify, url_for, Blueprint
 from . import api
-from .password import create_password
 from ..models import db
 from ..models.User import User
 from ..models.UserStatus import UserStatus
 from ..models.Role import Role
-from ..utils import duplicated
+from ..utils.duplicatedUtils import validate_new_user
+from ..utils.passwordUtils import create_password
 from base64 import b64encode
 # from werkzeug.security import generate_password_hash
 # from flask_jwt_extended import create_access_token
@@ -42,7 +42,7 @@ def create_user():
     # validate inputs LEFT
 
     # is any column duplicated ?
-    duplicated_validation = duplicated.validate_new_user(email)
+    duplicated_validation = validate_new_user(email)
     is_duplicated = duplicated_validation[0]
     if not is_duplicated:
         message = duplicated_validation[1]
@@ -145,7 +145,7 @@ def update_user(id):
     # validate inputs LEFT
 
     # is any column duplicated ?
-    duplicated_validation = duplicated.validate_new_user(email)
+    duplicated_validation = validate_new_user(email)
     is_duplicated = duplicated_validation[0]
     if not is_duplicated:
         message = duplicated_validation[1]
@@ -187,7 +187,7 @@ def patch_user(id):
     email = email.lower() if email is not None else None
 
     # is any column duplicated ?
-    duplicated_validation = duplicated.validate_new_user(email)
+    duplicated_validation = validate_new_user(email)
     is_duplicated = duplicated_validation[0]
     if not is_duplicated:
         message = duplicated_validation[1]
