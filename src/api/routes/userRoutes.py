@@ -12,8 +12,8 @@ from base64 import b64encode
 # from werkzeug.security import generate_password_hash
 # from flask_jwt_extended import create_access_token
 
-@api.route('/user', methods=['POST'])
-def register_user():
+@api.route('/users', methods=['POST'])
+def create_user():
     # Validating body
     if not request.is_json:
         return jsonify({'message': 'Body must have a json item as body'}), 400
@@ -65,10 +65,30 @@ def register_user():
     return jsonify(new_user.serialize()), 201
 
 
-@api.route('/user/<int:id>', methods=['GET'])
+@api.route('/users/<int:id>', methods=['GET'])
 def get_one_user(id=None):
     user = User.query.filter_by(id=id).one_or_none()
     if user is None:
         return jsonify({'message': 'User not found'}), 404
 
-    return jsonify({'message': user.serialize()}), 200
+    return jsonify(user.serialize()), 200
+
+
+@api.route('/users/', methods=['GET'])
+def get_all_users():
+    args = request.args
+    show_page = args.get('page', default=1, type=int)
+
+    page = User.query.paginate(page=show_page, per_page=10)
+
+    response = {
+        'info': {
+            'count': page.total,
+            'next': f'{os.getenv("BACKEND_URL")}/users/?page={page.next_num}' if page.has_next else None,
+            'prev': f'{os.getenv("BACKEND_URL")}/users/?page={page.prev_num}' if page.has_prev else None
+        },
+        'results': list(map(lambda user: user.serialize(), page.items))
+        
+    }
+
+    return jsonify(response), 200
