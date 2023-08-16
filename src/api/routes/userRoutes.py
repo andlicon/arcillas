@@ -1,5 +1,6 @@
 import string
 import os
+from base64 import b64encode
 from flask import Flask, request, jsonify, url_for, Blueprint
 from . import api
 from ..models import db
@@ -8,9 +9,6 @@ from ..models.UserStatus import UserStatus
 from ..models.Role import Role
 from ..utils.duplicatedUtils import validate_new_user
 from ..utils.passwordUtils import create_password
-from base64 import b64encode
-# from werkzeug.security import generate_password_hash
-# from flask_jwt_extended import create_access_token
 
 @api.route('/users', methods=['POST'])
 def create_user():
