@@ -24,9 +24,11 @@ def register_user():
 
     # Creating new user.
     new_user = User(email=email, name=name, status=UserStatus.ACTIVE, role=Role.ADMIN, password=password, salt=1)
-    is_duplicated = duplicated.find_user(new_user)
-    if is_duplicated is not None:
-        return jsonify({'message': 'is duplicated'}), 400
+    duplicated_validation = duplicated.find_user(new_user)
+    is_duplicated = duplicated_validation[0]
+    if not is_duplicated:
+        message = duplicated_validation[1]
+        return jsonify({'message': message}), 400
 
     try:
         db.session.add(new_user)
