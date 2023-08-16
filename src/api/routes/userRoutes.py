@@ -8,6 +8,7 @@ from ..models.User import User
 from ..models.UserStatus import UserStatus
 from ..models.Role import Role
 from ..new_utils import duplicated
+from base64 import b64encode
 # from werkzeug.security import generate_password_hash
 # from flask_jwt_extended import create_access_token
 
@@ -64,6 +65,10 @@ def register_user():
     return jsonify(new_user.serialize()), 201
 
 
-@api.route('/user', methods=['GET'])
-def get_user():
-    return jsonify({'message': 'okidoc'}), 200
+@api.route('/user/<int:id>', methods=['GET'])
+def get_one_user(id=None):
+    user = User.query.filter_by(id=id).one_or_none()
+    if user is None:
+        return jsonify({'message': 'User not found'}), 404
+
+    return jsonify({'message': user.serialize()}), 200
