@@ -14,20 +14,23 @@ def register_user():
     body = request.get_json()
     email = body.get("email")
     name = body.get("name")
-    status = body.get("status")
-    role = body.get("role")
+    role = Role.get_value(body.get("role"))
+    status = UserStatus.get_value(body.get("status"))
     password = body.get("password")
     if None in [email, name, status, role, password]:
         return jsonify({'message': 'Wrong properties'}), 400
 
     # Validating data.
+    print(role)
+    print(status)
 
     # Creating new user.
-    new_user = User(email=email, name=name, status=UserStatus.ACTIVE, role=Role.ADMIN, password=password, salt=1)
+    new_user = User(email=email, name=name, status=status, role=role, password=password, salt=1)
     duplicated_validation = duplicated.validate_new_user(new_user)
     is_duplicated = duplicated_validation[0]
     if not is_duplicated:
         message = duplicated_validation[1]
+        print(message)
         return jsonify({'message': message}), 400
 
     try:
