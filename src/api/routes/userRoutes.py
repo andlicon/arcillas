@@ -1,10 +1,15 @@
+import string
+import os
 from flask import Flask, request, jsonify, url_for, Blueprint
 from . import api
+from .password import create_password
 from ..models import db
 from ..models.User import User
 from ..models.UserStatus import UserStatus
 from ..models.Role import Role
 from ..new_utils import duplicated
+# from werkzeug.security import generate_password_hash
+# from flask_jwt_extended import create_access_token
 
 @api.route('/user', methods=['POST'])
 def register_user():
@@ -20,6 +25,9 @@ def register_user():
     password = body.get("password")
     if None in [email, name, status, role, password]:
         return jsonify({'message': 'Wrong properties'}), 400
+    
+    email = email.lower()
+    name = name.title()
 
     # validating Enums
     role = Role.get_value(role)
@@ -30,6 +38,8 @@ def register_user():
     if role is None:
         return jsonify({'message': 'Invalid Status specified'}), 400
 
+    # validate inputs LEFT
+
     # is any column duplicated ?
     duplicated_validation = duplicated.validate_new_user(email)
     is_duplicated = duplicated_validation[0]
@@ -38,7 +48,10 @@ def register_user():
         print(message)
         return jsonify({'message': message}), 409
 
-    new_user = User(email=email, name=name, status=status, role=role, password=password, salt=1)
+    # creating user
+    salt = b64encode(os.urandom(32)).decode('utf-8')
+    password = create_password(password, salt)
+    new_user = User(email=email.lower(), name=name, status=status, role=role, password=password, salt=salt)
 
     try:
         db.session.add(new_user)
@@ -48,7 +61,7 @@ def register_user():
         print(e.args)
         return jsonify({'message': 'Internal error'}), 500
     
-    return jsonify(body), 201
+    return jsonify(new_user.serialize()), 201
 
 
 @api.route('/user', methods=['GET'])

@@ -9,8 +9,8 @@ class User(db.Model):
     name = db.Column(db.String(250), unique=False, nullable=False)
     status = db.Column(db.Enum(UserStatus), unique=False, nullable=False)
     role = db.Column(db.Enum(Role), unique=False, nullable=False)
-    password = db.Column(db.String(80), unique=False, nullable=False)
-    salt = db.Column(db.String(100), unique=False, nullable=False)
+    password = db.Column(db.String(110), unique=False, nullable=False)
+    salt = db.Column(db.String(80), unique=False, nullable=False)
 
     def __repr__(self):
         return f'<User {self.email}>'
