@@ -8,30 +8,37 @@ from ..new_utils import duplicated
 
 @api.route('/user', methods=['POST'])
 def register_user():
+    # Validating body
     if not request.is_json:
         return jsonify({'message': 'Body must have a json item as body'}), 400
 
     body = request.get_json()
     email = body.get("email")
     name = body.get("name")
-    role = Role.get_value(body.get("role"))
-    status = UserStatus.get_value(body.get("status"))
+    role = body.get("role")
+    status = body.get("status")
     password = body.get("password")
     if None in [email, name, status, role, password]:
         return jsonify({'message': 'Wrong properties'}), 400
 
-    # Validating data.
-    print(role)
-    print(status)
+    # validating Enums
+    role = Role.get_value(role)
+    if role is None:
+        return jsonify({'message': 'Invalid Role specified'}), 400
 
-    # Creating new user.
-    new_user = User(email=email, name=name, status=status, role=role, password=password, salt=1)
-    duplicated_validation = duplicated.validate_new_user(new_user)
+    status = UserStatus.get_value(status)
+    if role is None:
+        return jsonify({'message': 'Invalid Status specified'}), 400
+
+    # is any column duplicated ?
+    duplicated_validation = duplicated.validate_new_user(email)
     is_duplicated = duplicated_validation[0]
     if not is_duplicated:
         message = duplicated_validation[1]
         print(message)
-        return jsonify({'message': message}), 400
+        return jsonify({'message': message}), 409
+
+    new_user = User(email=email, name=name, status=status, role=role, password=password, salt=1)
 
     try:
         db.session.add(new_user)
