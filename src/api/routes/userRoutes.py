@@ -7,7 +7,7 @@ from ..models import db
 from ..models.User import User
 from ..models.UserStatus import UserStatus
 from ..models.Role import Role
-from ..new_utils import duplicated
+from ..utils import duplicated
 from base64 import b64encode
 # from werkzeug.security import generate_password_hash
 # from flask_jwt_extended import create_access_token
