@@ -4,3 +4,4 @@ from ..models import db
 api = Blueprint('api', __name__)
 
 from . import userRoutes
+from . import loginRoutes
