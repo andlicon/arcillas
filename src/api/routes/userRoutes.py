@@ -24,7 +24,7 @@ def register_user():
 
     # Creating new user.
     new_user = User(email=email, name=name, status=UserStatus.ACTIVE, role=Role.ADMIN, password=password, salt=1)
-    duplicated_validation = duplicated.find_user(new_user)
+    duplicated_validation = duplicated.validate_new_user(new_user)
     is_duplicated = duplicated_validation[0]
     if not is_duplicated:
         message = duplicated_validation[1]
