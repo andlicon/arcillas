@@ -10,14 +10,17 @@ const initialValue = {
 }
 
 const Login = () => {
-  const [formValues, setFormValues] = useState(initialValue)
+  const [formValues, setFormValues] = useState(initialValue);
+  const [loading, setLoading] = useState(false);
   const { actions } = useContext(Context);
   const { login } = actions;
 
-  const onSubmitHandler = (event) => {
+  const onSubmitHandler = async (event) => {
     event.preventDefault();
     // validation of email and password, if are valid, then execute login
-    login(formValues);
+    setLoading(true);
+    await login(formValues);
+    setLoading(false);
   };
 
   const onChangeInput = (value, name) => {
@@ -56,7 +59,8 @@ const Login = () => {
               setValue={onChangeInput} />
             <button
               type="submit"
-              className="btn btn-outline-primary">
+              disabled={loading}
+              className={"btn btn-outline-primary"}>
               Iniciar sesión
             </button>
           </form>

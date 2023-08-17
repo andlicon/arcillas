@@ -67,7 +67,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
           setStore({ token: await token });
           localStorage.setItem('token', await token);
-          // redirect to home
         }
         catch (error) {
           localStorage.removeItem('token');
