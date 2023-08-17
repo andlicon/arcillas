@@ -1,3 +1,5 @@
+from flask import url_for
+
 class APIException(Exception):
     status_code = 400
 
