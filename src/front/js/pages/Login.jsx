@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { Context } from '../store/appContext.js';
 import '../../styles/login.css'
 // components
 import FormInput from '../component/FormInput.jsx';
@@ -10,11 +11,13 @@ const initialValue = {
 
 const Login = () => {
   const [formValues, setFormValues] = useState(initialValue)
+  const { actions } = useContext(Context);
+  const { login } = actions;
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    console.log(formValues.email)
-    console.log(formValues.password)
+    // validation of email and password, if are valid, then execute login
+    login(formValues);
   };
 
   const onChangeInput = (value, name) => {
