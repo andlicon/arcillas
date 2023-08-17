@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../styles/formInput.css';
 
-const FormInput = ({ type, label, restriction, id }) => {
-  const [value, setValue] = useState('')
+const FormInput = ({ type, label, restriction, name, id, value, setValue }) => {
 
   const onChangeHandler = ({ target }) => {
     if (restriction && !restriction()) {
       return null;
     }
 
-    setValue(target.value);
+    setValue(target.value, name)
   };
 
   return (
     <div className='formInput'>
       <input
         id={id}
+        name={name}
         type={type}
         onChange={onChangeHandler}
         value={value}
