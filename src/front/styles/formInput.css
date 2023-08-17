@@ -1,0 +1,52 @@
+:root {
+  --label_no_focused_weight: normal;
+  --label_focused_weight: 600;
+  --label_focused_top: calc(-1em - 8px);
+  --label_no_focused_top: calc(50% - .6rem);
+  --input_focused_border-color: black;
+  --input_no_focused_border-color: lightgray;
+}
+
+.formInput {
+  width: 100%;
+  height: 2em;
+  margin-top: calc(1em + .5rem);
+  position: relative;
+}
+
+.formInput__label {
+  position: absolute;
+  left: 1rem;
+  top: var(--label_focused_top);
+  font-weight: var(--label_focused_weight);
+  transition: top .18s ease-in-out;
+}
+
+.formInput__input--empty+.formInput__label {
+  top: var(--label_no_focused_top);
+  font-weight: var(--label_no_focused_weight);
+}
+
+.formInput__input--empty:focus+.formInput__label {
+  top: var(--label_focused_top);
+  font-weight: var(--label_focused_weight);
+}
+
+.formInput__input {
+  height: 2em;
+  padding: 1rem;
+  border-radius: .5em;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--input_focused_border-color);
+  outline: none;
+  transition: border-color .15s ease-in-out;
+}
+
+.formInput__input--empty {
+  border-color: var(--input_no_focused_border-color);
+}
+
+.formInput__input--empty:focus {
+  border-color: var(--input_focused_border-color);
+}
