@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -50,6 +52,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			login: (form) => {
 				console.log(form);
+				toast("Default Notification !");
 			}
 		}
 	};
