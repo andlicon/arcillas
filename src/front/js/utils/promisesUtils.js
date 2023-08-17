@@ -26,3 +26,7 @@ export const loginPromise = (credentials) => {
     })
   )
 }
+
+export const getUserPromise = async (id) => {
+
+}

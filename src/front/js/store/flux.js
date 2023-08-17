@@ -1,5 +1,8 @@
 import { toast } from 'react-toastify';
-import { loginPromise } from '../utils/promisesUtils.js'
+import {
+  loginPromise,
+  getUserPromise
+} from '../utils/promisesUtils.js'
 
 const getState = ({ getStore, getActions, setStore }) => {
   return {
@@ -67,13 +70,14 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
           setStore({ token: await token });
           localStorage.setItem('token', await token);
+          // get user
         }
         catch (error) {
           localStorage.removeItem('token');
           setStore({ token: null });
           console.log(error);
         }
-      }
+      },
     }
   };
 };
