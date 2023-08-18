@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Context } from '../store/appContext.js';
 import '../../styles/login.css'
-import { validateEmail } from '../utils/validateUtils.js';
+import { validateLogin } from '../utils/validateUtils.js';
 import FormInput from '../component/FormInput.jsx';
 
 const initialValue = {
@@ -20,9 +20,9 @@ const Login = () => {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     // validation of email and password, if are valid, then execute login
-    if (!validateEmail(formValues['email']) || formValues['password'].length == 0) {
-      return null;
-    }
+    const isValid = validateLogin('email', 'password', 'login');
+
+    if (!isValid) return null;
 
     setLoading(true);
     const logged = await login(formValues);
@@ -51,15 +51,19 @@ const Login = () => {
             Iniciar sesión
           </h2>
           <form
-            className='login__form'
-            onSubmit={onSubmitHandler} >
+            className='login__form needs-validation'
+            id='login'
+            onSubmit={onSubmitHandler}
+            noValidate >
             <FormInput
               type='text'
               label='Correo electrónico'
               name='email'
               id='email'
               trim={true}
+              isRequired={true}
               value={formValues['email']}
+              invalidFeedback='No es un email inválido'
               setValue={onChangeInput} />
             <FormInput
               type='password'
@@ -67,6 +71,8 @@ const Login = () => {
               name='password'
               id='password'
               trim={true}
+              isRequired={true}
+              invalidFeedback='No es una contraseña válida'
               value={formValues['password']}
               setValue={onChangeInput} />
             <button
