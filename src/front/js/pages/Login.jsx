@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Context } from '../store/appContext.js';
 import '../../styles/login.css'
-// components
+import { validateEmail } from '../utils/validateUtils.js';
 import FormInput from '../component/FormInput.jsx';
 
 const initialValue = {
@@ -20,9 +20,14 @@ const Login = () => {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     // validation of email and password, if are valid, then execute login
+    if (!validateEmail(formValues['email']) || formValues['password'].length == 0) {
+      return null;
+    }
+
     setLoading(true);
     const logged = await login(formValues);
     setLoading(false);
+
     if (logged) {
       navigate('/dashboard');
     }
@@ -53,6 +58,7 @@ const Login = () => {
               label='Correo electrónico'
               name='email'
               id='email'
+              trim={true}
               value={formValues['email']}
               setValue={onChangeInput} />
             <FormInput
@@ -60,6 +66,7 @@ const Login = () => {
               label='Contraseña'
               name='password'
               id='password'
+              trim={true}
               value={formValues['password']}
               setValue={onChangeInput} />
             <button

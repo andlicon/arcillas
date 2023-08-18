@@ -1,14 +1,14 @@
 import React from 'react';
 import '../../styles/formInput.css';
 
-const FormInput = ({ type, label, restriction, name, id, value, setValue }) => {
+const FormInput = ({ type, label, restriction, name, id, value, setValue, trim }) => {
 
   const onChangeHandler = ({ target }) => {
     if (restriction && !restriction()) {
       return null;
     }
 
-    setValue(target.value, name)
+    setValue((trim ? target.value.trim() : target.value), name)
   };
 
   return (
