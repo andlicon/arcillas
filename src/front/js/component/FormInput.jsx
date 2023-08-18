@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import '../../styles/formInput.css';
 
 const FormInput = ({ type, label, restriction, name, id, value, setValue, trim }) => {
@@ -28,4 +29,16 @@ const FormInput = ({ type, label, restriction, name, id, value, setValue, trim }
     </div>
   );
 };
+
+FormInput.propTypes = {
+  type: PropTypes.string,
+  label: PropTypes.string,
+  restriction: PropTypes.func,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  value: PropTypes.string,
+  setValue: PropTypes.func,
+  trim: PropTypes.bool
+}
+
 export default FormInput;
