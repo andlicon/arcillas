@@ -2,7 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../../styles/formInput.css';
 
-const FormInput = ({ type, label, restriction, name, id, value, setValue, trim, isRequired, invalidFeedback }) => {
+const FormInput = ({ type,
+  label,
+  restriction,
+  name,
+  id,
+  value,
+  setValue,
+  trim,
+  isRequired,
+  invalidFeedback,
+  bootstrapIcon }) => {
 
   const onChangeHandler = ({ target }) => {
     if (restriction && !restriction()) {
@@ -27,6 +37,7 @@ const FormInput = ({ type, label, restriction, name, id, value, setValue, trim, 
           label
         }
       </label>
+      <i className={`formInput__icon b ${bootstrapIcon}`}></i>
       <div className="invalid-feedback">
         {
           invalidFeedback ? invalidFeedback : 'Input inválido'
@@ -46,7 +57,8 @@ FormInput.propTypes = {
   setValue: PropTypes.func,
   trim: PropTypes.bool,
   isRequired: PropTypes.bool,
-  invalidFeedback: PropTypes.string
+  invalidFeedback: PropTypes.string,
+  bootstrapIcon: PropTypes.string
 }
 
 export default FormInput;

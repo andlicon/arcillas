@@ -47,7 +47,7 @@ const Login = () => {
           presentation
         </div>
         <div className='login__logger col-5'>
-          <h2>
+          <h2 className='login__logger_title'>
             Iniciar sesión
           </h2>
           <form
@@ -64,6 +64,7 @@ const Login = () => {
               isRequired={true}
               value={formValues['email']}
               invalidFeedback='No es un email inválido'
+              bootstrapIcon='bi-person-fill'
               setValue={onChangeInput} />
             <FormInput
               type='password'
@@ -73,17 +74,19 @@ const Login = () => {
               trim={true}
               isRequired={true}
               invalidFeedback='No es una contraseña válida'
+              bootstrapIcon='bi-key-fill'
               value={formValues['password']}
               setValue={onChangeInput} />
             <button
               type="submit"
+              id='loginButton'
               disabled={loading}
-              className={"btn btn-outline-primary"}>
+              className={"btn btn-primary"}>
               Iniciar sesión
             </button>
           </form>
           <div className='login__help'>
-            help
+            ¿Olvidaste tu contraseña?
           </div>
         </div>
       </div>
