@@ -1,0 +1,33 @@
+.login {
+  background-color: red;
+}
+
+.login__presentation {
+  background-color: blue;
+}
+
+.login__logger {
+  background-color: lightgray;
+  padding: 1em;
+}
+
+.login__logger_title {
+  text-align: center;
+}
+
+.login__form {
+  padding: 1em;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  background-color: purple;
+}
+
+.login__form .formInput {
+  margin-bottom: 2em;
+}
+
+.login__form button[type='submit'] {
+  width: 100%;
+  max-width: 300px;
+}

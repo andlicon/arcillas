@@ -13,7 +13,7 @@ export const loginPromise = (credentials) => {
         const data = await response.json();
 
         if (response.ok) {
-          resolve(data.token);
+          resolve(data);
         }
         else {
           reject(data.message);
