@@ -43,6 +43,10 @@
   transition: border-color .15s ease-in-out;
 }
 
+.was-validated .formInput__input:invalid {
+  border-color: red;
+}
+
 .formInput__input--empty {
   border-color: var(--input_no_focused_border-color);
 }

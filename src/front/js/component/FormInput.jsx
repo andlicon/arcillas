@@ -22,16 +22,16 @@ const FormInput = ({ type, label, restriction, name, id, value, setValue, trim, 
         value={value}
         className={`formInput__input${value == '' ? ' formInput__input--empty' : ''}`}
         required={isRequired} />
-      <div className="invalid-feedback">
-        {
-          invalidFeedback ? invalidFeedback : 'Input inválido'
-        }
-      </div>
       <label htmlFor={id} className='formInput__label'>
         {
           label
         }
       </label>
+      <div className="invalid-feedback">
+        {
+          invalidFeedback ? invalidFeedback : 'Input inválido'
+        }
+      </div>
     </div>
   );
 };
