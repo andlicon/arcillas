@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from "react-router-dom";
 import { Context } from '../store/appContext.js';
 import '../../styles/login.css'
 // components
@@ -10,6 +11,7 @@ const initialValue = {
 }
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formValues, setFormValues] = useState(initialValue);
   const [loading, setLoading] = useState(false);
   const { actions } = useContext(Context);
@@ -19,8 +21,11 @@ const Login = () => {
     event.preventDefault();
     // validation of email and password, if are valid, then execute login
     setLoading(true);
-    await login(formValues);
+    const logged = await login(formValues);
     setLoading(false);
+    if (logged) {
+      navigate('/dashboard');
+    }
   };
 
   const onChangeInput = (value, name) => {
