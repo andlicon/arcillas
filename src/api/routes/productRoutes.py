@@ -101,6 +101,31 @@ def post_product():
     except Exception as error:
         db.session.rollback()
         print(error.args)
-        return jsonify({'message': error.args}), 200
+        return jsonify({'message': error.args}), 500
 
     return jsonify(product.serialize()), 200
+
+
+@api.route('/products/<int:id>', methods=['DELETE'])
+@jwt_required()
+def delete_product(id):
+    user = User.query.filter_by(id=get_jwt_identity()).one_or_none()
+    if user is None:
+        return jsonify({'message': 'Usuario no encontrado'}), 404
+
+    if user.role != Role.ADMIN:
+        return jsonify({'message': 'No tienes permisos suficientes'}), 401
+
+    product = Product.query.filter_by(id=id).one_or_none()
+    if product is None:
+        return jsonify({'message': 'El producto no existe'}), 404
+
+    try:
+        db.session.delete(product)
+        db.session.commit()
+    except Exception as error:
+        db.session.rollback()
+        print(error.args)
+        return jsonify({'message', 'Ocurrio algun error interno'}), 500
+
+    return jsonify({}), 204
