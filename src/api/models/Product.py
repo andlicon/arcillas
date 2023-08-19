@@ -1,8 +1,10 @@
 from . import db
-from .Category import Category
+from .Category import Category, Sub_Category
 from ..utils.hourUtils import venezuelaNow
 
 class Product(db.Model):
+    __tablename__ = "product"
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(250), nullable=False)
@@ -11,9 +13,11 @@ class Product(db.Model):
     upgrated_at = db.Column(db.DateTime, default=venezuelaNow(), onupdate=venezuelaNow())
     # fk
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
+    sub_category_id = db.Column(db.Integer, db.ForeignKey('sub_category.id'), nullable=False)
 
     # relationships
     category = db.relationship('Category', backref='product')
+    sub_category = db.relationship('Sub_Category', backref='product')
 
 
     def __repr__(self):
