@@ -14,10 +14,12 @@ class Product(db.Model):
     # fk
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     sub_category_id = db.Column(db.Integer, db.ForeignKey('sub_category.id'), nullable=False)
+    unit_id = db.Column(db.Integer, db.ForeignKey('unit.id'), nullable=False)
 
     # relationships
-    category = db.relationship('Category', backref='product')
-    sub_category = db.relationship('Sub_Category', backref='product')
+    categorys = db.relationship('Category', backref='product')
+    sub_categorys = db.relationship('Sub_Category', backref='product')
+    units = db.relationship('Unit', backref='product')
 
 
     def __repr__(self):
