@@ -138,3 +138,63 @@ def delete_product(id):
         return jsonify({'message', 'Ocurrio algun error interno'}), 500
 
     return jsonify({}), 204
+
+
+@api.route('/products/<int:id>', methods=['PUT'])
+@jwt_required()
+def update_product(id):
+    user = User.query.filter_by(id=get_jwt_identity()).one_or_none()
+    if user is None:
+        return jsonify({'message': 'Usuario no encontrado'}), 404
+
+    if user.role != Role.ADMIN:
+        return jsonify({'message': 'No tienes permisos suficientes'}), 401
+
+    product = Product.query.filter_by(id=id).one_or_none()
+    if product is None:
+        return jsonify({'message': 'Producto no encontrado'}), 404
+
+    form = request.form
+    name = form.get('name', None)
+    description = form.get('description', None)
+    usage = form.get('usage', None)
+    category_id = form.get('category_id', None)
+    sub_category_id = form.get('sub_category_id', None)
+    unit_id = form.get('unit_id', None)
+    image = request.files.get('image', None)
+
+    if None in [name, description, usage, category_id, sub_category_id, unit_id, image]:
+        return jsonify({'message': 'El form tiene propiedades inválidas'}), 400
+
+    # comprobar que los ids sean validos
+    category = Category.query.filter_by(id=category_id).one_or_none()
+    if category is None:
+        return jsonify({'message': 'La categoria no existe'}), 400
+    
+    sub_category = Sub_Category.query.filter_by(id=sub_category_id).one_or_none()
+    if sub_category is None:
+        return jsonify({'message': 'La sub categoria no existe'}), 400
+
+    unit = Unit.query.filter_by(id=unit_id).one_or_none()
+    if unit is None:
+        return jsonify({'message': 'La unidad no existe'}), 400
+
+    response_image = uploader.upload(image)
+    image_url = response_image.get('url')
+
+    product.name = name
+    product.description = description
+    product.usage = usage
+    product.category_id = category_id
+    product.sub_category_id = sub_category_id
+    product.unit_id = unit_id
+    product.image_url = image_url
+    
+    try:
+        db.session.commit()
+    except Exception as error:
+        db.session.rollback()
+        print(error.args)
+        return jsonify({'message': error.args}), 500
+
+    return jsonify(product.serialize()), 200
