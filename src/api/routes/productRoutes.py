@@ -1,11 +1,15 @@
 import os
-from . import api
 from flask import Flask, request, jsonify, url_for, Blueprint
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from sqlalchemy import and_
+from . import api
+from ..models import db
 from ..models.Product import Product
 from ..models.Category import Category
 from ..models.Category import Sub_Category
 from ..models.Unit import Unit
-from sqlalchemy import and_
+from ..models.User import User
+from ..models.Role import Role
 
 
 @api.route('/products/', methods=['GET'])
@@ -48,5 +52,55 @@ def get_one_product(id):
 
     if product is None:
         return jsonify({'message': 'Producto no encontrado'}), 404
+
+    return jsonify(product.serialize()), 200
+
+
+@api.route('/products', methods=['POST'])
+@jwt_required()
+def post_product():
+    user = User.query.filter_by(id=get_jwt_identity()).one_or_none()
+    if user is None:
+        return jsonify({'message': 'Usuario no encontrado'}), 404
+
+    if user.role != Role.ADMIN:
+        return jsonify({'message': 'No tienes permisos suficientes'}), 401
+
+    if not request.is_json:
+        return jsonify({'message': 'No se ha enviado un JSON válido'}), 400
+
+    body = request.get_json()
+    name = body.get('name', None)
+    description = body.get('description', None)
+    usage = body.get('usage', None)
+    category_id = body.get('category_id', None)
+    sub_category_id = body.get('sub_category_id', None)
+    unit_id = body.get('unit_id', None)
+
+    if None in [name, description, usage, category_id, sub_category_id, unit_id]:
+        return jsonify({'message': 'El JSON tiene propiedades inválidas'}), 400
+
+    # comprobar que los ids sean validos
+    category = Category.query.filter_by(id=category_id).one_or_none()
+    if category is None:
+        return jsonify({'message': 'La categoria no existe'}), 400
+    
+    sub_category = Sub_Category.query.filter_by(id=sub_category_id).one_or_none()
+    if sub_category is None:
+        return jsonify({'message': 'La sub categoria no existe'}), 400
+
+    unit = Unit.query.filter_by(id=unit_id).one_or_none()
+    if unit is None:
+        return jsonify({'message': 'La unidad no existe'}), 400
+
+    product = Product(name=name, description=description, usage=usage, category_id=category_id, sub_category_id=sub_category_id, unit_id=unit_id)
+    
+    try:
+        db.session.add(product)
+        db.session.commit()
+    except Exception as error:
+        db.session.rollback()
+        print(error.args)
+        return jsonify({'message': error.args}), 200
 
     return jsonify(product.serialize()), 200
