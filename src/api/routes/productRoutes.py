@@ -23,7 +23,7 @@ def get_all_products():
             Product.sub_category_id == sub_category_args if sub_category_args is not None else Product.sub_category_id != None
             ))
 
-    page = product_query.paginate(page=page_args, per_page=1)
+    page = product_query.paginate(page=page_args, per_page=20)
     product_list = list( map(lambda product: product.serialize(), page.items) )
 
     name_parameter = f'name={name_args}'
@@ -39,4 +39,14 @@ def get_all_products():
         'results': product_list
     }
 
-    return jsonify(response)
+    return jsonify(response), 200
+
+
+@api.route('/products/<int:id>', methods=['GET'])
+def get_one_product(id):
+    product = Product.query.filter_by(id=id).one_or_none()
+
+    if product is None:
+        return jsonify({'message': 'Producto no encontrado'}), 404
+
+    return jsonify(product.serialize()), 200
