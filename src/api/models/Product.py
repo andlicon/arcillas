@@ -9,6 +9,7 @@ class Product(db.Model):
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(250), nullable=False)
     usage = db.Column(db.String(250))
+    image_url = db.Column(db.String(250), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, default=venezuelaNow())
     upgrated_at = db.Column(db.DateTime, default=venezuelaNow(), onupdate=venezuelaNow())
     # fk
@@ -32,6 +33,7 @@ class Product(db.Model):
             'name': self.name,
             'description': self.description,
             'usage': self.usage,
+            'image_url': self.image_url,
             'created_at': self.created_at,
             'upgrated_at': self.upgrated_at
         }

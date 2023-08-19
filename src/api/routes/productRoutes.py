@@ -2,6 +2,7 @@ import os
 from flask import Flask, request, jsonify, url_for, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import and_
+import cloudinary.uploader as uploader
 from . import api
 from ..models import db
 from ..models.Product import Product
@@ -66,19 +67,17 @@ def post_product():
     if user.role != Role.ADMIN:
         return jsonify({'message': 'No tienes permisos suficientes'}), 401
 
-    if not request.is_json:
-        return jsonify({'message': 'No se ha enviado un JSON válido'}), 400
+    form = request.form
+    name = form.get('name', None)
+    description = form.get('description', None)
+    usage = form.get('usage', None)
+    category_id = form.get('category_id', None)
+    sub_category_id = form.get('sub_category_id', None)
+    unit_id = form.get('unit_id', None)
+    image = request.files.get('image', None)
 
-    body = request.get_json()
-    name = body.get('name', None)
-    description = body.get('description', None)
-    usage = body.get('usage', None)
-    category_id = body.get('category_id', None)
-    sub_category_id = body.get('sub_category_id', None)
-    unit_id = body.get('unit_id', None)
-
-    if None in [name, description, usage, category_id, sub_category_id, unit_id]:
-        return jsonify({'message': 'El JSON tiene propiedades inválidas'}), 400
+    if None in [name, description, usage, category_id, sub_category_id, unit_id, image]:
+        return jsonify({'message': 'El form tiene propiedades inválidas'}), 400
 
     # comprobar que los ids sean validos
     category = Category.query.filter_by(id=category_id).one_or_none()
@@ -93,7 +92,17 @@ def post_product():
     if unit is None:
         return jsonify({'message': 'La unidad no existe'}), 400
 
-    product = Product(name=name, description=description, usage=usage, category_id=category_id, sub_category_id=sub_category_id, unit_id=unit_id)
+    response_image = uploader.upload(image)
+    image_url = response_image.get('url')
+
+    product = Product(
+        name=name, 
+        description=description, 
+        usage=usage, 
+        category_id=category_id, 
+        sub_category_id=sub_category_id, 
+        unit_id=unit_id,
+        image_url=image_url)
     
     try:
         db.session.add(product)
