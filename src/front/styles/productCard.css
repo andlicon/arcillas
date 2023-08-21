@@ -1,0 +1,42 @@
+.productCard {
+  background-color: rgb(240, 240, 240);
+  text-decoration: none;
+  font-weight: normal;
+  color: black;
+  text-align: left;
+}
+
+.productCard__image {
+  width: 100%;
+}
+
+.productCard__content {
+  padding: 0.5em;
+  position: relative;
+}
+
+.productCard__content::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: .05em;
+  background-color: grey;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.productCard__name {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+.productCard__brand {
+  font-weight: 600;
+}
+
+@media (max-width: 400px) {
+  .col-6 {
+    width: 100%;
+  }
+}
