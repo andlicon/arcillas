@@ -5,6 +5,10 @@ class Category(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
+    category_parent = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True)
+
+    # relationship
+    parent = db.relationship("Category", remote_side=[id])
 
 
     def __repr__(self):
@@ -14,23 +18,6 @@ class Category(db.Model):
     def serialize(self):
         return{
             'id': self.id,
-            'name': self.name
-        }
-
-
-class Sub_Category(db.Model):
-    __tablename__ = "sub_category"
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), unique=True, nullable=False)
-
-
-    def __repr__(self):
-        return f'<Sub_Category {self.id}>'
-
-
-    def serialize(self):
-        return{
-            'id': self.id,
-            'name': self.name
+            'name': self.name,
+            'category_parent': self.category_parent
         }
