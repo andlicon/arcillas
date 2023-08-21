@@ -19,8 +19,21 @@
   align-items: center;
 }
 
+.productCreate__form label {
+  text-align: right;
+}
+
+.productCreate__form button[type=submit] {
+  background-color: lightyellow;
+  border: 1px solid black;
+}
+
 .productCreate__header>* {
   margin-right: .5rem;
+}
+
+.productCreate__form>* {
+  margin-bottom: .5rem;
 }
 
 @media (max-width: 320px) {
