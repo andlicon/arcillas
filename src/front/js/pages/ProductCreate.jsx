@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import '../../styles/ProductCreate.css';
+import BackTo from '../component/BackTo.jsx';
 
 const ProductCreate = () => {
   return (
@@ -8,10 +8,7 @@ const ProductCreate = () => {
       <div className='container'>
         <div className='productCreate__header'>
           <h1 className='productCreate__h1'>Añade un nuevo producto</h1>
-          <Link to='/admin/product/list' className='back-to'>
-            <i className="bi bi-arrow-left-circle-fill"></i>
-            Volver a la lista de productos
-          </Link>
+          <BackTo to='/admin/product/list' text='Volver a la lista de productos' />
         </div>
 
         <form>
