@@ -6,3 +6,4 @@ api = Blueprint('api', __name__)
 from . import userRoutes
 from . import loginRoutes
 from . import productRoutes
+from . import categoryRoutes

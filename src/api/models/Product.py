@@ -1,5 +1,5 @@
 from . import db
-from .Category import Category, Sub_Category
+from .Category import Category
 from ..utils.hourUtils import venezuelaNow
 
 class Product(db.Model):
@@ -14,12 +14,10 @@ class Product(db.Model):
     upgrated_at = db.Column(db.DateTime, default=venezuelaNow(), onupdate=venezuelaNow())
     # fk
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
-    sub_category_id = db.Column(db.Integer, db.ForeignKey('sub_category.id'), nullable=False)
     unit_id = db.Column(db.Integer, db.ForeignKey('unit.id'), nullable=False)
 
     # relationships
     categorys = db.relationship('Category', backref='product')
-    sub_categorys = db.relationship('Sub_Category', backref='product')
     units = db.relationship('Unit', backref='product')
 
 
