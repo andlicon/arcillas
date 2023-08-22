@@ -1,21 +1,21 @@
 import { toast } from 'react-toastify';
 import {
   loginPromise,
-  getUserPromise
+  getUserPromise,
+  getCategoryPromise
 } from '../utils/promisesUtils.js'
 
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       token: localStorage.getItem('token') || null,
-      user: JSON.parse(localStorage.getItem('user')) || null
+      user: JSON.parse(localStorage.getItem('user')) || null,
+      categorys: JSON.parse(localStorage.getItem('categorys')) || null,
     },
     actions: {
-      // Use getActions to call a function within a fuction
-      exampleFunction: () => {
-        getActions().changeColor(0, "green");
-      },
       login: async (credentials) => {
+        const { getCategorys } = getActions();
+
         const data = toast.promise(loginPromise(credentials),
           {
             pending: 'Iniciando sesión...',
@@ -27,7 +27,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             }
           }
         )
-
         try {
           const { token, user } = await data;
 
@@ -35,7 +34,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           localStorage.setItem('token', token);
           setStore({ user: user });
           localStorage.setItem('user', JSON.stringify(user));
-
+          getCategorys();
           return true;
         }
         catch (error) {
@@ -43,11 +42,24 @@ const getState = ({ getStore, getActions, setStore }) => {
           setStore({ token: null });
           localStorage.removeItem('user');
           setStore({ user: null });
+          localStorage.setItem('categorys', null);
+          setStore({ categorys: null });
           console.log(error);
-
           return false;
         }
       },
+      getCategorys: async () => {
+        try {
+          const categorys = await getCategoryPromise();
+          localStorage.setItem('categorys', JSON.stringify(categorys));
+          setStore({ categorys: categorys });
+        }
+        catch (error) {
+          console.log(error);
+          localStorage.removeItem('token');
+          setStore({ categorys: null });
+        }
+      }
     }
   };
 };

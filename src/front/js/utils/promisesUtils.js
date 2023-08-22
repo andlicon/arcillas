@@ -30,3 +30,25 @@ export const loginPromise = (credentials) => {
 export const getUserPromise = async (id) => {
 
 }
+
+export const getCategoryPromise = async () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(`${process.env.BACKEND_URL}/categorys`, {
+        method: 'GET'
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        resolve(data);
+      }
+      else {
+        reject(data.message);
+      }
+    }
+    catch (error) {
+      reject('Ocurrio un error inesperado');
+    }
+  });
+}
