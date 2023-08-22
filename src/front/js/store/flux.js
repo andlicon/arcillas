@@ -51,6 +51,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       getCategorys: async () => {
         try {
           const categorys = await getCategoryPromise();
+          console.log(categorys);
           localStorage.setItem('categorys', JSON.stringify(categorys));
           setStore({ categorys: categorys });
         }

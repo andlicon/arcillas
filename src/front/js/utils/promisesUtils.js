@@ -1,3 +1,7 @@
+import {
+  orderCategorys
+} from '../utils/orderUtils.js';
+
 export const loginPromise = (credentials) => {
   return (
     new Promise(async (resolve, reject) => {
@@ -41,13 +45,14 @@ export const getCategoryPromise = async () => {
       const data = await response.json();
 
       if (response.ok) {
-        resolve(data);
+        resolve(orderCategorys(data));
       }
       else {
         reject(data.message);
       }
     }
     catch (error) {
+      console.log(error);
       reject('Ocurrio un error inesperado');
     }
   });
