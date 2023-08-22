@@ -1,8 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { Context } from '../store/appContext.js';
 import '../../styles/ProductCreate.css';
 import BackTo from '../component/BackTo.jsx';
 
 const ProductCreate = () => {
+  const { store } = useContext(Context);
+  const { categorys } = store;
+
   useEffect(() => {
     const popOverList = document.getElementsByClassName('popOvers');
     for (let i = 0; i < popOverList.length; i++) {
@@ -72,20 +76,17 @@ const ProductCreate = () => {
                       </span>
                     </div>
                     <select className='col-9' name="categoryId" id="categoryId">
-                      <option value="1">1</option>
-                      <option value="1">2</option>
-                    </select>
-                  </div>
-                  <div className='row'>
-                    <div className='col-3 d-flex justify-content-end align-items-center'>
-                      <label className='' htmlFor="subCategoryId">Sub-Categoria</label>
-                      <span className="d-inline-block popOvers" tabIndex="0" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Sub categoria del producto, se puede elegir 1 o ninguno">
-                        <button className="help btn" type="button" disabled>?</button>
-                      </span>
-                    </div>
-                    <select className='col-9' name="subCategoryId" id="subCategoryId">
-                      <option value="1">1</option>
-                      <option value="1">2</option>
+                      {
+                        categorys && categorys.map((element) => {
+                          return (
+                            <option value={element.id} key={element.id}>
+                              {
+                                element.hierarchy_name
+                              }
+                            </option>
+                          )
+                        })
+                      }
                     </select>
                   </div>
                 </div>
@@ -94,7 +95,7 @@ const ProductCreate = () => {
             {/* imagenes */}
             <div className="accordion-item">
               <h2 className="accordion-header">
-                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#multimedia-collapse" aria-expanded="false" aria-controls="multimedia-collapse">
+                <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#multimedia-collapse" aria-expanded="true" aria-controls="multimedia-collapse">
                   <i className="bi bi-images productCreate__image"></i>
                   Multimedia
                 </button>
@@ -103,7 +104,7 @@ const ProductCreate = () => {
                 <div className="accordion-body">
                   <div className='row'>
                     <div className='col-3 d-flex justify-content-end align-items-center'>
-                      <label className='col-3' htmlFor="image">Imagen</label>
+                      <label className='' htmlFor="image">Imagen</label>
                       <span className="d-inline-block popOvers" tabIndex="0" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Imagen del producto, debe ser jpg, jpge, png">
                         <button className="help btn" type="button" disabled>?</button>
                       </span>
