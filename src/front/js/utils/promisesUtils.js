@@ -20,7 +20,7 @@ export const loginPromise = (credentials) => {
           resolve(data);
         }
         else {
-          reject(data.message);
+          reject(data.msg);
         }
 
       }
@@ -48,7 +48,7 @@ export const getCategoryPromise = () => {
         resolve(orderCategorys(data));
       }
       else {
-        reject(data.message);
+        reject(data.msg);
       }
     }
     catch (error) {
@@ -69,7 +69,7 @@ export const getUnitsPromise = () => {
         resolve(data);
       }
       else {
-        reject(data.message);
+        reject(data.msg);
       }
     }
     catch (error) {

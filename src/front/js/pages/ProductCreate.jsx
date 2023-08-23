@@ -2,6 +2,9 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Context } from '../store/appContext.js';
 import '../../styles/ProductCreate.css';
 import BackTo from '../component/BackTo.jsx';
+import {
+  validateProductForm
+} from '../utils/validateUtils.js';
 
 const ProductCreate = () => {
   const { store, actions } = useContext(Context);
@@ -12,8 +15,8 @@ const ProductCreate = () => {
     name: '',
     description: '',
     usage: '',
-    categoryId: categorys[0].id,
-    unitId: units[0].id,
+    categoryId: categorys[0]?.id,
+    unitId: units[0]?.id,
     image: undefined
   })
 
@@ -27,16 +30,18 @@ const ProductCreate = () => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    setLoading(true);
-    const form = new FormData();
-    form.append('name', values['name']);
-    form.append('description', values['description']);
-    form.append('usage', values['usage']);
-    form.append('category_id', values['categoryId']);
-    form.append('unit_id', values['unitId']);
-    form.append('image', values['image'][0]);
-    const response = await postProduct(form);
-    setLoading(false);
+    if (validateProductForm(values)) {
+      setLoading(true);
+      const form = new FormData();
+      form.append('name', values['name']);
+      form.append('description', values['description']);
+      form.append('usage', values['usage']);
+      form.append('category_id', values['categoryId']);
+      form.append('unit_id', values['unitId']);
+      form.append('image', values['image'][0]);
+      await postProduct(form);
+      setLoading(false);
+    }
   }
 
   const onChangeInputHandler = ({ target }) => {

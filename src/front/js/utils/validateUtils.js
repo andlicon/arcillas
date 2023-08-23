@@ -27,3 +27,23 @@ export const validateLogin = (idEmail, idPassword, idForm) => {
 
   return true;
 }
+
+export const validateProductForm = (form) => {
+  let { name, description, usage } = form;
+  const { categoryId, unitId, image } = form;
+  name = name.trim();
+  description = description.trim();
+  usage = usage.trim();
+
+  if (name.length == 0
+    || description.legnth == 0
+    || usage.length == 0
+    || categoryId == undefined
+    || unitId == undefined
+    || image == undefined) {
+    return false;
+  }
+  if (image[0] == undefined) return false
+
+  return true;
+};

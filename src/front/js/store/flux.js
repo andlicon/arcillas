@@ -91,7 +91,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           )
         }
         catch (error) {
-          console.log(await data);
+          console.log(error);
         }
       }
     }
