@@ -35,7 +35,7 @@ export const getUserPromise = async (id) => {
 
 }
 
-export const getCategoryPromise = async () => {
+export const getCategoryPromise = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await fetch(`${process.env.BACKEND_URL}/categorys`, {
@@ -54,6 +54,33 @@ export const getCategoryPromise = async () => {
     catch (error) {
       console.log(error);
       reject('Ocurrio un error inesperado');
+    }
+  });
+}
+
+export const postProductPromise = async (procuct, token) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(`${process.env.BACKEND_URL}/products`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: procuct,
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        resolve(data);
+      }
+      else {
+        reject(data.message)
+      }
+    }
+    catch (error) {
+      console.log(error);
+      reject('Ha ocurrido algún error interno');
     }
   });
 }

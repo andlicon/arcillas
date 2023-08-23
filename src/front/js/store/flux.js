@@ -1,8 +1,8 @@
 import { toast } from 'react-toastify';
 import {
   loginPromise,
-  getUserPromise,
-  getCategoryPromise
+  getCategoryPromise,
+  postProductPromise
 } from '../utils/promisesUtils.js'
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -16,18 +16,19 @@ const getState = ({ getStore, getActions, setStore }) => {
       login: async (credentials) => {
         const { getCategorys } = getActions();
 
-        const data = toast.promise(loginPromise(credentials),
-          {
-            pending: 'Iniciando sesión...',
-            success: 'Has iniciado sesión.',
-            error: {
-              render({ data }) {
-                return data
+        try {
+          const data = toast.promise(loginPromise(credentials),
+            {
+              pending: 'Iniciando sesión...',
+              success: 'Has iniciado sesión.',
+              error: {
+                render({ data }) {
+                  return data
+                }
               }
             }
-          }
-        )
-        try {
+          )
+
           const { token, user } = await data;
 
           setStore({ token: token });
@@ -51,7 +52,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       getCategorys: async () => {
         try {
           const categorys = await getCategoryPromise();
-          console.log(categorys);
           localStorage.setItem('categorys', JSON.stringify(categorys));
           setStore({ categorys: categorys });
         }
@@ -59,6 +59,26 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
           localStorage.removeItem('token');
           setStore({ categorys: null });
+        }
+      },
+      postProduct: async (product) => {
+        const { token } = getStore();
+
+        try {
+          const data = toast.promise(postProductPromise(product, token),
+            {
+              pending: 'Anadiendo producto...',
+              success: 'Has añadido el producto exitosamente',
+              error: {
+                render({ data }) {
+                  return data
+                }
+              }
+            }
+          )
+        }
+        catch (error) {
+          console.log(await data);
         }
       }
     }

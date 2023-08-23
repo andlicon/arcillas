@@ -1,11 +1,27 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Context } from '../store/appContext.js';
 import '../../styles/ProductCreate.css';
 import BackTo from '../component/BackTo.jsx';
 
+const initialValues = {
+  name: '',
+  description: '',
+  usage: '',
+  categoryId: undefined,
+  image: undefined
+}
+
 const ProductCreate = () => {
-  const { store } = useContext(Context);
+  const { store, actions } = useContext(Context);
   const { categorys } = store;
+  const { postProduct } = actions;
+  const [values, setValues] = useState({
+    name: '',
+    description: '',
+    usage: '',
+    categoryId: categorys[0].id,
+    image: undefined
+  })
 
   useEffect(() => {
     const popOverList = document.getElementsByClassName('popOvers');
@@ -15,6 +31,27 @@ const ProductCreate = () => {
     }
   }, [])
 
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+    const form = new FormData();
+    form.append('name', values['name']);
+    form.append('description', values['description']);
+    form.append('usage', values['usage']);
+    form.append('category_id', values['categoryId']);
+    form.append('unit_id', 1);
+    form.append('image', values['image'][0]);
+    postProduct(form);
+  }
+
+  const onChangeInputHandler = ({ target }) => {
+    if (target.type == 'file') {
+      setValues({ ...values, [target.name]: target.files })
+    }
+    else {
+      setValues({ ...values, [target.name]: target.value })
+    }
+  };
+
   return (
     <>
       <div className='container'>
@@ -23,7 +60,7 @@ const ProductCreate = () => {
           <BackTo to='/admin/product/list' text='Volver a la lista de productos' />
         </div>
 
-        <form className='productCreate__form'>
+        <form className='productCreate__form' onSubmit={onSubmitHandler}>
           <div className='d-flex justify-content-end'>
             <button className='btn' type='submit'>
               <i className="bi bi-save-fill"></i>
@@ -48,7 +85,7 @@ const ProductCreate = () => {
                         <button className="help btn" type="button" disabled>?</button>
                       </span>
                     </div>
-                    <input className='col-9' id='name' type="text" />
+                    <input className='col-9' id='name' name='name' type="text" onChange={onChangeInputHandler} value={values['name']} />
                   </div>
                   <div className='row'>
                     <div className='col-3 d-flex justify-content-end align-items-center'>
@@ -57,7 +94,7 @@ const ProductCreate = () => {
                         <button className="help btn" type="button" disabled>?</button>
                       </span>
                     </div>
-                    <input className='col-9' id='description' type="text" />
+                    <input className='col-9' id='description' name='description' type="text" onChange={onChangeInputHandler} value={values['description']} />
                   </div>
                   <div className='row'>
                     <div className='col-3 d-flex justify-content-end align-items-center'>
@@ -66,7 +103,7 @@ const ProductCreate = () => {
                         <button className="help btn" type="button" disabled>?</button>
                       </span>
                     </div>
-                    <input className='col-9' id='usage' type="text" />
+                    <input className='col-9' id='usage' name='usage' type="text" onChange={onChangeInputHandler} value={values['usage']} />
                   </div>
                   <div className='row'>
                     <div className='col-3 d-flex justify-content-end align-items-center'>
@@ -75,9 +112,9 @@ const ProductCreate = () => {
                         <button className="help btn" type="button" disabled>?</button>
                       </span>
                     </div>
-                    <select className='col-9' name="categoryId" id="categoryId">
+                    <select className='col-9' name="categoryId" id="categoryId" onChange={onChangeInputHandler} value={values['categoryId']}>
                       {
-                        categorys && categorys.map((element) => {
+                        categorys && categorys.map((element, index) => {
                           return (
                             <option value={element.id} key={element.id}>
                               {
@@ -109,7 +146,7 @@ const ProductCreate = () => {
                         <button className="help btn" type="button" disabled>?</button>
                       </span>
                     </div>
-                    <input className='col-9' type='file' name="image" id="image" />
+                    <input className='col-9' type='file' name="image" id="image" onChange={onChangeInputHandler} />
                   </div>
                 </div>
               </div>
