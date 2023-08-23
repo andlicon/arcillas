@@ -19,7 +19,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         const { getCategorys, getUnits } = getActions();
 
         try {
-          const data = toast.promise(loginPromise(credentials),
+          const data = await toast.promise(loginPromise(credentials),
             {
               pending: 'Iniciando sesión...',
               success: 'Has iniciado sesión.',
@@ -31,7 +31,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             }
           )
 
-          const { token, user } = await data;
+          const { token, user } = data;
 
           setStore({ token: token });
           localStorage.setItem('token', token);
@@ -78,7 +78,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         const { token } = getStore();
 
         try {
-          const data = toast.promise(postProductPromise(product, token),
+          const data = await toast.promise(postProductPromise(product, token),
             {
               pending: 'Anadiendo producto...',
               success: 'Has añadido el producto exitosamente',
