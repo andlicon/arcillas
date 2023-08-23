@@ -78,7 +78,7 @@ const ProductCreate = () => {
                   <div className='row'>
                     <div className='col-3 d-flex justify-content-end align-items-center'>
                       <label className='' htmlFor="name">Nombre</label>
-                      <span className="d-inline-block popOvers" tabIndex="0" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Nombre del producto">
+                      <span className="d-inline-block popOvers" tabIndex="-1" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Nombre del producto">
                         <button className="help btn" type="button" disabled>?</button>
                       </span>
                     </div>
@@ -88,7 +88,7 @@ const ProductCreate = () => {
                   <div className='row'>
                     <div className='col-3 d-flex justify-content-end align-items-center'>
                       <label className='' htmlFor="description">Descripción</label>
-                      <span className="d-inline-block popOvers" tabIndex="0" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Descripcin del producto">
+                      <span className="d-inline-block popOvers" tabIndex="-1" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Descripcin del producto">
                         <button className="help btn" type="button" disabled>?</button>
                       </span>
                     </div>
@@ -98,7 +98,7 @@ const ProductCreate = () => {
                   <div className='row'>
                     <div className='col-3 d-flex justify-content-end align-items-center'>
                       <label className='' htmlFor="usage">Uso</label>
-                      <span className="d-inline-block popOvers" tabIndex="0" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Áreas o actividades en las que se usa">
+                      <span className="d-inline-block popOvers" tabIndex="-1" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Áreas o actividades en las que se usa">
                         <button className="help btn" type="button" disabled>?</button>
                       </span>
                     </div>
@@ -108,7 +108,7 @@ const ProductCreate = () => {
                   <div className='row'>
                     <div className='col-3 d-flex justify-content-end align-items-center'>
                       <label className='' htmlFor="categoryId">Categoria</label>
-                      <span className="d-inline-block popOvers" tabIndex="0" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Categoria del producto, solo se puede elegir 1">
+                      <span className="d-inline-block popOvers" tabIndex="-1" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Categoria del producto, solo se puede elegir 1">
                         <button className="help btn" type="button" disabled>?</button>
                       </span>
                     </div>
@@ -130,7 +130,7 @@ const ProductCreate = () => {
                   <div className='row'>
                     <div className='col-3 d-flex justify-content-end align-items-center'>
                       <label className='' htmlFor="unitId">Unidad</label>
-                      <span className="d-inline-block popOvers" tabIndex="0" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Categoria del producto, solo se puede elegir 1">
+                      <span className="d-inline-block popOvers" tabIndex="-1" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Categoria del producto, solo se puede elegir 1">
                         <button className="help btn" type="button" disabled>?</button>
                       </span>
                     </div>
@@ -164,7 +164,7 @@ const ProductCreate = () => {
                   <div className='row'>
                     <div className='col-3 d-flex justify-content-end align-items-center'>
                       <label className='' htmlFor="image">Imagen</label>
-                      <span className="d-inline-block popOvers" tabIndex="0" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Imagen del producto, debe ser jpg, jpge, png">
+                      <span className="d-inline-block popOvers" tabIndex="-1" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Imagen del producto, debe ser jpg, jpge, png">
                         <button className="help btn" type="button" disabled>?</button>
                       </span>
                     </div>
