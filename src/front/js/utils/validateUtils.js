@@ -27,3 +27,24 @@ export const validateLogin = (idEmail, idPassword, idForm) => {
 
   return true;
 }
+
+export const validateProductForm = (form) => {
+  const image = document.getElementById('image');
+  const imageValidate = form['image'] == null ? 'Se debe especificar una imagen' : '';
+  image.setCustomValidity(imageValidate);
+
+  const productCreate = document.getElementById('productCreate');
+  productCreate.classList.add('was-validated');
+  productCreate.checkValidity();
+
+  if (form['name'].length == 0
+    || form['description'].legnth == 0
+    || form['usage'].length == 0
+    || form['categoryId'] == undefined
+    || form['unitId'] == undefined
+    || form['image'] == undefined) {
+    return false;
+  }
+
+  return true;
+};

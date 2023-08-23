@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../../styles/formInput.css';
 
-const FormInput = ({ type,
+const AnimatedInput = ({ type,
   label,
   restriction,
   name,
@@ -47,7 +47,7 @@ const FormInput = ({ type,
   );
 };
 
-FormInput.propTypes = {
+AnimatedInput.propTypes = {
   type: PropTypes.string,
   label: PropTypes.string,
   restriction: PropTypes.func,
@@ -61,4 +61,4 @@ FormInput.propTypes = {
   bootstrapIcon: PropTypes.string
 }
 
-export default FormInput;
+export default AnimatedInput;

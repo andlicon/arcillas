@@ -19,5 +19,12 @@ class Category(db.Model):
         return{
             'id': self.id,
             'name': self.name,
-            'category_parent': self.category_parent
+            'category_parent': self.category_parent,
+            'hierarchy_name' : self.get_hierarchy_name()
         }
+
+    def get_hierarchy_name(self):
+        if self.category_parent is None:
+            return self.name
+
+        return f'{self.parent.get_hierarchy_name()}>>{self.name}'

@@ -1,41 +1,44 @@
 import { toast } from 'react-toastify';
 import {
   loginPromise,
-  getUserPromise
+  getCategoryPromise,
+  postProductPromise,
+  getUnitsPromise
 } from '../utils/promisesUtils.js'
 
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       token: localStorage.getItem('token') || null,
-      user: JSON.parse(localStorage.getItem('user')) || null
+      user: JSON.parse(localStorage.getItem('user')) || null,
+      categorys: JSON.parse(localStorage.getItem('categorys')) || null,
+      units: JSON.parse(localStorage.getItem('units')) || null
     },
     actions: {
-      // Use getActions to call a function within a fuction
-      exampleFunction: () => {
-        getActions().changeColor(0, "green");
-      },
       login: async (credentials) => {
-        const data = toast.promise(loginPromise(credentials),
-          {
-            pending: 'Iniciando sesión...',
-            success: 'Has iniciado sesión.',
-            error: {
-              render({ data }) {
-                return data
-              }
-            }
-          }
-        )
+        const { getCategorys, getUnits } = getActions();
 
         try {
-          const { token, user } = await data;
+          const data = await toast.promise(loginPromise(credentials),
+            {
+              pending: 'Iniciando sesión...',
+              success: 'Has iniciado sesión.',
+              error: {
+                render({ data }) {
+                  return data
+                }
+              }
+            }
+          )
+
+          const { token, user } = data;
 
           setStore({ token: token });
           localStorage.setItem('token', token);
           setStore({ user: user });
           localStorage.setItem('user', JSON.stringify(user));
-
+          getCategorys();
+          getUnits();
           return true;
         }
         catch (error) {
@@ -44,10 +47,53 @@ const getState = ({ getStore, getActions, setStore }) => {
           localStorage.removeItem('user');
           setStore({ user: null });
           console.log(error);
-
           return false;
         }
       },
+      getCategorys: async () => {
+        try {
+          const categorys = await getCategoryPromise();
+          localStorage.setItem('categorys', JSON.stringify(categorys));
+          setStore({ categorys: categorys });
+        }
+        catch (error) {
+          console.log(error);
+          localStorage.removeItem('token');
+          setStore({ categorys: null });
+        }
+      },
+      getUnits: async () => {
+        try {
+          const response = await getUnitsPromise();
+          localStorage.setItem('units', JSON.stringify(response));
+          setStore({ 'units': response })
+        }
+        catch (error) {
+          console.log(error);
+          localStorage.removeItem('units');
+          setStore({ 'units': [] })
+        }
+      },
+      postProduct: async (product) => {
+        const { token } = getStore();
+
+        try {
+          const data = await toast.promise(postProductPromise(product, token),
+            {
+              pending: 'Anadiendo producto...',
+              success: 'Has añadido el producto exitosamente',
+              error: {
+                render({ data }) {
+                  return data
+                }
+              }
+            }
+          )
+        }
+        catch (error) {
+          console.log(error);
+        }
+      }
     }
   };
 };
