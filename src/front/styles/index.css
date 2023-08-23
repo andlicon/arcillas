@@ -23,7 +23,3 @@
 .accordion-body>.row {
   margin-bottom: 1em;
 }
-
-.accordion-body>.row:last-child {
-  margin-bottom: 0;
-}

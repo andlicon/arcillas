@@ -3,6 +3,7 @@ import { Context } from '../store/appContext.js';
 import '../../styles/ProductCreate.css';
 import BackTo from '../component/BackTo.jsx';
 import PlainInput from '../component/PlainInput.jsx';
+import PlainSelect from '../component/PlainSelect.jsx';
 import {
   validateProductForm
 } from '../utils/validateUtils.js';
@@ -31,7 +32,6 @@ const ProductCreate = () => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(validateProductForm(values));
     if (validateProductForm(values)) {
       setLoading(true);
       const form = new FormData();
@@ -45,15 +45,6 @@ const ProductCreate = () => {
       setLoading(false);
     }
   }
-
-  const onChangeInputHandler = ({ target }) => {
-    if (target.type == 'file') {
-      setValues({ ...values, [target.name]: target.files })
-    }
-    else {
-      setValues({ ...values, [target.name]: target.value })
-    }
-  };
 
   const onChangeInput = (name, value) => {
     setValues({
@@ -91,50 +82,8 @@ const ProductCreate = () => {
                   <PlainInput id='name' name='name' value={values['name']} label='Nombre' type='text' popOver='Nombre del producto' setValues={onChangeInput} invalidFeedback='Se debe especificar un nombre' required={true} />
                   <PlainInput id='description' name='description' value={values['description']} label='Descripción' type='text' popOver='Descripcin del producto' setValues={onChangeInput} invalidFeedback='Se debe proporcionar una descripción' required={true} />
                   <PlainInput id='usage' name='usage' value={values['usage']} label='Uso' type='text' popOver='Áreas o actividades en las que se usa' setValues={onChangeInput} invalidFeedback='Se debe especificar un nombre' required={true} />
-                  {/* CATEGORY */}
-                  <div className='row'>
-                    <div className='col-3 d-flex justify-content-end align-items-center'>
-                      <label className='' htmlFor="categoryId">Categoria</label>
-                      <span className="d-inline-block popOvers" tabIndex="-1" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Categoria del producto, solo se puede elegir 1">
-                        <button className="help btn" type="button" disabled>?</button>
-                      </span>
-                    </div>
-                    <select className='col-9' name="categoryId" id="categoryId" onChange={onChangeInputHandler} value={values['categoryId']}>
-                      {
-                        categorys && categorys.map((element) => {
-                          return (
-                            <option value={element.id} key={element.id}>
-                              {
-                                element.hierarchy_name
-                              }
-                            </option>
-                          )
-                        })
-                      }
-                    </select>
-                  </div>
-                  {/* UNIT */}
-                  <div className='row'>
-                    <div className='col-3 d-flex justify-content-end align-items-center'>
-                      <label className='' htmlFor="unitId">Unidad</label>
-                      <span className="d-inline-block popOvers" tabIndex="-1" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Categoria del producto, solo se puede elegir 1">
-                        <button className="help btn" type="button" disabled>?</button>
-                      </span>
-                    </div>
-                    <select className='col-9' name="unitId" id="unitId" onChange={onChangeInputHandler} value={values['unitId']}>
-                      {
-                        units && units.map((element) => {
-                          return (
-                            <option value={element.id} key={element.id}>
-                              {
-                                element.name
-                              }
-                            </option>
-                          )
-                        })
-                      }
-                    </select>
-                  </div>
+                  <PlainSelect id='categoryId' name='categoryId' value={values['categoryId']} label='Categoría' popOver='Categoría del producto, solo puede posser 1' setValues={onChangeInput} invalidFeedback='Se debe especificar una categoría' required={true} list_items={categorys} />
+                  <PlainSelect id='unitId' name='unitId' value={values['unitId']} label='Unidad' popOver='Unidad en la que se presenta el producto' setValues={onChangeInput} invalidFeedback='Se debe especificar una unidad' required={true} list_items={units} />
                 </div>
               </div>
             </div>
