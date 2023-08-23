@@ -3,7 +3,8 @@ import {
   loginPromise,
   getCategoryPromise,
   postProductPromise,
-  getUnitsPromise
+  getUnitsPromise,
+  getAllProductsPromise
 } from '../utils/promisesUtils.js'
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -93,6 +94,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         catch (error) {
           console.log(error);
         }
+      },
+      getProductPage: async () => {
+        console.log(await getAllProductsPromise());
       }
     }
   };

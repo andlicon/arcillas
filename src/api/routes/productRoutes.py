@@ -25,7 +25,7 @@ def get_all_products():
             Product.category_id == category_args if category_args is not None else Product.category_id != None,
             ))
 
-    page = product_query.paginate(page=page_args, per_page=20)
+    page = product_query.paginate(page=page_args, per_page=5)
     product_list = list( map(lambda product: product.serialize(), page.items) )
 
     name_parameter = f'name={name_args}'
