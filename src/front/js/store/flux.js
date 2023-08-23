@@ -2,7 +2,8 @@ import { toast } from 'react-toastify';
 import {
   loginPromise,
   getCategoryPromise,
-  postProductPromise
+  postProductPromise,
+  getUnitsPromise
 } from '../utils/promisesUtils.js'
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -11,10 +12,11 @@ const getState = ({ getStore, getActions, setStore }) => {
       token: localStorage.getItem('token') || null,
       user: JSON.parse(localStorage.getItem('user')) || null,
       categorys: JSON.parse(localStorage.getItem('categorys')) || null,
+      units: JSON.parse(localStorage.getItem('units')) || null
     },
     actions: {
       login: async (credentials) => {
-        const { getCategorys } = getActions();
+        const { getCategorys, getUnits } = getActions();
 
         try {
           const data = toast.promise(loginPromise(credentials),
@@ -36,6 +38,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           setStore({ user: user });
           localStorage.setItem('user', JSON.stringify(user));
           getCategorys();
+          getUnits();
           return true;
         }
         catch (error) {
@@ -43,8 +46,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           setStore({ token: null });
           localStorage.removeItem('user');
           setStore({ user: null });
-          localStorage.setItem('categorys', null);
-          setStore({ categorys: null });
           console.log(error);
           return false;
         }
@@ -59,6 +60,18 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
           localStorage.removeItem('token');
           setStore({ categorys: null });
+        }
+      },
+      getUnits: async () => {
+        try {
+          const response = await getUnitsPromise();
+          localStorage.setItem('units', JSON.stringify(response));
+          setStore({ 'units': response })
+        }
+        catch (error) {
+          console.log(error);
+          localStorage.removeItem('units');
+          setStore({ 'units': [] })
         }
       },
       postProduct: async (product) => {
