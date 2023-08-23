@@ -29,21 +29,22 @@ export const validateLogin = (idEmail, idPassword, idForm) => {
 }
 
 export const validateProductForm = (form) => {
-  let { name, description, usage } = form;
-  const { categoryId, unitId, image } = form;
-  name = name.trim();
-  description = description.trim();
-  usage = usage.trim();
+  const image = document.getElementById('image');
+  const imageValidate = form['image'] == null ? 'Se debe especificar una imagen' : '';
+  image.setCustomValidity(imageValidate);
 
-  if (name.length == 0
-    || description.legnth == 0
-    || usage.length == 0
-    || categoryId == undefined
-    || unitId == undefined
-    || image == undefined) {
+  const productCreate = document.getElementById('productCreate');
+  productCreate.classList.add('was-validated');
+  productCreate.checkValidity();
+
+  if (form['name'].length == 0
+    || form['description'].legnth == 0
+    || form['usage'].length == 0
+    || form['categoryId'] == undefined
+    || form['unitId'] == undefined
+    || form['image'] == undefined) {
     return false;
   }
-  if (image[0] == undefined) return false
 
   return true;
 };

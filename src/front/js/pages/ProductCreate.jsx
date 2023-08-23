@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Context } from '../store/appContext.js';
 import '../../styles/ProductCreate.css';
 import BackTo from '../component/BackTo.jsx';
+import PlainInput from '../component/PlainInput.jsx';
 import {
   validateProductForm
 } from '../utils/validateUtils.js';
@@ -30,6 +31,7 @@ const ProductCreate = () => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
+    console.log(validateProductForm(values));
     if (validateProductForm(values)) {
       setLoading(true);
       const form = new FormData();
@@ -38,7 +40,7 @@ const ProductCreate = () => {
       form.append('usage', values['usage']);
       form.append('category_id', values['categoryId']);
       form.append('unit_id', values['unitId']);
-      form.append('image', values['image'][0]);
+      form.append('image', values['image']);
       await postProduct(form);
       setLoading(false);
     }
@@ -53,6 +55,13 @@ const ProductCreate = () => {
     }
   };
 
+  const onChangeInput = (name, value) => {
+    setValues({
+      ...values,
+      [name]: value
+    })
+  };
+
   return (
     <>
       <div className='container'>
@@ -61,7 +70,7 @@ const ProductCreate = () => {
           <BackTo to='/admin/product/list' text='Volver a la lista de productos' />
         </div>
 
-        <form className='productCreate__form' onSubmit={onSubmitHandler}>
+        <form className='productCreate__form needs-validation' id='productCreate' noValidate onSubmit={onSubmitHandler}>
           <div className='d-flex justify-content-end'>
             <button className='btn' type='submit' disabled={loading}>
               <i className="bi bi-save-fill"></i>
@@ -79,36 +88,9 @@ const ProductCreate = () => {
               </h2>
               <div id="info-collapse" className="accordion-collapse collapse show">
                 <div className="accordion-body">
-                  {/* NAME */}
-                  <div className='row'>
-                    <div className='col-3 d-flex justify-content-end align-items-center'>
-                      <label className='' htmlFor="name">Nombre</label>
-                      <span className="d-inline-block popOvers" tabIndex="-1" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Nombre del producto">
-                        <button className="help btn" type="button" disabled>?</button>
-                      </span>
-                    </div>
-                    <input className='col-9' id='name' name='name' type="text" onChange={onChangeInputHandler} value={values['name']} />
-                  </div>
-                  {/* DESCRIPTION */}
-                  <div className='row'>
-                    <div className='col-3 d-flex justify-content-end align-items-center'>
-                      <label className='' htmlFor="description">Descripción</label>
-                      <span className="d-inline-block popOvers" tabIndex="-1" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Descripcin del producto">
-                        <button className="help btn" type="button" disabled>?</button>
-                      </span>
-                    </div>
-                    <input className='col-9' id='description' name='description' type="text" onChange={onChangeInputHandler} value={values['description']} />
-                  </div>
-                  {/* USAGE */}
-                  <div className='row'>
-                    <div className='col-3 d-flex justify-content-end align-items-center'>
-                      <label className='' htmlFor="usage">Uso</label>
-                      <span className="d-inline-block popOvers" tabIndex="-1" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Áreas o actividades en las que se usa">
-                        <button className="help btn" type="button" disabled>?</button>
-                      </span>
-                    </div>
-                    <input className='col-9' id='usage' name='usage' type="text" onChange={onChangeInputHandler} value={values['usage']} />
-                  </div>
+                  <PlainInput id='name' name='name' value={values['name']} label='Nombre' type='text' popOver='Nombre del producto' setValues={onChangeInput} invalidFeedback='Se debe especificar un nombre' required={true} />
+                  <PlainInput id='description' name='description' value={values['description']} label='Descripción' type='text' popOver='Descripcin del producto' setValues={onChangeInput} invalidFeedback='Se debe proporcionar una descripción' required={true} />
+                  <PlainInput id='usage' name='usage' value={values['usage']} label='Uso' type='text' popOver='Áreas o actividades en las que se usa' setValues={onChangeInput} invalidFeedback='Se debe especificar un nombre' required={true} />
                   {/* CATEGORY */}
                   <div className='row'>
                     <div className='col-3 d-flex justify-content-end align-items-center'>
@@ -166,15 +148,7 @@ const ProductCreate = () => {
               </h2>
               <div id="multimedia-collapse" className="accordion-collapse collapse show">
                 <div className="accordion-body">
-                  <div className='row'>
-                    <div className='col-3 d-flex justify-content-end align-items-center'>
-                      <label className='' htmlFor="image">Imagen</label>
-                      <span className="d-inline-block popOvers" tabIndex="-1" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="Imagen del producto, debe ser jpg, jpge, png">
-                        <button className="help btn" type="button" disabled>?</button>
-                      </span>
-                    </div>
-                    <input className='col-9' type='file' name="image" id="image" onChange={onChangeInputHandler} />
-                  </div>
+                  <PlainInput id='image' name='image' value={undefined} label='Imagen' type='file' popOver='Imagen del producto' setValues={onChangeInput} invalidFeedback='La imagen del producto, debe ser jpg, jpge, png' required={false} />
                 </div>
               </div>
             </div>
