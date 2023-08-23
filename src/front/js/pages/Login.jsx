@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Context } from '../store/appContext.js';
 import '../../styles/login.css'
 import { validateLogin } from '../utils/validateUtils.js';
-import FormInput from '../component/FormInput.jsx';
+import AnimatedInput from '../component/AnimatedInput.jsx';
 
 const initialValue = {
   email: '',
@@ -55,7 +55,7 @@ const Login = () => {
             id='login'
             onSubmit={onSubmitHandler}
             noValidate >
-            <FormInput
+            <AnimatedInput
               type='text'
               label='Correo electrónico'
               name='email'
@@ -66,7 +66,7 @@ const Login = () => {
               invalidFeedback='No es un email inválido'
               bootstrapIcon='bi-person-fill'
               setValue={onChangeInput} />
-            <FormInput
+            <AnimatedInput
               type='password'
               label='Contraseña'
               name='password'
