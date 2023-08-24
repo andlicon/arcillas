@@ -28,12 +28,13 @@ def get_all_products():
     page = product_query.paginate(page=page_args, per_page=5)
     product_list = list( map(lambda product: product.serialize(), page.items) )
 
-    name_parameter = f'name={name_args}'
+    name_parameter = f'name={name_args}' if name_args != '%' else 'name'
     category_parameter = f'category={category_args}' if category_args != None else 'category'
 
     response ={
         'info': {
             'count': page.total,
+            'filters': f'?page={page.prev_num}&{name_parameter}&{category_parameter}',
             'next': f'{os.getenv("BACKEND_URL")}/products/?page={page.next_num}&{name_parameter}&{category_parameter}' if page.has_next else None,
             'prev': f'{os.getenv("BACKEND_URL")}/products/?page={page.prev_num}&{name_parameter}&{category_parameter}' if page.has_prev else None
         },

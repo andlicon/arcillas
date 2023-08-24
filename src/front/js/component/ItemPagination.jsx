@@ -12,10 +12,21 @@ const ItemPagination = () => {
 
   const onClickNextPage = ({ target }) => {
     const name = target.name;
-    const nextpage = name == 'next' ? info.next : info.prev;
+    let filter = null;
 
-    if (nextpage != null) {
-      const filter = nextpage.replace(process.env.BACKEND_URL + '/products', '');
+    if (name == 'next' && info.next != null) {
+      filter = info.next.replace(process.env.BACKEND_URL + '/products', '');
+    }
+    else if (name == 'prev' && info.prev != null) {
+      filter = info.prev.replace(process.env.BACKEND_URL + '/products', '');
+    }
+    else if (name == 'numberNext') {
+      const regex = /page=.{1,4}&/;
+      filter = info.filters.replace(regex, 'page=' + target.value + '&');
+    }
+
+    if (filter != null) {
+      console.log(filter);
       getProductPage(filter);
     }
   }
@@ -34,13 +45,13 @@ const ItemPagination = () => {
               <button className="page-link" name='prev' onClick={onClickNextPage}>Previous</button>
             </li>
             <li className="page-item">
-              <button className="page-link">1</button>
+              <button className="page-link" onClick={onClickNextPage} value={1} name='numberNext'>1</button>
             </li>
             <li className="page-item">
-              <button className="page-link">2</button>
+              <button className="page-link" onClick={onClickNextPage} value={2} name='numberNext'>2</button>
             </li>
             <li className="page-item">
-              <button className="page-link">3</button>
+              <button className="page-link" onClick={onClickNextPage} value={3} name='numberNext'>3</button>
             </li>
             {/* deben hacer query a la bd */}
             <li className="page-item">
