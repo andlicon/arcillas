@@ -8,10 +8,7 @@ const ProductList = () => {
   const [selected, setSelected] = useState([]);
 
   const selectHandler = (toSelect) => {
-    if (typeof toSelect == 'object' && selected.toString() == toSelect.toString()) {
-      setSelected([]);
-    }
-    else if (typeof toSelect == 'object') {
+    if (typeof toSelect == 'object') {
       setSelected(toSelect);
     }
     else if (selected.some(id => id == toSelect)) {
