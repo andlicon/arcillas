@@ -1,0 +1,37 @@
+.results {
+  border-collapse: collapse;
+}
+
+.results td {
+  border: .1em solid lightgray;
+  padding: 8px;
+}
+
+.results thead tr {
+  background-color: gray;
+}
+
+.results thead td {
+  font-weight: 700;
+}
+
+.results tbody img {
+  width: 100px;
+  height: 100px;
+}
+
+.results__tr td:first-child {
+  min-width: 25px;
+}
+
+.results__tr td {
+  min-width: 100px;
+}
+
+.results__tr {
+  background-color: white;
+}
+
+.results__tr:nth-child(2n) {
+  background-color: gray;
+}

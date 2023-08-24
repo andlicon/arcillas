@@ -58,7 +58,7 @@ const ProductCreate = () => {
       <div className='container'>
         <div className='productCreate__header'>
           <h1 className='productCreate__h1'>Añade un nuevo producto</h1>
-          <BackTo to='/admin/product/list' text='Volver a la lista de productos' />
+          <BackTo to='/admin/product' text='Volver a la lista de productos' />
         </div>
 
         <form className='productCreate__form needs-validation' id='productCreate' noValidate onSubmit={onSubmitHandler}>

@@ -14,6 +14,7 @@ import { Footer } from "./component/footer";
 // pages
 import Login from './pages/Login.jsx';
 import ProductCreate from './pages/ProductCreate.jsx';
+import ProductList from './pages/ProductList.jsx';
 
 //create your first component
 const Layout = () => {
@@ -45,8 +46,8 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Login />} path='/login' />
-                        {/* <Route element={<Home />} path='/admin' />
-                        <Route element={<Home />} path='/admin/product/list' /> */}
+                        {/* <Route element={<Home />} path='/admin' /> */}
+                        <Route element={<ProductList />} path='/admin/product' />
                         <Route element={<ProductCreate />} path='/admin/product/create' />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>

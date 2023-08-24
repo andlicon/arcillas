@@ -1,0 +1,7 @@
+.page-link--selected {
+  background-color: lightgray;
+}
+
+.page-link--selected:hover button {
+  background-color: none;
+}

@@ -106,3 +106,23 @@ export const postProductPromise = async (procuct, token) => {
     }
   });
 }
+
+export const getAllProductsPromise = async (filters = '') => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(process.env.BACKEND_URL + '/products' + filters);
+      const data = await response.json();
+
+      if (response.ok) {
+        resolve(data)
+      }
+      else {
+        reject(data.message);
+      }
+    }
+    catch (error) {
+      console.log(error);
+      reject('Ha ocurrido algún error interno');
+    }
+  });
+};

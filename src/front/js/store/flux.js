@@ -3,7 +3,8 @@ import {
   loginPromise,
   getCategoryPromise,
   postProductPromise,
-  getUnitsPromise
+  getUnitsPromise,
+  getAllProductsPromise
 } from '../utils/promisesUtils.js'
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -12,7 +13,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       token: localStorage.getItem('token') || null,
       user: JSON.parse(localStorage.getItem('user')) || null,
       categorys: JSON.parse(localStorage.getItem('categorys')) || null,
-      units: JSON.parse(localStorage.getItem('units')) || null
+      units: JSON.parse(localStorage.getItem('units')) || null,
+      productPage: {}
     },
     actions: {
       login: async (credentials) => {
@@ -91,6 +93,17 @@ const getState = ({ getStore, getActions, setStore }) => {
           )
         }
         catch (error) {
+          console.log(error);
+        }
+      },
+      getProductPage: async (filters = '') => {
+        try {
+          const product_list = await getAllProductsPromise(filters);
+
+          setStore({ 'productPage': product_list });
+        }
+        catch (error) {
+          setStore({ 'productPage': [] });
           console.log(error);
         }
       }
