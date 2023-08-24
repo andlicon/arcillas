@@ -7,10 +7,6 @@
   padding: 8px;
 }
 
-.results thead tr {
-  background-color: gray;
-}
-
 .results thead td {
   font-weight: 700;
 }
@@ -24,14 +20,10 @@
   min-width: 25px;
 }
 
+.results__tr td:last-child {
+  min-width: 50px;
+}
+
 .results__tr td {
   min-width: 100px;
-}
-
-.results__tr {
-  background-color: white;
-}
-
-.results__tr:nth-child(2n) {
-  background-color: gray;
 }

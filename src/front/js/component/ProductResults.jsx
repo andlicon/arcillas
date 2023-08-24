@@ -34,58 +34,60 @@ const ProductResults = ({ selectHandler, selected }) => {
   };
 
   return (
-    <table className='results container'>
-      <thead>
-        <tr>
-          <td> <input className="form-check-input" type="checkbox" id="select-all" value='all' aria-label="" onChange={onChangeAllHandler} /> </td>
-          <td>Imagen</td>
-          <td>Nombre</td>
-          <td>Descripción</td>
-          <td>Categoría</td>
-          <td>Uso</td>
-          <td>Unidad</td>
-          <td></td>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          results && results.map((product) => {
-            const category = categorys.filter((element) => element.id == product.category_id);
-            const unit = units.filter((element) => element.id == product.unit_id);
-            const isChecked = selected.includes(product.id);
+    <div className='container table-responsive'>
+      <table className='table results' >
+        <thead>
+          <tr>
+            <td> <input className="form-check-input" type="checkbox" id="select-all" value='all' aria-label="" onChange={onChangeAllHandler} /> </td>
+            <td>Imagen</td>
+            <td>Nombre</td>
+            <td>Descripción</td>
+            <td>Categoría</td>
+            <td>Uso</td>
+            <td>Unidad</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            results && results.map((product) => {
+              const category = categorys.filter((element) => element.id == product.category_id);
+              const unit = units.filter((element) => element.id == product.unit_id);
+              const isChecked = selected.includes(product.id);
 
-            return (
-              <tr className='results__tr' key={product.id}>
-                <td>
-                  <input className="form-check-input" type="checkbox" id={"select-" + product.id} value={product.id} onChange={onChangerHandler} checked={isChecked} aria-label="" />
-                </td>
-                <td>
-                  <img src={product.image_url} alt={"imagen de " + product.name} />
-                </td>
-                <td>
-                  {product.name}
-                </td>
-                <td>
-                  {product.description}
-                </td>
-                <td>
-                  {category[0].name}
-                </td>
-                <td>
-                  {product.usage}
-                </td>
-                <td>
-                  {unit[0].name}
-                </td>
-                <td>
-                  edit
-                </td>
-              </tr>
-            )
-          })
-        }
-      </tbody>
-    </table>
+              return (
+                <tr className='results__tr' key={product.id}>
+                  <td>
+                    <input className="form-check-input" type="checkbox" id={"select-" + product.id} value={product.id} onChange={onChangerHandler} checked={isChecked} aria-label="" />
+                  </td>
+                  <td>
+                    <img src={product.image_url} alt={"imagen de " + product.name} />
+                  </td>
+                  <td>
+                    {product.name}
+                  </td>
+                  <td>
+                    {product.description}
+                  </td>
+                  <td>
+                    {category[0].name}
+                  </td>
+                  <td>
+                    {product.usage}
+                  </td>
+                  <td>
+                    {unit[0].name}
+                  </td>
+                  <td>
+                    edit
+                  </td>
+                </tr>
+              )
+            })
+          }
+        </tbody>
+      </table>
+    </div>
   )
 };
 export default ProductResults;
