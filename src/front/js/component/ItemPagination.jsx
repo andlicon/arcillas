@@ -3,7 +3,7 @@ import { Context } from '../store/appContext.js';
 import '../../styles/itemPagination.css';
 
 const ItemPagination = () => {
-  const [perPage, setPerPage] = useState(5);
+  const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [pagesNumber, setPagesNumber] = useState(1);
   const { store, actions } = useContext(Context);
