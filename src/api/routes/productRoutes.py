@@ -15,28 +15,42 @@ from ..models.Role import Role
 @api.route('/products/', methods=['GET'])
 def get_all_products():
     args = request.args
+    # info
     page_args = args.get('page', default=1, type=int)
+    per_page_args = args.get('per_page', default=10, type=int)
+    # product
     name_args = args.get('name', default='%', type=str)
+    description_args = args.get('description', default='%', type=str)
+    usage_args = args.get('usage', default='%', type=str)
     category_args = args.get('category', default=None, type=int)
+    unit_args = args.get('unit', default=None, type=int)
 
     product_query = Product.query.filter(
         and_(
             Product.name.ilike(f'%{name_args}%'),
+            Product.description.ilike(f'%{description_args}%'),
+            Product.usage.ilike(f'%{usage_args}%'),
             Product.category_id == category_args if category_args is not None else Product.category_id != None,
+            Product.unit_id == unit_args if unit_args is not None else Product.unit_id != None
             ))
 
-    page = product_query.paginate(page=page_args, per_page=5)
+    page = product_query.paginate(page=page_args, per_page=per_page_args)
     product_list = list( map(lambda product: product.serialize(), page.items) )
 
     name_parameter = f'name={name_args}' if name_args != '%' else 'name'
     category_parameter = f'category={category_args}' if category_args != None else 'category'
+    page_parameter = f'page={page_args}'
+    per_page_parameter = f'per_page={per_page_args}' if per_page_args != 10 else 'per_page'
+    description_parameter = f'description={description_args}' if description_args != '%' else 'description'
+    usage_parameter = f'usage={usage_args}' if usage_args != '%' else 'usage'
+    unit_parameter = f'unit={unit_args}' if unit_args is not None else 'unit'
 
     response ={
         'info': {
             'count': page.total,
-            'filters': f'?page={page.prev_num}&{name_parameter}&{category_parameter}',
-            'next': f'{os.getenv("BACKEND_URL")}/products/?page={page.next_num}&{name_parameter}&{category_parameter}' if page.has_next else None,
-            'prev': f'{os.getenv("BACKEND_URL")}/products/?page={page.prev_num}&{name_parameter}&{category_parameter}' if page.has_prev else None
+            'filters': f'{page_parameter}&{per_page_parameter}&{name_parameter}&{category_parameter}&{description_parameter}&{usage_parameter}&{unit_parameter}',
+            'next': f'{os.getenv("BACKEND_URL")}/products/?page={page.next_num}&{per_page_parameter}&{name_parameter}&{category_parameter}&{description_parameter}&{usage_parameter}&{unit_parameter}' if page.has_next else None,
+            'prev': f'{os.getenv("BACKEND_URL")}/products/?page={page.prev_num}&{per_page_parameter}&{name_parameter}&{category_parameter}&{description_parameter}&{usage_parameter}&{unit_parameter}' if page.has_prev else None
         },
         'results': product_list
     }
