@@ -62,7 +62,7 @@ const ItemPagination = () => {
               Array.from(Array(pagesNumber)).map((e, index) => {
                 const number = index + 1;
                 return (
-                  <li className={`page-item${currentPage == number ? ' disabled' : ''}`} key={index}>
+                  <li className={`page-item${currentPage == number ? ' active' : ''}`} key={index}>
                     <button className='page-link'
                       disabled={currentPage == number}
                       onClick={onClickNextPage}
