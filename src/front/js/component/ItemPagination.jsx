@@ -1,14 +1,24 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '../store/appContext.js';
 import '../../styles/itemPagination.css';
 
 const ItemPagination = () => {
   const [perPage, setPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
+  const [pagesNumber, setPagesNumber] = useState(1);
   const { store, actions } = useContext(Context);
   const { productPage } = store;
   const { info } = productPage;
   const { getProductPage } = actions;
+
+  useEffect(() => {
+    if (info?.count == undefined || info?.count == null) {
+      setPagesNumber(Math.ceil(1));
+    }
+    else {
+      setPagesNumber(Math.ceil(info?.count / perPage));
+    }
+  }, [info?.count]);
 
   const onClickNextPage = ({ target }) => {
     const name = target.name;
@@ -35,7 +45,7 @@ const ItemPagination = () => {
     }
   }
 
-  const onChangeHandler = ({ target }) => {
+  const perPageHandler = ({ target }) => {
     setPerPage(target.value);
   };
 
@@ -47,33 +57,25 @@ const ItemPagination = () => {
             <li className={`page-item${info?.prev == null ? ' disabled' : ''}`}>
               <button className={"page-link"} name='prev' onClick={onClickNextPage}>Previous</button >
             </li>
-            <li className={`page-item${currentPage == 1 ? ' disabled' : ''}`}>
-              <button className='page-link'
-                disabled={currentPage == 1}
-                onClick={onClickNextPage}
-                value={1}
-                name='numberNext'>
-                1
-              </button>
-            </li>
-            <li className={`page-item${currentPage == 2 ? ' disabled' : ''}`}>
-              <button className='page-link'
-                disabled={currentPage == 2}
-                onClick={onClickNextPage}
-                value={2}
-                name='numberNext'>
-                2
-              </button >
-            </li>
-            <li className={`page-item${currentPage == 3 ? ' disabled' : ''}`}>
-              <button className='page-link'
-                disabled={currentPage == 3}
-                onClick={onClickNextPage}
-                value={3}
-                name='numberNext'>
-                3
-              </button >
-            </li>
+
+            {
+              Array.from(Array(pagesNumber)).map((e, index) => {
+                const number = index + 1;
+                return (
+                  <li className={`page-item${currentPage == number ? ' disabled' : ''}`} key={index}>
+                    <button className='page-link'
+                      disabled={currentPage == number}
+                      onClick={onClickNextPage}
+                      value={number}
+                      name='numberNext'>
+                      {
+                        number
+                      }
+                    </button>
+                  </li>
+                )
+              })
+            }
             <li className={`page-item${info?.next == null ? ' disabled' : ''}`}>
               <button className="page-link" name='next' onClick={onClickNextPage}>Next</button>
             </li>
@@ -81,7 +83,7 @@ const ItemPagination = () => {
         </nav>
       </div>
 
-      <select name="perPage" id="perPage" onChange={onChangeHandler}>
+      <select name="perPage" id="perPage" onChange={perPageHandler}>
         <option value={5}>5</option>
         <option value={10}>10</option>
         <option value={25}>25</option>
