@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../store/appContext.js';
 import '../../styles/itemPagination.css';
-import ProductResults from '../component/ProductResults.jsx';
+import ProductResults from './ProductResults.jsx';
 
 
 const ItemPagination = () => {
@@ -9,8 +9,6 @@ const ItemPagination = () => {
   const { store } = useContext(Context);
   const { productPage } = store;
   const { info, results } = productPage;
-
-  // console.log(results)
 
   const pages = Math.ceil(info?.count / perPage);
 
