@@ -5,11 +5,20 @@ import '../../styles/itemPagination.css';
 
 const ItemPagination = () => {
   const [perPage, setPerPage] = useState(5);
-  const { store } = useContext(Context);
+  const { store, actions } = useContext(Context);
   const { productPage } = store;
   const { info } = productPage;
+  const { getProductPage } = actions;
 
-  // const pages = Math.ceil(info?.count / perPage);
+  const onClickNextPage = ({ target }) => {
+    const name = target.name;
+    const nextpage = name == 'next' ? info.next : info.prev;
+
+    if (nextpage != null) {
+      const filter = nextpage.replace(process.env.BACKEND_URL + '/products', '');
+      getProductPage(filter);
+    }
+  }
 
   const onChangeHandler = ({ target }) => {
     setPerPage(target.value);
@@ -20,8 +29,9 @@ const ItemPagination = () => {
       <div>
         <nav aria-label="Page navigation">
           <ul className="pagination">
+            {/* deben hacer query a la bd */}
             <li className="page-item">
-              <button className="page-link">Previous</button>
+              <button className="page-link" name='prev' onClick={onClickNextPage}>Previous</button>
             </li>
             <li className="page-item">
               <button className="page-link">1</button>
@@ -32,8 +42,9 @@ const ItemPagination = () => {
             <li className="page-item">
               <button className="page-link">3</button>
             </li>
+            {/* deben hacer query a la bd */}
             <li className="page-item">
-              <button className="page-link">Next</button>
+              <button className="page-link" name='next' onClick={onClickNextPage}>Next</button>
             </li>
           </ul>
         </nav>
