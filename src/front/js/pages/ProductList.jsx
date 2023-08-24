@@ -7,24 +7,22 @@ import ProductResults from '../component/ProductResults.jsx';
 const ProductList = () => {
   const [selected, setSelected] = useState([]);
 
-  const selectHandler = ({ target }) => {
-    const value = target.value;
-
-    if (value == 'all' && selected.some(id => id == 'all')) {
+  const selectHandler = (toSelect) => {
+    if (typeof toSelect == 'object' && selected.toString() == toSelect.toString()) {
       setSelected([]);
     }
-    else if (value == 'all' && !selected.some(id => id == 'all')) {
-      setSelected(['all']);
+    else if (typeof toSelect == 'object') {
+      setSelected(toSelect);
     }
-    else if (selected.some(id => id == value)) {
-      setSelected(selected.filter(id => id != value));
+    else if (selected.some(id => id == toSelect)) {
+      setSelected(selected.filter(id => id != toSelect));
     }
     else {
-      setSelected([...selected, value]);
+      setSelected([...selected, toSelect]);
     }
   };
 
-  console.log(selected);
+  // console.log(selected);
 
   return (
     <div className='container'>
@@ -37,7 +35,7 @@ const ProductList = () => {
       <form className='productList__filters'>
         filtros
       </form>
-      <ProductResults selectHandler={selectHandler} />
+      <ProductResults selectHandler={selectHandler} selected={selected} />
       <ItemPagination page={null} />
     </div>
   )
