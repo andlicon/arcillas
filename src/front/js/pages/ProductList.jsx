@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import { Link } from "react-router-dom";
 import { Context } from '../store/appContext.js';
 import ItemPagination from '../component/ItemPagination.jsx';
+import ProductResults from '../component/ProductResults.jsx';
 
 const ProductList = () => {
   const [product, setProduct] = useState([])
@@ -18,6 +19,7 @@ const ProductList = () => {
       <form className='productList__filters'>
         filtros
       </form>
+      <ProductResults />
       <ItemPagination page={null} />
     </div>
   )

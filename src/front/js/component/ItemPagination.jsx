@@ -1,16 +1,15 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../store/appContext.js';
 import '../../styles/itemPagination.css';
-import ProductResults from './ProductResults.jsx';
 
 
-const ItemPagination = () => {
+const ItemPagination = ({ resultDisplay }) => {
   const [perPage, setPerPage] = useState(5);
   const { store } = useContext(Context);
   const { productPage } = store;
-  const { info, results } = productPage;
+  const { info } = productPage;
 
-  const pages = Math.ceil(info?.count / perPage);
+  // const pages = Math.ceil(info?.count / perPage);
 
   const onChangeHandler = ({ target }) => {
     setPerPage(target.value);
@@ -19,7 +18,9 @@ const ItemPagination = () => {
   return (
     <div className='itemPagination'>
 
-      <ProductResults product_list={results} />
+      {
+        resultDisplay
+      }
 
       <div>
         <nav aria-label="Page navigation">
