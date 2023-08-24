@@ -23,3 +23,11 @@
 .accordion-body>.row {
   margin-bottom: 1em;
 }
+
+.results .btn-primary {
+  padding: .3rem;
+}
+
+.results .btn-primary i {
+  font-size: .8rem;
+}

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { Link } from "react-router-dom";
 import { Context } from '../store/appContext.js';
 import '../../styles/productResults.css';
 
@@ -79,7 +80,10 @@ const ProductResults = ({ selectHandler, selected }) => {
                     {unit[0].name}
                   </td>
                   <td>
-                    edit
+                    <Link className="btn btn-primary" to={'edit/' + product.id}>
+                      <i className="bi bi-pencil-fill"></i>
+                      Editar
+                    </Link>
                   </td>
                 </tr>
               )
