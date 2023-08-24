@@ -1,12 +1,30 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { Context } from '../store/appContext.js';
 import ItemPagination from '../component/ItemPagination.jsx';
 import ProductResults from '../component/ProductResults.jsx';
 
 const ProductList = () => {
-  const [product, setProduct] = useState([])
-  const { actions } = useContext(Context);
+  const [selected, setSelected] = useState([]);
+
+  const selectHandler = ({ target }) => {
+    const value = target.value;
+
+    if (value == 'all' && selected.some(id => id == 'all')) {
+      setSelected([]);
+    }
+    else if (value == 'all' && !selected.some(id => id == 'all')) {
+      setSelected(['all']);
+    }
+    else if (selected.some(id => id == value)) {
+      setSelected(selected.filter(id => id != value));
+    }
+    else {
+      setSelected([...selected, value]);
+    }
+  };
+
+  console.log(selected);
 
   return (
     <div className='container'>
@@ -19,7 +37,7 @@ const ProductList = () => {
       <form className='productList__filters'>
         filtros
       </form>
-      <ProductResults />
+      <ProductResults selectHandler={selectHandler} />
       <ItemPagination page={null} />
     </div>
   )

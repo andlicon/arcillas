@@ -3,7 +3,7 @@ import { Context } from '../store/appContext.js';
 import '../../styles/itemPagination.css';
 
 
-const ItemPagination = ({ resultDisplay }) => {
+const ItemPagination = () => {
   const [perPage, setPerPage] = useState(5);
   const { store } = useContext(Context);
   const { productPage } = store;
@@ -17,11 +17,6 @@ const ItemPagination = ({ resultDisplay }) => {
 
   return (
     <div className='itemPagination'>
-
-      {
-        resultDisplay
-      }
-
       <div>
         <nav aria-label="Page navigation">
           <ul className="pagination">
