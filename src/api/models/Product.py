@@ -30,7 +30,9 @@ class Product(db.Model):
             'id': self.id,
             'name': self.name,
             'description': self.description,
+            'category_id': self.category_id,
             'usage': self.usage,
+            'unit_id': self.unit_id,
             'image_url': self.image_url,
             'created_at': self.created_at,
             'upgrated_at': self.upgrated_at

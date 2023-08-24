@@ -13,7 +13,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       token: localStorage.getItem('token') || null,
       user: JSON.parse(localStorage.getItem('user')) || null,
       categorys: JSON.parse(localStorage.getItem('categorys')) || null,
-      units: JSON.parse(localStorage.getItem('units')) || null
+      units: JSON.parse(localStorage.getItem('units')) || null,
+      productPage: {}
     },
     actions: {
       login: async (credentials) => {
@@ -96,7 +97,15 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       getProductPage: async () => {
-        console.log(await getAllProductsPromise());
+        try {
+          const product_list = await getAllProductsPromise();
+
+          setStore({ 'productPage': product_list });
+        }
+        catch (error) {
+          setStore({ 'productPage': [] });
+          console.log(error);
+        }
       }
     }
   };

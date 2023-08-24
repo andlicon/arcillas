@@ -1,15 +1,11 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { Link } from "react-router-dom";
 import { Context } from '../store/appContext.js';
 import ItemPagination from '../component/ItemPagination.jsx';
 
 const ProductList = () => {
+  const [product, setProduct] = useState([])
   const { actions } = useContext(Context);
-  const { getProductPage } = actions;
-
-  useEffect(() => {
-    getProductPage();
-  });
 
   return (
     <div className='container'>
