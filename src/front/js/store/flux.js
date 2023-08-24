@@ -101,6 +101,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const product_list = await getAllProductsPromise(filters);
 
           setStore({ 'productPage': product_list });
+          return product_list;
         }
         catch (error) {
           setStore({ 'productPage': [] });

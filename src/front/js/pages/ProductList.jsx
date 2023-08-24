@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from "react-router-dom";
-import { Context } from '../store/appContext.js';
 import ItemPagination from '../component/ItemPagination.jsx';
 import ProductResults from '../component/ProductResults.jsx';
 
@@ -18,8 +17,6 @@ const ProductList = () => {
       setSelected([...selected, toSelect]);
     }
   };
-
-  // console.log(selected);
 
   return (
     <div className='container'>

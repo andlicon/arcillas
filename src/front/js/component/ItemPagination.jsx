@@ -11,32 +11,22 @@ const ItemPagination = () => {
   const { info } = productPage;
   const { getProductPage } = actions;
 
-  useEffect(() => {
-    if (info?.count == undefined || info?.count == null) {
-      setPagesNumber(Math.ceil(1));
-    }
-    else {
-      setPagesNumber(Math.ceil(info?.count / perPage));
-    }
-  }, [info?.count]);
-
   const onClickNextPage = ({ target }) => {
     const name = target.name;
     let filter = null;
 
     if (name == 'next' && info.next != null) {
       filter = info.next.replace(process.env.BACKEND_URL + '/products', '');
-      setCurrentPage(currentPage + 1);
+      setCurrentPage(parseInt(currentPage) + 1);
     }
     else if (name == 'prev' && info.prev != null) {
       filter = info.prev.replace(process.env.BACKEND_URL + '/products', '');
-      setCurrentPage(currentPage - 1);
+      setCurrentPage(parseInt(currentPage) - 1);
     }
-    else if (name == 'numberNext') {
+    else if (name == 'numberNext' && target.value != currentPage) {
       const pageNumber = target.value;
-      if (pageNumber == currentPage) return null
       const regex = /page=.{1,4}&/;
-      filter = info.filters.replace(regex, 'page=' + pageNumber + '&');
+      filter = '/?' + info.filters.replace(regex, 'page=' + pageNumber + '&');
       setCurrentPage(pageNumber);
     }
 
@@ -45,8 +35,15 @@ const ItemPagination = () => {
     }
   }
 
-  const perPageHandler = ({ target }) => {
-    setPerPage(target.value);
+  const perPageHandler = async ({ target }) => {
+    const perPageParameter = target.value;
+    const regexPage = /page=.{1,4}&/;
+    let filter = '/?' + info.filters.replace(regexPage, 'page' + '&');
+    const regexPerPage = /per_page.{0,4}&/;
+    filter = filter.replace(regexPerPage, 'per_page=' + perPageParameter + '&');
+    const response = await getProductPage(filter);
+    setPerPage(parseInt(perPageParameter));
+    setPagesNumber(Math.ceil(response.info.count / perPageParameter));
   };
 
   return (
@@ -59,7 +56,7 @@ const ItemPagination = () => {
             </li>
 
             {
-              Array.from(Array(pagesNumber)).map((e, index) => {
+              Array.from(Array(Math.ceil(info?.count / perPage) || 1)).map((e, index) => {
                 const number = index + 1;
                 return (
                   <li className={`page-item${currentPage == number ? ' active' : ''}`} key={index}>
@@ -84,7 +81,6 @@ const ItemPagination = () => {
       </div>
 
       <select name="perPage" id="perPage" onChange={perPageHandler}>
-        <option value={5}>5</option>
         <option value={10}>10</option>
         <option value={25}>25</option>
         <option value={50}>50</option>
