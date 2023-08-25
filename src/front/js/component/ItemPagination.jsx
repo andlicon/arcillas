@@ -5,20 +5,10 @@ import '../../styles/itemPagination.css';
 const ItemPagination = () => {
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pagesNumber, setPagesNumber] = useState(1);
   const { store, actions } = useContext(Context);
   const { productPage } = store;
-  const { info } = productPage;
+  const { info, results } = productPage;
   const { getProductPage } = actions;
-
-  useEffect(() => {
-    if (info?.count == undefined || info?.count == null) {
-      setPagesNumber(Math.ceil(1));
-    }
-    else {
-      setPagesNumber(Math.ceil(info?.count / perPage));
-    }
-  }, [info?.count]);
 
   const onClickNextPage = ({ target }) => {
     const name = target.name;
@@ -26,17 +16,16 @@ const ItemPagination = () => {
 
     if (name == 'next' && info.next != null) {
       filter = info.next.replace(process.env.BACKEND_URL + '/products', '');
-      setCurrentPage(currentPage + 1);
+      setCurrentPage(parseInt(currentPage) + 1);
     }
     else if (name == 'prev' && info.prev != null) {
       filter = info.prev.replace(process.env.BACKEND_URL + '/products', '');
-      setCurrentPage(currentPage - 1);
+      setCurrentPage(parseInt(currentPage) - 1);
     }
-    else if (name == 'numberNext') {
+    else if (name == 'numberNext' && target.value != currentPage) {
       const pageNumber = target.value;
-      if (pageNumber == currentPage) return null
       const regex = /page=.{1,4}&/;
-      filter = info.filters.replace(regex, 'page=' + pageNumber + '&');
+      filter = '/?' + info.filters.replace(regex, 'page=' + pageNumber + '&');
       setCurrentPage(pageNumber);
     }
 
@@ -45,8 +34,15 @@ const ItemPagination = () => {
     }
   }
 
-  const perPageHandler = ({ target }) => {
-    setPerPage(target.value);
+  const perPageHandler = async ({ target }) => {
+    const perPageParameter = target.value;
+    const regexPage = /page=.{1,4}&/;
+    let filter = '/?' + info.filters.replace(regexPage, 'page' + '&');
+    const regexPerPage = /per_page.{0,4}&/;
+    filter = filter.replace(regexPerPage, 'per_page=' + perPageParameter + '&');
+    const response = await getProductPage(filter);
+    setPerPage(parseInt(perPageParameter));
+    setCurrentPage(1);
   };
 
   return (
@@ -59,7 +55,7 @@ const ItemPagination = () => {
             </li>
 
             {
-              Array.from(Array(pagesNumber)).map((e, index) => {
+              Array.from(Array(Math.ceil(info?.count / perPage) || 1)).map((e, index) => {
                 const number = index + 1;
                 return (
                   <li className={`page-item${currentPage == number ? ' active' : ''}`} key={index}>
@@ -82,14 +78,23 @@ const ItemPagination = () => {
           </ul>
         </nav>
       </div>
-
-      <select name="perPage" id="perPage" onChange={perPageHandler}>
-        <option value={5}>5</option>
-        <option value={10}>10</option>
-        <option value={25}>25</option>
-        <option value={50}>50</option>
-        <option value={100}>100</option>
-      </select>
+      <div className='d-flex align-items-center'>
+        Mostrar
+        <select name="perPage" className='form-select' id="perPage" onChange={perPageHandler}>
+          <option value={10}>10</option>
+          <option value={25}>25</option>
+          <option value={50}>50</option>
+          <option value={100}>100</option>
+        </select>
+        productos
+      </div>
+      <div>
+        <span className='itemPagination__count'>
+          {
+            `${((currentPage - 1) * perPage) + 1} - ${((currentPage - 1) * perPage) + results?.length} de productos ${info?.count}`
+          }
+        </span>
+      </div>
     </div >
   );
 

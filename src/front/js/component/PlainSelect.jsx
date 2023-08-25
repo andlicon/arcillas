@@ -9,7 +9,8 @@ const PlainSelect = ({
   setValues,
   invalidFeedback,
   required,
-  list_items
+  list_items,
+  initial
 }) => {
   const onChangeHandler = ({ target }) => {
     setValues(name, target.value);
@@ -24,6 +25,9 @@ const PlainSelect = ({
         </span>
       </div>
       <select className='col-9' name={name} id={id} onChange={onChangeHandler} value={value} required={required}>
+        {
+          initial && <option value={initial.value} key={0}>{initial.label}</option>
+        }
         {
           list_items && list_items.map((element) => {
             return (
