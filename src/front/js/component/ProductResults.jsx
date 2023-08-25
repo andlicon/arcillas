@@ -35,7 +35,7 @@ const ProductResults = ({ selectHandler, selected }) => {
   };
 
   return (
-    <div className='container table-responsive'>
+    <div className='table-responsive'>
       <table className='table results' >
         <thead>
           <tr>

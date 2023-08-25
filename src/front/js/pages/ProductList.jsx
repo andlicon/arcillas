@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link } from "react-router-dom";
 import ItemPagination from '../component/ItemPagination.jsx';
 import ProductResults from '../component/ProductResults.jsx';
+import ProductFilter from '../component/ProductFilter.jsx';
 
 const ProductList = () => {
   const [selected, setSelected] = useState([]);
@@ -26,9 +27,7 @@ const ProductList = () => {
           <Link to='create'>Añadir producto</Link>
         </div>
       </div>
-      <form className='productList__filters'>
-        filtros
-      </form>
+      <ProductFilter />
       <ProductResults selectHandler={selectHandler} selected={selected} />
       <ItemPagination page={null} />
     </div>

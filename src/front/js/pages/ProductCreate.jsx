@@ -82,7 +82,7 @@ const ProductCreate = () => {
                   <PlainInput id='name' name='name' value={values['name']} label='Nombre' type='text' popOver='Nombre del producto' setValues={onChangeInput} invalidFeedback='Se debe especificar un nombre' required={true} />
                   <PlainInput id='description' name='description' value={values['description']} label='Descripción' type='text' popOver='Descripcin del producto' setValues={onChangeInput} invalidFeedback='Se debe proporcionar una descripción' required={true} />
                   <PlainInput id='usage' name='usage' value={values['usage']} label='Uso' type='text' popOver='Áreas o actividades en las que se usa' setValues={onChangeInput} invalidFeedback='Se debe especificar un nombre' required={true} />
-                  <PlainSelect id='categoryId' name='categoryId' value={values['categoryId']} label='Categoría' popOver='Categoría del producto, solo puede posser 1' setValues={onChangeInput} invalidFeedback='Se debe especificar una categoría' required={true} list_items={categorys} />
+                  <PlainSelect id='categoryId' name='categoryId' value={values['categoryId']} label='Categoría' popOver='Categoría del producto, solo puede poseer 1' setValues={onChangeInput} invalidFeedback='Se debe especificar una categoría' required={true} list_items={categorys} />
                   <PlainSelect id='unitId' name='unitId' value={values['unitId']} label='Unidad' popOver='Unidad en la que se presenta el producto' setValues={onChangeInput} invalidFeedback='Se debe especificar una unidad' required={true} list_items={units} />
                 </div>
               </div>
