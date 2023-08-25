@@ -8,7 +8,8 @@ import PlainSelect from './PlainSelect.jsx';
 import PlainSwitch from './PlainSwitch.jsx';
 
 const ProductFilter = () => {
-  const { store } = useContext(Context);
+  const { store, actions } = useContext(Context);
+  const { getProductPage } = actions;
   const { categorys, units } = store;
   const [filter, setFilter] = useState({
     name: '',
@@ -20,6 +21,17 @@ const ProductFilter = () => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
+    let filters = ''
+    const nameFilter = filter['name'].trim();
+    filters += `/?name${nameFilter != '' ? `=${nameFilter}` : ''}&`;
+    const categoryFilter = filter['categoryId'];
+    filters += `category${categoryFilter != 'all' ? `=${categoryFilter}` : ''}&`;
+    const unitFilter = filter['unitId'];
+    filters += `unit${unitFilter != 'all' ? `=${unitFilter}` : ''}&`;
+    const subCategoryFilter = filter['subCategory'];
+    filters += `sub_category${subCategoryFilter != 'all' ? `=${subCategoryFilter}` : ''}`;
+
+    getProductPage(filters);
   };
 
   const onChangeInput = (name, value) => {
