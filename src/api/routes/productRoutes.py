@@ -24,15 +24,21 @@ def get_all_products():
     usage_args = args.get('usage', default='%', type=str)
     category_args = args.get('category', default=None, type=int)
     unit_args = args.get('unit', default=None, type=int)
+    sub_category_arg = args.get('sub_category', default='False', type=str).lower() == 'true'
 
-    product_query = Product.query.filter(
-        and_(
-            Product.name.ilike(f'%{name_args}%'),
-            Product.description.ilike(f'%{description_args}%'),
-            Product.usage.ilike(f'%{usage_args}%'),
-            Product.category_id == category_args if category_args is not None else Product.category_id != None,
-            Product.unit_id == unit_args if unit_args is not None else Product.unit_id != None
-            ))
+    product_query = None
+
+    if(sub_category_arg) :
+        product_query = Product.query.all()
+    else:
+        product_query = Product.query.filter(
+            and_(
+                Product.name.ilike(f'%{name_args}%'),
+                Product.description.ilike(f'%{description_args}%'),
+                Product.usage.ilike(f'%{usage_args}%'),
+                Product.category_id == category_args if category_args is not None else Product.category_id != None,
+                Product.unit_id == unit_args if unit_args is not None else Product.unit_id != None
+                ))
 
     page = product_query.paginate(page=page_args, per_page=per_page_args)
     product_list = list( map(lambda product: product.serialize(), page.items) )
