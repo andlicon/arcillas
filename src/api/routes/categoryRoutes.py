@@ -1,6 +1,7 @@
 from flask import jsonify, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from . import api
+from ..utils.routeUtils import get_hierarchy
 from ..models import db
 from ..models.Category import Category
 from ..models.User import User
@@ -158,3 +159,15 @@ def patch_category(id):
         return jsonify({'message': 'Ocurrio un error interno'}), 500
 
     return jsonify(category.serialize()), 200
+
+
+@api.route('/categorys/<int:id>/hierarchy', methods=['GET'])
+def get_category_hierarchy(id):
+    category = Category.query.filter_by(id=id).one_or_none()
+    if category is None:
+        return jsonify({'message': 'La categoria no existe'}), 404
+
+    category_list = []
+    get_hierarchy(category, category_list)
+
+    return jsonify(category_list), 200
