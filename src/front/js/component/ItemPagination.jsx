@@ -5,10 +5,9 @@ import '../../styles/itemPagination.css';
 const ItemPagination = () => {
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pagesNumber, setPagesNumber] = useState(1);
   const { store, actions } = useContext(Context);
   const { productPage } = store;
-  const { info } = productPage;
+  const { info, results } = productPage;
   const { getProductPage } = actions;
 
   const onClickNextPage = ({ target }) => {
@@ -43,7 +42,7 @@ const ItemPagination = () => {
     filter = filter.replace(regexPerPage, 'per_page=' + perPageParameter + '&');
     const response = await getProductPage(filter);
     setPerPage(parseInt(perPageParameter));
-    setPagesNumber(Math.ceil(response.info.count / perPageParameter));
+    setCurrentPage(1);
   };
 
   return (
@@ -79,13 +78,23 @@ const ItemPagination = () => {
           </ul>
         </nav>
       </div>
-
-      <select name="perPage" id="perPage" onChange={perPageHandler}>
-        <option value={10}>10</option>
-        <option value={25}>25</option>
-        <option value={50}>50</option>
-        <option value={100}>100</option>
-      </select>
+      <div className='d-flex align-items-center'>
+        Mostrar
+        <select name="perPage" className='form-select' id="perPage" onChange={perPageHandler}>
+          <option value={10}>10</option>
+          <option value={25}>25</option>
+          <option value={50}>50</option>
+          <option value={100}>100</option>
+        </select>
+        productos
+      </div>
+      <div>
+        <span className='itemPagination__count'>
+          {
+            `${((currentPage - 1) * perPage) + 1} - ${((currentPage - 1) * perPage) + results?.length} de productos ${info?.count}`
+          }
+        </span>
+      </div>
     </div >
   );
 
