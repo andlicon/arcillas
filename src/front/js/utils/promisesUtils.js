@@ -126,3 +126,24 @@ export const getAllProductsPromise = async (filters = '') => {
     }
   });
 };
+
+export const getCategoryHierarchy = (id) => {
+  return new Promise(
+    async (resolve, reject) => {
+      try {
+        const response = await fetch(process.env.BACKEND_URL + '/categorys/' + id + '/hierarchy');
+        const data = await response.json();
+
+        if (response.ok) {
+          resolve(data);
+        }
+        else {
+          resolve(data.msg);
+        }
+      }
+      catch (error) {
+        reject('Ha ocurrido algún error interno');
+      }
+    }
+  );
+}

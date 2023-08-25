@@ -4,7 +4,8 @@ import {
   getCategoryPromise,
   postProductPromise,
   getUnitsPromise,
-  getAllProductsPromise
+  getAllProductsPromise,
+  getCategoryHierarchy
 } from '../utils/promisesUtils.js'
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -105,6 +106,15 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
         catch (error) {
           setStore({ 'productPage': [] });
+          console.log(error);
+        }
+      },
+      getCategoryHierarchy: async (id) => {
+        try {
+          const response = await getCategoryHierarchy(id);
+          return response;
+        }
+        catch (error) {
           console.log(error);
         }
       }

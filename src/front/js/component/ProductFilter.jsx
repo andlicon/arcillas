@@ -9,7 +9,7 @@ import PlainSwitch from './PlainSwitch.jsx';
 
 const ProductFilter = () => {
   const { store, actions } = useContext(Context);
-  const { getProductPage } = actions;
+  const { getProductPage, getCategoryHierarchy } = actions;
   const { categorys, units } = store;
   const [filter, setFilter] = useState({
     name: '',
@@ -19,17 +19,20 @@ const ProductFilter = () => {
   });
 
 
-  const onSubmitHandler = (event) => {
+  const onSubmitHandler = async (event) => {
     event.preventDefault();
     let filters = ''
     const nameFilter = filter['name'].trim();
     filters += `/?name${nameFilter != '' ? `=${nameFilter}` : ''}&`;
-    const categoryFilter = filter['categoryId'];
+    let categoryFilter = filter['categoryId'];
+    if (categoryFilter != 'all' && filter['subCategory']) {
+      const category_response = await getCategoryHierarchy(categoryFilter);
+      categoryFilter = '';
+      category_response.forEach((category) => categoryFilter += category.id + ',');
+    }
     filters += `category${categoryFilter != 'all' ? `=${categoryFilter}` : ''}&`;
     const unitFilter = filter['unitId'];
     filters += `unit${unitFilter != 'all' ? `=${unitFilter}` : ''}&`;
-    const subCategoryFilter = filter['subCategory'];
-    filters += `sub_category${subCategoryFilter != 'all' ? `=${subCategoryFilter}` : ''}`;
 
     getProductPage(filters);
   };
