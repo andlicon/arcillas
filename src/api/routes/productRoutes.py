@@ -22,21 +22,30 @@ def get_all_products():
     name_args = args.get('name', default='%', type=str)
     description_args = args.get('description', default='%', type=str)
     usage_args = args.get('usage', default='%', type=str)
-    category_args = args.get('category', default=None, type=int)
+    category_args = args.get('category', default=None, type=str)
     unit_args = args.get('unit', default=None, type=int)
-    sub_category_arg = args.get('sub_category', default='False', type=str).lower() == 'true'
 
-    product_query = None
+    category_list = None
 
-    if(sub_category_arg) :
-        product_query = Product.query.all()
+    if category_args is not None and category_args.strip() != '':
+        category_list = []
+        for id in category_args.split(','):
+            if id is None or id == '':
+                continue
+            try:
+                category_list.append(int(id.strip()))
+            except Exception as e:
+                return jsonify({'msg': 'Se ha proporcionado una categoria inválida'}), 400
     else:
-        product_query = Product.query.filter(
+        all_categories = Category.query.all()
+        category_list = list(map(lambda item: item.id , all_categories))
+
+    product_query = Product.query.filter(
             and_(
                 Product.name.ilike(f'%{name_args}%'),
                 Product.description.ilike(f'%{description_args}%'),
                 Product.usage.ilike(f'%{usage_args}%'),
-                Product.category_id == category_args if category_args is not None else Product.category_id != None,
+                Product.category_id.in_(category_list),
                 Product.unit_id == unit_args if unit_args is not None else Product.unit_id != None
                 ))
 
