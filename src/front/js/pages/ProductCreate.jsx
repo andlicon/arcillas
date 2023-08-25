@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Context } from '../store/appContext.js';
 import '../../styles/ProductCreate.css';
+import {
+  activatePopOvers
+} from '../utils/domUtils.js'
 import BackTo from '../component/BackTo.jsx';
 import PlainInput from '../component/PlainInput.jsx';
 import PlainSelect from '../component/PlainSelect.jsx';
@@ -23,11 +26,7 @@ const ProductCreate = () => {
   })
 
   useEffect(() => {
-    const popOverList = document.getElementsByClassName('popOvers');
-    for (let i = 0; i < popOverList.length; i++) {
-      const pop = popOverList[i];
-      const popover = new bootstrap.Popover(pop, null);
-    }
+    activatePopOvers();
   }, [])
 
   const onSubmitHandler = async (event) => {

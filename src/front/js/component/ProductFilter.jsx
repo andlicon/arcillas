@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../store/appContext.js';
+import {
+  activatePopOvers
+} from '../utils/domUtils.js'
 import PlainInput from './PlainInput.jsx';
 import PlainSelect from './PlainSelect.jsx';
 
@@ -25,11 +28,7 @@ const ProductFilter = () => {
   };
 
   useEffect(() => {
-    const popOverList = document.getElementsByClassName('popOvers');
-    for (let i = 0; i < popOverList.length; i++) {
-      const pop = popOverList[i];
-      const popover = new bootstrap.Popover(pop, null);
-    }
+    activatePopOvers();
   }, [])
 
   return (
