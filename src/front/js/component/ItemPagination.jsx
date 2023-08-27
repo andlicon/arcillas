@@ -1,49 +1,18 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Context } from '../store/appContext.js';
+import usePagination from '../hooks/usePagination.jsx';
 import '../../styles/itemPagination.css';
 
 const ItemPagination = () => {
-  const [perPage, setPerPage] = useState(10);
-  const [currentPage, setCurrentPage] = useState(1);
-  const { store, actions } = useContext(Context);
+  const { store } = useContext(Context);
   const { productPage } = store;
   const { info, results } = productPage;
-  const { getProductPage } = actions;
-
-  const onClickNextPage = ({ target }) => {
-    const name = target.name;
-    let filter = null;
-
-    if (name == 'next' && info.next != null) {
-      filter = info.next.replace(process.env.BACKEND_URL + '/products', '');
-      setCurrentPage(parseInt(currentPage) + 1);
-    }
-    else if (name == 'prev' && info.prev != null) {
-      filter = info.prev.replace(process.env.BACKEND_URL + '/products', '');
-      setCurrentPage(parseInt(currentPage) - 1);
-    }
-    else if (name == 'numberNext' && target.value != currentPage) {
-      const pageNumber = target.value;
-      const regex = /page=.{1,4}&/;
-      filter = '/?' + info.filters.replace(regex, 'page=' + pageNumber + '&');
-      setCurrentPage(pageNumber);
-    }
-
-    if (filter != null) {
-      getProductPage(filter);
-    }
-  }
-
-  const perPageHandler = async ({ target }) => {
-    const perPageParameter = target.value;
-    const regexPage = /page=.{1,4}&/;
-    let filter = '/?' + info.filters.replace(regexPage, 'page' + '&');
-    const regexPerPage = /per_page.{0,4}&/;
-    filter = filter.replace(regexPerPage, 'per_page=' + perPageParameter + '&');
-    const response = await getProductPage(filter);
-    setPerPage(parseInt(perPageParameter));
-    setCurrentPage(1);
-  };
+  const {
+    perPage,
+    currentPage,
+    nextPageHandler,
+    perPageHandler
+  } = usePagination();
 
   return (
     <div className='itemPagination'>
@@ -51,7 +20,7 @@ const ItemPagination = () => {
         <nav aria-label="Page navigation">
           <ul className="pagination">
             <li className={`page-item${info?.prev == null ? ' disabled' : ''}`}>
-              <button className={"page-link"} name='prev' onClick={onClickNextPage}>Previous</button >
+              <button className={"page-link"} name='prev' onClick={nextPageHandler}>Previous</button >
             </li>
 
             {
@@ -61,7 +30,7 @@ const ItemPagination = () => {
                   <li className={`page-item${currentPage == number ? ' active' : ''}`} key={index}>
                     <button className='page-link'
                       disabled={currentPage == number}
-                      onClick={onClickNextPage}
+                      onClick={nextPageHandler}
                       value={number}
                       name='numberNext'>
                       {
@@ -73,7 +42,7 @@ const ItemPagination = () => {
               })
             }
             <li className={`page-item${info?.next == null ? ' disabled' : ''}`}>
-              <button className="page-link" name='next' onClick={onClickNextPage}>Next</button>
+              <button className="page-link" name='next' onClick={nextPageHandler}>Next</button>
             </li>
           </ul>
         </nav>
