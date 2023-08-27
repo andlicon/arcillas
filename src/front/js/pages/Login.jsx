@@ -20,8 +20,8 @@ const Login = () => {
     const user = await log();
 
     if (user == null) return null;
+    if (user.role == 'administrador') navigate('/admin/product');
 
-    navigate('/admin/product');
   };
 
   return (
