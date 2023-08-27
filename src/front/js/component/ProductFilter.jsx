@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Context } from '../store/appContext.js';
-import {
-  activatePopOvers
-} from '../utils/domUtils.js'
+import usePopOver from '../hooks/usePopOver.jsx';
 import PlainInput from './PlainInput.jsx';
 import PlainSelect from './PlainSelect.jsx';
 import PlainSwitch from './PlainSwitch.jsx';
@@ -44,9 +42,7 @@ const ProductFilter = () => {
     })
   };
 
-  useEffect(() => {
-    activatePopOvers();
-  }, [])
+  usePopOver();
 
   return (
     <div className="accordion" id="accordionPanelsStayOpenExample">

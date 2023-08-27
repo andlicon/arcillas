@@ -1,9 +1,7 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Context } from '../store/appContext.js';
 import '../../styles/ProductCreate.css';
-import {
-  activatePopOvers
-} from '../utils/domUtils.js'
+import usePopOver from '../hooks/usePopOver.jsx';
 import BackTo from '../component/BackTo.jsx';
 import PlainInput from '../component/PlainInput.jsx';
 import PlainSelect from '../component/PlainSelect.jsx';
@@ -23,11 +21,9 @@ const ProductCreate = () => {
     categoryId: categorys[0]?.id,
     unitId: units[0]?.id,
     image: undefined
-  })
+  });
 
-  useEffect(() => {
-    activatePopOvers();
-  }, [])
+  usePopOver();
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
