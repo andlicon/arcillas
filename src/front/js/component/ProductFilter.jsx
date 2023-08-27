@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Context } from '../store/appContext.js';
+import useFilter from '../hooks/useFilter.jsx';
 import usePopOver from '../hooks/usePopOver.jsx';
 import PlainInput from './PlainInput.jsx';
 import PlainSelect from './PlainSelect.jsx';
@@ -9,37 +10,28 @@ const ProductFilter = () => {
   const { store, actions } = useContext(Context);
   const { getProductPage, getCategoryHierarchy } = actions;
   const { categorys, units } = store;
-  const [filter, setFilter] = useState({
-    name: '',
-    categoryId: 'all',
-    unitId: 'all',
-    subCategory: false
-  });
-
+  const {
+    filter,
+    setFilterHandler,
+    getResult } = useFilter({
+      name: '',
+      category: 'all',
+      unit: 'all',
+      subCategory: false
+    },
+      getProductPage);
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    let filters = ''
-    const nameFilter = filter['name'].trim();
-    filters += `/?name${nameFilter != '' ? `=${nameFilter}` : ''}&`;
-    let categoryFilter = filter['categoryId'];
-    if (categoryFilter != 'all' && filter['subCategory']) {
-      const category_response = await getCategoryHierarchy(categoryFilter);
-      categoryFilter = '';
-      category_response.forEach((category) => categoryFilter += category.id + ',');
-    }
-    filters += `category${categoryFilter != 'all' ? `=${categoryFilter}` : ''}&`;
-    const unitFilter = filter['unitId'];
-    filters += `unit${unitFilter != 'all' ? `=${unitFilter}` : ''}&`;
 
-    getProductPage(filters);
-  };
+    // if (filter['subCategory'] && filter['category'] != 'all') {
+    //   const category_response = await getCategoryHierarchy(filter['category']);
+    //   let categoriesString = '';
+    //   category_response.forEach((category) => categoriesString += category.id + ',');
+    //   setFilterHandler('category', categoriesString);
+    // }
 
-  const onChangeInput = (name, value) => {
-    setFilter({
-      ...filter,
-      [name]: value
-    })
+    getResult();
   };
 
   usePopOver();
@@ -55,10 +47,10 @@ const ProductFilter = () => {
         <div id="searchFilter" className="accordion-collapse collapse show">
           <form className="accordion-body" onSubmit={onSubmitHandler}>
             <div>
-              <PlainInput id='name' name='name' value={filter['name']} label='Nombre' type='text' popOver='Nombre del producto' setValues={onChangeInput} required={false} />
-              <PlainSelect id='categoryId' name='categoryId' value={filter['categoryId']} label='Categoría' popOver='Categoría del producto, solo puede poseer 1' setValues={onChangeInput} required={false} list_items={categorys} initial={{ value: 'all', label: 'Todos' }} />
-              <PlainSwitch name='subCategory' id='subCategory' value={filter['subCategory']} popOver='Habilitar para buscar subcategorías' setValues={onChangeInput} label='Buscar subcategorías' />
-              <PlainSelect id='unitId' name='unitId' value={filter['unitId']} label='Unidad' popOver='Unidad en la que se presenta el producto' setValues={onChangeInput} required={false} list_items={units} initial={{ value: 'all', label: 'Todos' }} />
+              <PlainInput id='name' name='name' value={filter['name']} label='Nombre' type='text' popOver='Nombre del producto' setValues={setFilterHandler} required={false} />
+              <PlainSelect id='category' name='category' value={filter['category']} label='Categoría' popOver='Categoría del producto, solo puede poseer 1' setValues={setFilterHandler} required={false} list_items={categorys} initial={{ value: 'all', label: 'Todos' }} />
+              <PlainSwitch name='subCategory' id='subCategory' value={filter['subCategory']} popOver='Habilitar para buscar subcategorías' setValues={setFilterHandler} label='Buscar subcategorías' />
+              <PlainSelect id='unit' name='unit' value={filter['unit']} label='Unidad' popOver='Unidad en la que se presenta el producto' setValues={setFilterHandler} required={false} list_items={units} initial={{ value: 'all', label: 'Todos' }} />
             </div>
             <button>
               Buscar
