@@ -20,7 +20,7 @@ export const loginPromise = (credentials) => {
           resolve(data);
         }
         else {
-          reject(data.msg);
+          reject(data.message);
         }
 
       }
