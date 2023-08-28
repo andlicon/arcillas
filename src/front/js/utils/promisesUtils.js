@@ -20,7 +20,7 @@ export const loginPromise = (credentials) => {
           resolve(data);
         }
         else {
-          reject(data.msg);
+          reject(data.message);
         }
 
       }
@@ -83,6 +83,7 @@ export const getUnitsPromise = () => {
 export const postProductPromise = async (procuct, token) => {
   return new Promise(async (resolve, reject) => {
     try {
+      console.log(procuct);
       const response = await fetch(`${process.env.BACKEND_URL}/products`, {
         method: 'POST',
         headers: {
@@ -98,6 +99,7 @@ export const postProductPromise = async (procuct, token) => {
       }
       else {
         reject(data.message)
+        console.log(data.msg);
       }
     }
     catch (error) {

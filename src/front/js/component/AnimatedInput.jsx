@@ -19,7 +19,7 @@ const AnimatedInput = ({ type,
       return null;
     }
 
-    setValue((trim ? target.value.trim() : target.value), name)
+    setValue(name, (trim ? target.value.trim() : target.value))
   };
 
   return (

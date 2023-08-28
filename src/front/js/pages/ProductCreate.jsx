@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Context } from '../store/appContext.js';
+import useFormProduct from '../hooks/useProductForm.jsx';
 import '../../styles/ProductCreate.css';
-import {
-  activatePopOvers
-} from '../utils/domUtils.js'
+import usePopOver from '../hooks/usePopOver.jsx';
 import BackTo from '../component/BackTo.jsx';
 import PlainInput from '../component/PlainInput.jsx';
 import PlainSelect from '../component/PlainSelect.jsx';
@@ -12,45 +11,28 @@ import {
 } from '../utils/validateUtils.js';
 
 const ProductCreate = () => {
-  const { store, actions } = useContext(Context);
+  const { store } = useContext(Context);
   const { categorys, units } = store;
-  const { postProduct } = actions;
-  const [loading, setLoading] = useState(false);
-  const [values, setValues] = useState({
+  const {
+    isLoading,
+    formProduct,
+    onChangeFormProduct,
+    createProduct
+  } = useFormProduct({
     name: '',
     description: '',
     usage: '',
     categoryId: categorys[0]?.id,
     unitId: units[0]?.id,
     image: undefined
-  })
+  });
 
-  useEffect(() => {
-    activatePopOvers();
-  }, [])
+  usePopOver();
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    if (validateProductForm(values)) {
-      setLoading(true);
-      const form = new FormData();
-      form.append('name', values['name']);
-      form.append('description', values['description']);
-      form.append('usage', values['usage']);
-      form.append('category_id', values['categoryId']);
-      form.append('unit_id', values['unitId']);
-      form.append('image', values['image']);
-      await postProduct(form);
-      setLoading(false);
-    }
+    if (validateProductForm(formProduct)) await createProduct();
   }
-
-  const onChangeInput = (name, value) => {
-    setValues({
-      ...values,
-      [name]: value
-    })
-  };
 
   return (
     <>
@@ -62,7 +44,7 @@ const ProductCreate = () => {
 
         <form className='productCreate__form needs-validation' id='productCreate' noValidate onSubmit={onSubmitHandler}>
           <div className='d-flex justify-content-end'>
-            <button className='btn' type='submit' disabled={loading}>
+            <button className='btn' type='submit' disabled={isLoading}>
               <i className="bi bi-save-fill"></i>
               Guardar
             </button>
@@ -78,11 +60,11 @@ const ProductCreate = () => {
               </h2>
               <div id="info-collapse" className="accordion-collapse collapse show">
                 <div className="accordion-body">
-                  <PlainInput id='name' name='name' value={values['name']} label='Nombre' type='text' popOver='Nombre del producto' setValues={onChangeInput} invalidFeedback='Se debe especificar un nombre' required={true} />
-                  <PlainInput id='description' name='description' value={values['description']} label='Descripción' type='text' popOver='Descripcin del producto' setValues={onChangeInput} invalidFeedback='Se debe proporcionar una descripción' required={true} />
-                  <PlainInput id='usage' name='usage' value={values['usage']} label='Uso' type='text' popOver='Áreas o actividades en las que se usa' setValues={onChangeInput} invalidFeedback='Se debe especificar un nombre' required={true} />
-                  <PlainSelect id='categoryId' name='categoryId' value={values['categoryId']} label='Categoría' popOver='Categoría del producto, solo puede poseer 1' setValues={onChangeInput} invalidFeedback='Se debe especificar una categoría' required={true} list_items={categorys} />
-                  <PlainSelect id='unitId' name='unitId' value={values['unitId']} label='Unidad' popOver='Unidad en la que se presenta el producto' setValues={onChangeInput} invalidFeedback='Se debe especificar una unidad' required={true} list_items={units} />
+                  <PlainInput id='name' name='name' value={formProduct['name']} label='Nombre' type='text' popOver='Nombre del producto' setValues={onChangeFormProduct} invalidFeedback='Se debe especificar un nombre' required={true} />
+                  <PlainInput id='description' name='description' value={formProduct['description']} label='Descripción' type='text' popOver='Descripcin del producto' setValues={onChangeFormProduct} invalidFeedback='Se debe proporcionar una descripción' required={true} />
+                  <PlainInput id='usage' name='usage' value={formProduct['usage']} label='Uso' type='text' popOver='Áreas o actividades en las que se usa' setValues={onChangeFormProduct} invalidFeedback='Se debe especificar un nombre' required={true} />
+                  <PlainSelect id='categoryId' name='categoryId' value={formProduct['categoryId']} label='Categoría' popOver='Categoría del producto, solo puede poseer 1' setValues={onChangeFormProduct} invalidFeedback='Se debe especificar una categoría' required={true} list_items={categorys} />
+                  <PlainSelect id='unitId' name='unitId' value={formProduct['unitId']} label='Unidad' popOver='Unidad en la que se presenta el producto' setValues={onChangeFormProduct} invalidFeedback='Se debe especificar una unidad' required={true} list_items={units} />
                 </div>
               </div>
             </div>
@@ -96,7 +78,7 @@ const ProductCreate = () => {
               </h2>
               <div id="multimedia-collapse" className="accordion-collapse collapse show">
                 <div className="accordion-body">
-                  <PlainInput id='image' name='image' value={undefined} label='Imagen' type='file' popOver='Imagen del producto' setValues={onChangeInput} invalidFeedback='La imagen del producto, debe ser jpg, jpge, png' required={false} />
+                  <PlainInput id='image' name='image' value={undefined} label='Imagen' type='file' popOver='Imagen del producto' setValues={onChangeFormProduct} invalidFeedback='La imagen del producto, debe ser jpg, jpge, png' required={false} />
                 </div>
               </div>
             </div>

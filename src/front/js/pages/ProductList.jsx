@@ -1,23 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
+import useSelected from '../hooks/useSelected.jsx';
 import ItemPagination from '../component/ItemPagination.jsx';
 import ProductResults from '../component/ProductResults.jsx';
 import ProductFilter from '../component/ProductFilter.jsx';
 
 const ProductList = () => {
-  const [selected, setSelected] = useState([]);
-
-  const selectHandler = (toSelect) => {
-    if (typeof toSelect == 'object') {
-      setSelected(toSelect);
-    }
-    else if (selected.some(id => id == toSelect)) {
-      setSelected(selected.filter(id => id != toSelect));
-    }
-    else {
-      setSelected([...selected, toSelect]);
-    }
-  };
+  const { selected, selectHandler } = useSelected();
 
   return (
     <div className='container'>

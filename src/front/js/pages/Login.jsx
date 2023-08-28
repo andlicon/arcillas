@@ -1,43 +1,27 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import { useNavigate } from "react-router-dom";
-import { Context } from '../store/appContext.js';
+import useLoading from '../hooks/useLogin.jsx';
 import '../../styles/login.css'
-import { validateLogin } from '../utils/validateUtils.js';
 import AnimatedInput from '../component/AnimatedInput.jsx';
 
-const initialValue = {
-  email: '',
-  password: ''
-}
-
 const Login = () => {
+  const {
+    credentials,
+    isLoading,
+    setForm,
+    log
+  } = useLoading();
+
   const navigate = useNavigate();
-  const [formValues, setFormValues] = useState(initialValue);
-  const [loading, setLoading] = useState(false);
-  const { actions } = useContext(Context);
-  const { login } = actions;
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    // validation of email and password, if are valid, then execute login
-    const isValid = validateLogin('email', 'password', 'login');
 
-    if (!isValid) return null;
+    const user = await log();
 
-    setLoading(true);
-    const logged = await login(formValues);
-    setLoading(false);
+    if (user == null) return null;
+    if (user.role == 'administrador') navigate('/admin/product');
 
-    if (logged) {
-      navigate('/dashboard');
-    }
-  };
-
-  const onChangeInput = (value, name) => {
-    setFormValues({
-      ...formValues,
-      [name]: value
-    })
   };
 
   return (
@@ -62,10 +46,10 @@ const Login = () => {
               id='email'
               trim={true}
               isRequired={true}
-              value={formValues['email']}
+              value={credentials['email']}
               invalidFeedback='No es un email inválido'
               bootstrapIcon='bi-person-fill'
-              setValue={onChangeInput} />
+              setValue={setForm} />
             <AnimatedInput
               type='password'
               label='Contraseña'
@@ -75,12 +59,12 @@ const Login = () => {
               isRequired={true}
               invalidFeedback='No es una contraseña válida'
               bootstrapIcon='bi-key-fill'
-              value={formValues['password']}
-              setValue={onChangeInput} />
+              value={credentials['password']}
+              setValue={setForm} />
             <button
               type="submit"
               id='loginButton'
-              disabled={loading}
+              disabled={isLoading}
               className={"btn btn-primary"}>
               Iniciar sesión
             </button>
