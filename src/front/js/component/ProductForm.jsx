@@ -8,7 +8,7 @@ import PlainSelect from './PlainSelect.jsx';
 import { validateProductForm } from '../utils/validateUtils.js';
 import '../../styles/ProductCreate.css';
 
-const ProductForm = ({ action }) => {
+const ProductForm = ({ action, children }) => {
   const { store } = useContext(Context);
   const { categorys, units } = store;
   const { productId } = useParams();
@@ -19,13 +19,15 @@ const ProductForm = ({ action }) => {
     formProduct,
     onChangeFormProduct,
     createProduct,
-    updateProduct
+    updateProduct,
+    removeProduct
   } = useProductForm(productId);
 
   usePopOver();
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
+
     if (!validateProductForm(formProduct)) return null;
 
     if (action.toLowerCase() == 'create') await createProduct();
@@ -38,10 +40,17 @@ const ProductForm = ({ action }) => {
   return (
     <form className='productCreate__form needs-validation' id='productCreate' noValidate onSubmit={onSubmitHandler}>
       <div className='d-flex justify-content-end'>
-        <button className='btn' type='submit' disabled={isLoading}>
+        <button className='btn' name='save' type='submit' disabled={isLoading}>
           <i className="bi bi-save-fill"></i>
           Guardar
         </button>
+        {
+          action == 'edit' &&
+          <button className='btn bg-danger text-light' name='delete' type='button' disabled={isLoading} onClick={removeProduct}>
+            <i className="bi bi-trash-fill"></i>
+            Borrar
+          </button>
+        }
       </div>
       {/* PRODUCT INFORMATION */}
       <div className="accordion" id="accordionExample">

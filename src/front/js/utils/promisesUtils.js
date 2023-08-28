@@ -190,3 +190,26 @@ export const patchProductPromise = async (id, form, token) => {
     }
   });
 };
+
+export const deleteProductPromise = async (id, token) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(process.env.BACKEND_URL + '/products/' + id, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      });
+
+      if (response.ok) resolve(true);
+      else {
+        const data = await response.json();
+        reject(data.message)
+      }
+    }
+    catch (error) {
+      console.log(error);
+      reject('Algún error ha ocurrido');
+    }
+  });
+}

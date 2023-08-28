@@ -7,7 +7,8 @@ import {
   getAllProductsPromise,
   getCategoryHierarchy,
   getOneProductPromise,
-  patchProductPromise
+  patchProductPromise,
+  deleteProductPromise
 } from '../utils/promisesUtils.js'
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -160,6 +161,26 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
 
         return data;
+      },
+      deleteProduct: async (id) => {
+        const { token } = getStore();
+
+        try {
+          const data = await toast.promise(deleteProductPromise(id, token),
+            {
+              pending: 'Borrando producto...',
+              success: 'Has borrado el producto exitosamente',
+              error: {
+                render({ data }) {
+                  return data
+                }
+              }
+            }
+          )
+        }
+        catch (error) {
+          console.log(error);
+        }
       }
     }
   };
