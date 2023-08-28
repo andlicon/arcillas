@@ -15,7 +15,7 @@ const useFormProduct = (productId) => {
   const [isLoading, setIsLoading] = useState(false);
   const [formProduct, setFormProduct] = useState(initialValue);
   const { actions, store } = useContext(Context);
-  const { postProduct } = actions;
+  const { postProduct, getOneProduct } = actions;
   const { categorys, units, productPage } = store;
 
   const onChangeFormProduct = (name, value) => {
@@ -73,7 +73,19 @@ const useFormProduct = (productId) => {
     }
     else {
       // query for product
-      console.log('):');
+      const queryProduct = async () => {
+        const product = await getOneProduct(productId);
+        setFormProduct({
+          name: product.name,
+          description: product.description,
+          usage: product.usage,
+          categoryId: product.category_id,
+          unitId: product.unit_id,
+          image: product.image_url,
+          id: product.id
+        })
+      }
+      queryProduct();
     }
   }, []);
 
