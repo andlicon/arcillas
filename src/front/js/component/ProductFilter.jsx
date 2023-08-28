@@ -24,14 +24,14 @@ const ProductFilter = () => {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
 
-    // if (filter['subCategory'] && filter['category'] != 'all') {
-    //   const category_response = await getCategoryHierarchy(filter['category']);
-    //   let categoriesString = '';
-    //   category_response.forEach((category) => categoriesString += category.id + ',');
-    //   setFilterHandler('category', categoriesString);
-    // }
+    let categoryFilter = filter['category'];
+    if (filter['subCategory'] && categoryFilter != 'all') {
+      const category_response = await getCategoryHierarchy(categoryFilter);
+      categoryFilter = [];
+      category_response.forEach((category) => categoryFilter.push(category.id) + ',');
+    }
 
-    getResult();
+    getResult({ ...filter, 'category': categoryFilter });
   };
 
   usePopOver();

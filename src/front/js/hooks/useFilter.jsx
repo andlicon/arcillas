@@ -11,19 +11,27 @@ const useFilter = (initialValue, queryFunction) => {
     })
   }
 
-  const getResult = async () => {
+  const getResult = async (filterParameter = filter) => {
     setIsLoading(true);
     let filterString = '/?';
 
-    for (const attribute in filter) {
-      const value = filter[attribute];
+    for (const attribute in filterParameter) {
+      const value = filterParameter[attribute];
 
-      if (value == 'all' || value == '') filterString += attribute;
-      else filterString += `${attribute}=${value}`;
+      filterString += attribute;
+
+      if (typeof value == 'object') {
+        let categoriesString = '=';
+        value.forEach((id) => categoriesString += id + ',');
+
+        filterString += categoriesString;
+      }
+      else if (value != 'all' && value != '') filterString += `=${value}`;
 
       filterString += '&';
     }
 
+    console.log(filterString)
     await queryFunction(filterString);
     setIsLoading(false);
   }
