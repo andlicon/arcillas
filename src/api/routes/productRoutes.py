@@ -268,6 +268,6 @@ def patch_product(id):
     except Exception as error:
         db.session.rollback()
         print(error.args)
-        return jsonify({'message': errror.args}), 500
+        return jsonify({'message': error.args}), 500
 
-    return jsonify({'message': product.serialize()}), 200
+    return jsonify(product.serialize()), 200

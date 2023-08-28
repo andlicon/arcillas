@@ -133,8 +133,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       putProduct: async (id, form) => {
         const { token } = getStore();
+        let data = null;
         try {
-          const data = await toast.promise(patchProductPromise(id, form, token), {
+          data = await toast.promise(patchProductPromise(id, form, token), {
             pending: 'Modificando producto...',
             success: 'Has modificado el producto exitosamente',
             error: {
@@ -147,6 +148,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         catch (error) {
           console.log(error);
         }
+        return data;
       }
     }
   };
