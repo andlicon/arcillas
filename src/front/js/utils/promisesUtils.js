@@ -149,3 +149,23 @@ export const getCategoryHierarchy = (id) => {
     }
   );
 }
+
+export const getOneProductPromise = async (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(process.env.BACKEND_URL + '/products/' + id);
+      const data = await response.json();
+
+      if (response.ok) {
+        resolve(data);
+      }
+      else {
+        reject(data.message);
+      }
+    }
+    catch (error) {
+      console.log(error);
+      reject('Ha ocurrido algún error interno');
+    }
+  });
+};
