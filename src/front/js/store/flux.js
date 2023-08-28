@@ -5,7 +5,9 @@ import {
   postProductPromise,
   getUnitsPromise,
   getAllProductsPromise,
-  getCategoryHierarchy
+  getCategoryHierarchy,
+  getOneProductPromise,
+  patchProductPromise
 } from '../utils/promisesUtils.js'
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -117,6 +119,47 @@ const getState = ({ getStore, getActions, setStore }) => {
         catch (error) {
           console.log(error);
         }
+      },
+      getOneProduct: async (id) => {
+        try {
+          const product = await getOneProductPromise(id);
+          return product;
+        }
+        catch (error) {
+          console.log(error);
+        }
+
+        return null;
+      },
+      putProduct: async (id, form) => {
+        const { token, productPage } = getStore();
+        let data = null;
+
+        try {
+          data = await toast.promise(patchProductPromise(id, form, token), {
+            pending: 'Modificando producto...',
+            success: 'Has modificado el producto exitosamente',
+            error: {
+              render({ data }) {
+                return data
+              }
+            }
+          });
+        }
+        catch (error) {
+          console.log(error);
+        }
+
+        if (productPage?.results) {
+          const product = productPage.results.filter((product) => product.id == data.id)[0];
+
+          for (const attribute in product) {
+            const attributeModified = data[attribute];
+            product[attribute] = attributeModified;
+          }
+        }
+
+        return data;
       }
     }
   };

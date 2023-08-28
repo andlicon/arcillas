@@ -83,7 +83,6 @@ export const getUnitsPromise = () => {
 export const postProductPromise = async (procuct, token) => {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(procuct);
       const response = await fetch(`${process.env.BACKEND_URL}/products`, {
         method: 'POST',
         headers: {
@@ -149,3 +148,45 @@ export const getCategoryHierarchy = (id) => {
     }
   );
 }
+
+export const getOneProductPromise = async (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(process.env.BACKEND_URL + '/products/' + id);
+      const data = await response.json();
+
+      if (response.ok) {
+        resolve(data);
+      }
+      else {
+        reject(data.message);
+      }
+    }
+    catch (error) {
+      console.log(error);
+      reject('Ha ocurrido algún error interno');
+    }
+  });
+};
+
+export const patchProductPromise = async (id, form, token) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(process.env.BACKEND_URL + '/products/' + id, {
+        method: 'PATCH',
+        body: form,
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+      })
+
+      const data = await response.json();
+      if (response.ok) resolve(data);
+      else reject(data.message)
+    }
+    catch (error) {
+      console.log(error)
+      reject('Ha ocurrido algún error interno');
+    }
+  });
+};

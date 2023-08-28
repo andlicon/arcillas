@@ -47,7 +47,7 @@ def get_all_products():
                 Product.usage.ilike(f'%{usage_args}%'),
                 Product.category_id.in_(category_list),
                 Product.unit_id == unit_args if unit_args is not None else Product.unit_id != None
-                ))
+                )).order_by(Product.name)
 
     page = product_query.paginate(page=page_args, per_page=per_page_args)
     product_list = list( map(lambda product: product.serialize(), page.items) )
@@ -268,6 +268,6 @@ def patch_product(id):
     except Exception as error:
         db.session.rollback()
         print(error.args)
-        return jsonify({'message': errror.args}), 500
+        return jsonify({'message': error.args}), 500
 
-    return jsonify({'message': product.serialize()}), 200
+    return jsonify(product.serialize()), 200
