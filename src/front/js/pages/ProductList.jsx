@@ -5,6 +5,14 @@ import useSelected from '../hooks/useSelected.jsx';
 import ItemPagination from '../component/ItemPagination.jsx';
 import ProductResults from '../component/ProductResults.jsx';
 import ProductFilter from '../component/ProductFilter.jsx';
+import Modal from '../component/Modal.jsx';
+
+const modalDelete = {
+  body: '¿Estás seguro que quieres ejecutar esta función?',
+  title: '¿Estás seguro?',
+  accept: 'Borrar',
+  cancel: 'Cancelar'
+}
 
 const ProductList = () => {
   const { actions } = useContext(Context);
@@ -17,9 +25,7 @@ const ProductList = () => {
         <div className='productList__functions'>
           <Link to='create'>Añadir producto</Link>
         </div>
-        <button onClick={removeItems}>
-          Eliminar productos
-        </button>
+        <Modal button={{ label: 'Borrar (seleccionados)' }} modal={modalDelete} id='deleteProduct' acceptFunction={removeItems} />
       </div>
       <ProductFilter />
       <ProductResults selectHandler={selectHandler} selected={selected} />
