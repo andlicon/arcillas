@@ -8,7 +8,8 @@ const Modal = ({
 }) => {
 
   const acceptHandler = async () => {
-    await acceptFunction();
+    if (acceptFunction) await acceptFunction();
+
     $('#' + id).modal('hide')
   }
 
