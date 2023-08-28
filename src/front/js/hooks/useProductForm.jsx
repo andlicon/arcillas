@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { Context } from '../store/appContext.js';
+import { useNavigate } from "react-router-dom";
 
 const initialValue = {
   name: '',
@@ -17,6 +18,7 @@ const useFormProduct = (productId) => {
   const { actions, store } = useContext(Context);
   const { postProduct, putProduct, getOneProduct, deleteProduct } = actions;
   const { categorys, units, productPage } = store;
+  const navigate = useNavigate();
 
   const onChangeFormProduct = (name, value) => {
     setFormProduct({
@@ -91,15 +93,20 @@ const useFormProduct = (productId) => {
       // query for product
       const queryProduct = async () => {
         const product = await getOneProduct(productId);
-        setFormProduct({
-          name: product.name,
-          description: product.description,
-          usage: product.usage,
-          categoryId: product.category_id,
-          unitId: product.unit_id,
-          image: product.image_url,
-          id: product.id
-        })
+        if (product) {
+          setFormProduct({
+            name: product.name,
+            description: product.description,
+            usage: product.usage,
+            categoryId: product.category_id,
+            unitId: product.unit_id,
+            image: product.image_url,
+            id: product.id
+          })
+        }
+        else {
+          navigate('/not-found');
+        }
       }
       queryProduct();
     }
