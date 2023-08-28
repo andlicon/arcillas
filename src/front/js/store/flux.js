@@ -7,7 +7,7 @@ import {
   getAllProductsPromise,
   getCategoryHierarchy,
   getOneProductPromise,
-  putProductPromise
+  patchProductPromise
 } from '../utils/promisesUtils.js'
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -134,7 +134,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       putProduct: async (id, form) => {
         const { token } = getStore();
         try {
-          const data = await toast.promise(putProductPromise(id, form, token), {
+          const data = await toast.promise(patchProductPromise(id, form, token), {
             pending: 'Modificando producto...',
             success: 'Has modificado el producto exitosamente',
             error: {

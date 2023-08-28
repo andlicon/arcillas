@@ -168,11 +168,12 @@ export const getOneProductPromise = async (id) => {
     }
   });
 };
-export const putProductPromise = async (id, form, token) => {
+
+export const patchProductPromise = async (id, form, token) => {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await fetch(process.env.BACKEND_URL + '/products/' + id, {
-        method: 'PUT',
+        method: 'PATCH',
         body: form,
         headers: {
           'Authorization': `Bearer ${token}`
