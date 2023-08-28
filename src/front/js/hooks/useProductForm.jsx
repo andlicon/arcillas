@@ -16,26 +16,7 @@ const useFormProduct = (productId) => {
   const [formProduct, setFormProduct] = useState(initialValue);
   const { actions, store } = useContext(Context);
   const { postProduct } = actions;
-  const { categorys, units } = store;
-
-  useEffect(() => {
-    if (productId) {
-
-    }
-    else {
-      setFormProduct({
-        name: '',
-        description: '',
-        usage: '',
-        categoryId: categorys[0]?.id,
-        unitId: units[0]?.id,
-        image: undefined,
-        id: undefined
-      })
-    }
-  }, []);
-
-
+  const { categorys, units, productPage } = store;
 
   const onChangeFormProduct = (name, value) => {
     setFormProduct({
@@ -63,6 +44,38 @@ const useFormProduct = (productId) => {
     await postProduct(form);
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    if (productId == undefined || productId == undefined) {
+      // Set default productForm
+      setFormProduct({
+        name: '',
+        description: '',
+        usage: '',
+        categoryId: categorys[0]?.id,
+        unitId: units[0]?.id,
+        image: undefined,
+        id: undefined
+      })
+    }
+    else if (productPage?.results) {
+      // if product was looked before, then look for it inside page results
+      const product = productPage.results.filter((item) => item.id == productId)[0];
+      setFormProduct({
+        name: product.name,
+        description: product.description,
+        usage: product.usage,
+        categoryId: product.category_id,
+        unitId: product.unit_id,
+        image: product.image_url,
+        id: product.id
+      })
+    }
+    else {
+      // query for product
+      console.log('):');
+    }
+  }, []);
 
   return ({
     isLoading,
