@@ -50,8 +50,7 @@ const useFormProduct = (productId) => {
 
     const form = getForm();
 
-    const product = await putProduct(productId, form);
-    console.log(product);
+    await putProduct(productId, form);
 
     setIsLoading(false);
   };

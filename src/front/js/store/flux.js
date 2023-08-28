@@ -132,8 +132,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         return null;
       },
       putProduct: async (id, form) => {
-        const { token } = getStore();
+        const { token, productPage } = getStore();
         let data = null;
+
         try {
           data = await toast.promise(patchProductPromise(id, form, token), {
             pending: 'Modificando producto...',
@@ -148,6 +149,16 @@ const getState = ({ getStore, getActions, setStore }) => {
         catch (error) {
           console.log(error);
         }
+
+        if (productPage?.results) {
+          const product = productPage.results.filter((product) => product.id == data.id)[0];
+
+          for (const attribute in product) {
+            const attributeModified = data[attribute];
+            product[attribute] = attributeModified;
+          }
+        }
+
         return data;
       }
     }
