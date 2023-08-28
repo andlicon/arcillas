@@ -5,9 +5,7 @@ import usePopOver from '../hooks/usePopOver.jsx';
 import useProductForm from '../hooks/useProductForm.jsx';
 import PlainInput from './PlainInput.jsx';
 import PlainSelect from './PlainSelect.jsx';
-import {
-  validateProductForm
-} from '../utils/validateUtils.js';
+import { validateProductForm } from '../utils/validateUtils.js';
 import '../../styles/ProductCreate.css';
 
 const ProductForm = ({ action }) => {
