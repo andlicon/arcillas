@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Context } from '../store/appContext.js';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import usePopOver from '../hooks/usePopOver.jsx';
 import useProductForm from '../hooks/useProductForm.jsx';
 import PlainInput from './PlainInput.jsx';
@@ -12,6 +12,7 @@ const ProductForm = ({ action }) => {
   const { store } = useContext(Context);
   const { categorys, units } = store;
   const { productId } = useParams();
+  const navigate = useNavigate();
 
   const {
     isLoading,
@@ -27,8 +28,11 @@ const ProductForm = ({ action }) => {
     event.preventDefault();
     if (!validateProductForm(formProduct)) return null;
 
-    if (action.toLowerCase() == 'create') createProduct();
-    else if (action.toLowerCase() == 'edit') updateProduct();
+    if (action.toLowerCase() == 'create') await createProduct();
+    else if (action.toLowerCase() == 'edit') await updateProduct();
+    else return null;
+
+    navigate('/admin/product');
   }
 
   return (
