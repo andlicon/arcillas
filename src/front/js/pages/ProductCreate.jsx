@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Context } from '../store/appContext.js';
-import useFormProduct from '../hooks/useProductForm.jsx';
+import useProductForm from '../hooks/useProductForm.jsx';
 import '../../styles/ProductCreate.css';
 import usePopOver from '../hooks/usePopOver.jsx';
 import BackTo from '../component/BackTo.jsx';
@@ -18,14 +18,7 @@ const ProductCreate = () => {
     formProduct,
     onChangeFormProduct,
     createProduct
-  } = useFormProduct({
-    name: '',
-    description: '',
-    usage: '',
-    categoryId: categorys[0]?.id,
-    unitId: units[0]?.id,
-    image: undefined
-  });
+  } = useProductForm();
 
   usePopOver();
 
