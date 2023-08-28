@@ -17,7 +17,8 @@ const ProductForm = ({ action }) => {
     isLoading,
     formProduct,
     onChangeFormProduct,
-    createProduct
+    createProduct,
+    updateProduct
   } = useProductForm(productId);
 
   usePopOver();
@@ -27,7 +28,7 @@ const ProductForm = ({ action }) => {
     if (!validateProductForm(formProduct)) return null;
 
     if (action.toLowerCase() == 'create') createProduct();
-
+    else if (action.toLowerCase() == 'edit') updateProduct();
   }
 
   return (

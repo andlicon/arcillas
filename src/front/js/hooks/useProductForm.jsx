@@ -15,7 +15,7 @@ const useFormProduct = (productId) => {
   const [isLoading, setIsLoading] = useState(false);
   const [formProduct, setFormProduct] = useState(initialValue);
   const { actions, store } = useContext(Context);
-  const { postProduct, getOneProduct } = actions;
+  const { postProduct, putProduct, getOneProduct } = actions;
   const { categorys, units, productPage } = store;
 
   const onChangeFormProduct = (name, value) => {
@@ -42,6 +42,15 @@ const useFormProduct = (productId) => {
     const form = getForm();
 
     await postProduct(form);
+    setIsLoading(false);
+  };
+
+  const updateProduct = async () => {
+    setIsLoading(true);
+
+    const form = getForm();
+
+    await putProduct(productId, form);
     setIsLoading(false);
   };
 
@@ -93,7 +102,8 @@ const useFormProduct = (productId) => {
     isLoading,
     formProduct,
     onChangeFormProduct,
-    createProduct
+    createProduct,
+    updateProduct
   });
 };
 export default useFormProduct;

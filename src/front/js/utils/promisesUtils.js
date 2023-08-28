@@ -83,7 +83,6 @@ export const getUnitsPromise = () => {
 export const postProductPromise = async (procuct, token) => {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(procuct);
       const response = await fetch(`${process.env.BACKEND_URL}/products`, {
         method: 'POST',
         headers: {
@@ -165,6 +164,27 @@ export const getOneProductPromise = async (id) => {
     }
     catch (error) {
       console.log(error);
+      reject('Ha ocurrido algún error interno');
+    }
+  });
+};
+export const putProductPromise = async (id, form, token) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(process.env.BACKEND_URL + '/products/' + id, {
+        method: 'PUT',
+        body: form,
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+      })
+
+      const data = await response.json();
+      if (response.ok) resolve(data);
+      else reject(data.message)
+    }
+    catch (error) {
+      console.log(error)
       reject('Ha ocurrido algún error interno');
     }
   });

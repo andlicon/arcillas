@@ -6,7 +6,8 @@ import {
   getUnitsPromise,
   getAllProductsPromise,
   getCategoryHierarchy,
-  getOneProductPromise
+  getOneProductPromise,
+  putProductPromise
 } from '../utils/promisesUtils.js'
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -129,6 +130,23 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
 
         return null;
+      },
+      putProduct: async (id, form) => {
+        const { token } = getStore();
+        try {
+          const data = await toast.promise(putProductPromise(id, form, token), {
+            pending: 'Modificando producto...',
+            success: 'Has modificado el producto exitosamente',
+            error: {
+              render({ data }) {
+                return data
+              }
+            }
+          });
+        }
+        catch (error) {
+          console.log(error);
+        }
       }
     }
   };
