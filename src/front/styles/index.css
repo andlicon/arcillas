@@ -31,3 +31,15 @@
 .results .btn-primary i {
   font-size: .8rem;
 }
+
+#app .navbar+.container {
+  min-height: 83vh;
+}
+
+.navbar {
+  height: 10vh;
+}
+
+.footer {
+  min-height: 7vh;
+}
