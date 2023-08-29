@@ -18,7 +18,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       user: JSON.parse(localStorage.getItem('user')) || null,
       categorys: JSON.parse(localStorage.getItem('categorys')) || null,
       units: JSON.parse(localStorage.getItem('units')) || null,
-      productPage: {}
+      productPage: {},
+      filterString: ''
     },
     actions: {
       login: async (credentials) => {
@@ -100,9 +101,11 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
-      getProductPage: async (filters = '') => {
+      getProductPage: async () => {
+        const { filterString } = getStore();
+
         try {
-          const product_list = await getAllProductsPromise(filters);
+          const product_list = await getAllProductsPromise(filterString);
 
           setStore({ 'productPage': product_list });
           return product_list;
@@ -119,6 +122,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
         catch (error) {
           console.log(error);
+          return [];
         }
       },
       getOneProduct: async (id) => {
@@ -181,6 +185,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         catch (error) {
           console.log(error);
         }
+      },
+      setStoreFilter: (filters) => {
+        setStore({ 'filterString': filters });
       }
     }
   };

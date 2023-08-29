@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Context } from '../store/appContext.js';
 import useFilter from '../hooks/useFilter.jsx';
 import usePopOver from '../hooks/usePopOver.jsx';
@@ -8,31 +8,22 @@ import PlainSwitch from './PlainSwitch.jsx';
 
 const ProductFilter = () => {
   const { store, actions } = useContext(Context);
-  const { getProductPage, getCategoryHierarchy } = actions;
+  const { getProductPage } = actions;
   const { categorys, units } = store;
   const {
     filter,
     setFilterHandler,
-    getResult } = useFilter({
-      name: '',
-      category: 'all',
-      unit: 'all',
-      subCategory: false
-    },
-      getProductPage);
+    saveFilter } = useFilter();
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-
-    let categoryFilter = filter['category'];
-    if (filter['subCategory'] && categoryFilter != 'all') {
-      const category_response = await getCategoryHierarchy(categoryFilter);
-      categoryFilter = [];
-      category_response.forEach((category) => categoryFilter.push(category.id) + ',');
-    }
-
-    getResult({ ...filter, 'category': categoryFilter });
+    saveFilter();
+    getProductPage();
   };
+
+  useEffect(() => {
+    getProductPage();
+  }, []);
 
   usePopOver();
 
