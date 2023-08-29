@@ -54,7 +54,7 @@ const ProductForm = ({ action, children }) => {
         </button>
         {
           action == 'edit' &&
-          <Modal button={{ label: 'Borrar' }} modal={modalDelete} id='deleteProduct' acceptFunction={removeProduct} />
+          <Modal button={{ label: 'Borrar' }} modal={modalDelete} id='deleteProduct' acceptFunction={removeProduct} redirect='/admin/product' />
         }
       </div>
       {/* PRODUCT INFORMATION */}

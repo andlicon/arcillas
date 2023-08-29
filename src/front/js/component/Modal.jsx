@@ -1,16 +1,21 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 
 const Modal = ({
   button,
   modal,
   id,
-  acceptFunction
+  acceptFunction,
+  redirect
 }) => {
+  const navigate = useNavigate();
 
   const acceptHandler = async () => {
     if (acceptFunction) await acceptFunction();
 
-    $('#' + id).modal('hide')
+    $('#' + id).modal('hide');
+
+    if (redirect) navigate(redirect);
   }
 
   return (
