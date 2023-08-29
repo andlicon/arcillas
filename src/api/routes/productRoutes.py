@@ -49,7 +49,13 @@ def get_all_products():
                 Product.unit_id == unit_args if unit_args is not None else Product.unit_id != None
                 )).order_by(Product.name)
 
-    page = product_query.paginate(page=page_args, per_page=per_page_args)
+    page = None
+    try:
+        page = product_query.paginate(page=page_args, per_page=per_page_args)
+    except:
+        page_args = 1
+        page = product_query.paginate(page=1, per_page=per_page_args)
+
     product_list = list( map(lambda product: product.serialize(), page.items) )
 
     name_parameter = f'name={name_args}' if name_args != '%' else 'name'
