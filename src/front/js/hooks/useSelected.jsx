@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useSelected = () => {
+const useSelected = (removeFunction) => {
   const [selected, setSelected] = useState([]);
 
   const selectHandler = (toSelect) => {
@@ -15,9 +15,14 @@ const useSelected = () => {
     }
   };
 
+  const removeItems = () => {
+    selected.forEach((id) => removeFunction(id));
+  }
+
   return ({
     selected,
-    selectHandler
+    selectHandler,
+    removeItems
   });
 };
 export default useSelected;

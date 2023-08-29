@@ -18,7 +18,7 @@ const ProductResults = ({ selectHandler, selected }) => {
     const value = target.value;
 
     if (value == 'all' && !all) {
-      const checkboxList = document.getElementsByClassName('form-check-input');
+      const checkboxList = document.getElementsByClassName('select');
       const idList = [];
       for (const checkbox of checkboxList) {
         if (checkbox.value == 'all') continue
@@ -59,7 +59,7 @@ const ProductResults = ({ selectHandler, selected }) => {
               return (
                 <tr className='results__tr' key={product.id}>
                   <td>
-                    <input className="form-check-input" type="checkbox" id={"select-" + product.id} value={product.id} onChange={onChangerHandler} checked={isChecked} aria-label="" />
+                    <input className="form-check-input select" type="checkbox" id={"select-" + product.id} value={product.id} onChange={onChangerHandler} checked={isChecked} aria-label="" />
                   </td>
                   <td>
                     <img src={product.image_url} alt={"imagen de " + product.name} />

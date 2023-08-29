@@ -5,8 +5,16 @@ import usePopOver from '../hooks/usePopOver.jsx';
 import useProductForm from '../hooks/useProductForm.jsx';
 import PlainInput from './PlainInput.jsx';
 import PlainSelect from './PlainSelect.jsx';
+import Modal from './Modal.jsx';
 import { validateProductForm } from '../utils/validateUtils.js';
 import '../../styles/ProductCreate.css';
+
+const modalDelete = {
+  body: '¿Estás seguro que quieres ejecutar esta función?',
+  title: '¿Estás seguro?',
+  accept: 'Borrar',
+  cancel: 'Cancelar'
+}
 
 const ProductForm = ({ action, children }) => {
   const { store } = useContext(Context);
@@ -46,10 +54,7 @@ const ProductForm = ({ action, children }) => {
         </button>
         {
           action == 'edit' &&
-          <button className='btn bg-danger text-light' name='delete' type='button' disabled={isLoading} onClick={removeProduct}>
-            <i className="bi bi-trash-fill"></i>
-            Borrar
-          </button>
+          <Modal button={{ label: 'Borrar' }} modal={modalDelete} id='deleteProduct' acceptFunction={removeProduct} redirect='/admin/product' />
         }
       </div>
       {/* PRODUCT INFORMATION */}
