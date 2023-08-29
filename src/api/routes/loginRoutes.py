@@ -22,6 +22,6 @@ def login():
     if not check_password(user.password, f'{password}{user.salt}'):
         return jsonify({'message': 'bad credentials'}), 400
 
-    token = create_access_token(identity=user.id)
+    token = create_access_token(identity=user.id, expires_delta=False)
 
     return jsonify({'token': token, 'user': user.serialize()}), 200
