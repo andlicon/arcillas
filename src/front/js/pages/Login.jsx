@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import useLoading from '../hooks/useLogin.jsx';
-import '../../styles/login.css'
+import '../../styles/login.css';
 import AnimatedInput from '../component/AnimatedInput.jsx';
 
 const Login = () => {
@@ -25,12 +25,12 @@ const Login = () => {
   };
 
   return (
-    <div className='container'>
+    <div className='container centrado login-container'>
       <div className='login row'>
-        <div className='login__presentation col-7'>
+        <div className='login__presentation col-sm-5 col-12'>
           presentation
         </div>
-        <div className='login__logger col-5'>
+        <div className='login__logger col-sm-7 col-12'>
           <h2 className='login__logger_title'>
             Iniciar sesión
           </h2>

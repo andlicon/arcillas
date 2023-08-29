@@ -43,3 +43,10 @@
 .footer {
   min-height: 7vh;
 }
+
+.centrado {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: stretch;
+}

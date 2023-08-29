@@ -1,9 +1,10 @@
-.login {
+.container.centrado {
   background-color: red;
 }
 
 .login__presentation {
-  background-color: blue;
+  background-image: url('../img/login-bg.jpg'), url('https://img.freepik.com/vector-premium/patron-escuela-vectorial-sobre-fondo-amarillo-material-educativo-color-cian-estilo-linea-moderno-como-pluma-regla-vidrio-pincel-lapiz-fiesta-carteles-oferta-super-venta-10-eps_824631-3783.jpg');
+  min-height: 200px;
 }
 
 .login__logger {
@@ -30,4 +31,10 @@
 .login__form button[type='submit'] {
   width: 100%;
   max-width: 300px;
+}
+
+@media screen and (max-width: 900px) {
+  /* .login__presentation {
+    height: 200px;
+  } */
 }
