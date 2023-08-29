@@ -9,7 +9,7 @@ const PlainSwitch = ({
   setValues
 }) => {
   const onChangeHandler = ({ target }) => {
-    setValues(target.name, target.checked);
+    if (setValues) setValues(target.name, target.checked);
   }
 
   return (

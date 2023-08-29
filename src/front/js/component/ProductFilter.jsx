@@ -8,30 +8,17 @@ import PlainSwitch from './PlainSwitch.jsx';
 
 const ProductFilter = () => {
   const { store, actions } = useContext(Context);
-  const { getProductPage, getCategoryHierarchy } = actions;
+  const { getProductPage } = actions;
   const { categorys, units } = store;
   const {
     filter,
     setFilterHandler,
-    getResult } = useFilter({
-      name: '',
-      category: 'all',
-      unit: 'all',
-      subCategory: false
-    },
-      getProductPage);
+    saveFilter } = useFilter();
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-
-    let categoryFilter = filter['category'];
-    if (filter['subCategory'] && categoryFilter != 'all') {
-      const category_response = await getCategoryHierarchy(categoryFilter);
-      categoryFilter = [];
-      category_response.forEach((category) => categoryFilter.push(category.id) + ',');
-    }
-
-    getResult({ ...filter, 'category': categoryFilter });
+    saveFilter();
+    getProductPage();
   };
 
   usePopOver();

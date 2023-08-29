@@ -18,7 +18,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       user: JSON.parse(localStorage.getItem('user')) || null,
       categorys: JSON.parse(localStorage.getItem('categorys')) || null,
       units: JSON.parse(localStorage.getItem('units')) || null,
-      productPage: {}
+      productPage: {},
+      filterString: ''
     },
     actions: {
       login: async (credentials) => {
@@ -100,9 +101,16 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
-      getProductPage: async (filters = '') => {
+      getProductPage: async (filters) => {
+        const { setStoreFilter } = getActions();
+        const { filterString } = getStore();
+
+        if (filters) {
+          setStoreFilter(filters);
+        }
+
         try {
-          const product_list = await getAllProductsPromise(filters);
+          const product_list = await getAllProductsPromise(filters ? filters : filterString);
 
           setStore({ 'productPage': product_list });
           return product_list;
@@ -110,6 +118,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         catch (error) {
           setStore({ 'productPage': [] });
           console.log(error);
+          return {};
         }
       },
       getCategoryHierarchy: async (id) => {
@@ -119,6 +128,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
         catch (error) {
           console.log(error);
+          return [];
         }
       },
       getOneProduct: async (id) => {
@@ -128,6 +138,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
         catch (error) {
           console.log(error);
+          return null;
         }
 
         return null;
@@ -151,15 +162,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
 
-        if (productPage?.results) {
-          const product = productPage.results.filter((product) => product.id == data.id)[0];
-
-          for (const attribute in product) {
-            const attributeModified = data[attribute];
-            product[attribute] = attributeModified;
-          }
-        }
-
         return data;
       },
       deleteProduct: async (id) => {
@@ -181,6 +183,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         catch (error) {
           console.log(error);
         }
+      },
+      setStoreFilter: (filters) => {
+        setStore({ 'filterString': filters });
       }
     }
   };
