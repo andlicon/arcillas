@@ -113,6 +113,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         catch (error) {
           setStore({ 'productPage': [] });
           console.log(error);
+          return {};
         }
       },
       getCategoryHierarchy: async (id) => {
@@ -132,6 +133,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
         catch (error) {
           console.log(error);
+          return null;
         }
 
         return null;
@@ -153,15 +155,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
         catch (error) {
           console.log(error);
-        }
-
-        if (productPage?.results) {
-          const product = productPage.results.filter((product) => product.id == data.id)[0];
-
-          for (const attribute in product) {
-            const attributeModified = data[attribute];
-            product[attribute] = attributeModified;
-          }
         }
 
         return data;
