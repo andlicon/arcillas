@@ -63,6 +63,8 @@ def get_all_products():
     response ={
         'info': {
             'count': page.total,
+            'current_page': page_args,
+            'per_page': per_page_args,
             'filters': f'{page_parameter}&{per_page_parameter}&{name_parameter}&{category_parameter}&{description_parameter}&{usage_parameter}&{unit_parameter}',
             'next': f'{os.getenv("BACKEND_URL")}/products/?page={page.next_num}&{per_page_parameter}&{name_parameter}&{category_parameter}&{description_parameter}&{usage_parameter}&{unit_parameter}' if page.has_next else None,
             'prev': f'{os.getenv("BACKEND_URL")}/products/?page={page.prev_num}&{per_page_parameter}&{name_parameter}&{category_parameter}&{description_parameter}&{usage_parameter}&{unit_parameter}' if page.has_prev else None

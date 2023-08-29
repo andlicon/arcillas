@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { Context } from '../store/appContext.js';
 import '../../styles/productResults.css';
 
 const ProductResults = ({ selectHandler, selected }) => {
   const [all, setAll] = useState(false);
-  const { store } = useContext(Context);
+  const { store, actions } = useContext(Context);
   const { productPage, categorys, units } = store;
   const { results } = productPage;
 
@@ -13,6 +13,10 @@ const ProductResults = ({ selectHandler, selected }) => {
     onChangerHandler(event);
     setAll(!all);
   }
+
+  useEffect(() => {
+    actions.getProductPage();
+  }, []);
 
   const onChangerHandler = ({ target }) => {
     const value = target.value;

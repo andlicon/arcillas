@@ -1,14 +1,14 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Context } from '../store/appContext.js';
 
 const usePagination = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [perPage, setPerPage] = useState(10);
-  const [currentPage, setCurrentPage] = useState(1);
   const { store, actions } = useContext(Context);
   const { productPage } = store;
   const { info } = productPage;
   const { getProductPage } = actions;
+  const [isLoading, setIsLoading] = useState(false);
+  const [perPage, setPerPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(10);
 
   const nextPageHandler = async ({ target }) => {
     const name = target.name;
@@ -51,6 +51,11 @@ const usePagination = () => {
     setCurrentPage(1);
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    setCurrentPage(info?.current_page);
+    setPerPage(info?.per_page);
+  }, [info]);
 
   return ({
     perPage,

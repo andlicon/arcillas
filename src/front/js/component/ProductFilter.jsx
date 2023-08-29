@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Context } from '../store/appContext.js';
 import useFilter from '../hooks/useFilter.jsx';
 import usePopOver from '../hooks/usePopOver.jsx';
@@ -20,10 +20,6 @@ const ProductFilter = () => {
     saveFilter();
     getProductPage();
   };
-
-  useEffect(() => {
-    getProductPage();
-  }, []);
 
   usePopOver();
 

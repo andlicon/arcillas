@@ -101,11 +101,16 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
-      getProductPage: async () => {
+      getProductPage: async (filters) => {
+        const { setStoreFilter } = getActions();
         const { filterString } = getStore();
 
+        if (filters) {
+          setStoreFilter(filters);
+        }
+
         try {
-          const product_list = await getAllProductsPromise(filterString);
+          const product_list = await getAllProductsPromise(filters ? filters : filterString);
 
           setStore({ 'productPage': product_list });
           return product_list;
