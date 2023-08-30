@@ -53,7 +53,7 @@ i {
 }
 
 #app .navbar+.container {
-  min-height: 83vh;
+  min-height: 82vh;
 }
 
 .navbar {
@@ -61,7 +61,7 @@ i {
 }
 
 .footer {
-  min-height: 7vh;
+  min-height: 6vh;
 }
 
 .centrado {
