@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from "react-router-dom";
 import useLoading from '../hooks/useLogin.jsx';
 import '../../styles/login.css';
+import logo from '../../img/arcillas-logo.png';
 import AnimatedInput from '../component/AnimatedInput.jsx';
 
 const Login = () => {
@@ -31,11 +32,14 @@ const Login = () => {
           presentation
         </div>
         <div className='login__logger col-sm-7 col-12'>
-          <h2 className='login__logger_title'>
-            Iniciar sesión
-          </h2>
+          <div className='center'>
+            <img src={logo} alt="logo" className='login__logo' />
+            <h2 className='login__logger_title'>
+              Iniciar sesión
+            </h2>
+          </div>
           <form
-            className='login__form needs-validation p-5'
+            className='login__form needs-validation'
             id='login'
             onSubmit={onSubmitHandler}
             noValidate >

@@ -70,3 +70,10 @@ i {
   justify-content: center;
   align-items: stretch;
 }
+
+.center {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
