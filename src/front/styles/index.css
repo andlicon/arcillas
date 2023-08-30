@@ -1,8 +1,28 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+:root {
+  --color-yellow: #ffd21f;
+  --color-dark: #292841;
+  --color-white: #ffffff;
+  --color-brown: #6B0314;
+}
+
 .btn i {
   margin-right: .4rem;
+}
+
+body {
+  background-color: var(--color-dark);
+  color: black;
+}
+
+i {
+  color: var(--color-yellow);
+}
+
+.navbar {
+  background-color: var(--color-yellow) !important;
 }
 
 .help {
@@ -30,4 +50,30 @@
 
 .results .btn-primary i {
   font-size: .8rem;
+}
+
+#app .navbar+.container {
+  min-height: 83vh;
+}
+
+.navbar {
+  height: 10vh;
+}
+
+.footer {
+  min-height: 7vh;
+}
+
+.centrado {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.center {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
 }
