@@ -39,8 +39,8 @@ const ProductResults = ({ selectHandler, selected }) => {
   };
 
   return (
-    <div className='table-responsive'>
-      <table className='table results' >
+    <div className='table-responsive results-container'>
+      <table className='table results table-secondary' >
         <thead>
           <tr>
             <td> <input className="form-check-input" type="checkbox" id="select-all" value='all' aria-label="" onChange={onChangeAllHandler} /> </td>
@@ -61,7 +61,7 @@ const ProductResults = ({ selectHandler, selected }) => {
               const isChecked = selected.includes(product.id);
 
               return (
-                <tr className='results__tr' key={product.id}>
+                <tr className={'results__tr'} key={product.id}>
                   <td>
                     <input className="form-check-input select" type="checkbox" id={"select-" + product.id} value={product.id} onChange={onChangerHandler} checked={isChecked} aria-label="" />
                   </td>

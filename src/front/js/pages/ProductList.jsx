@@ -24,7 +24,10 @@ const ProductList = () => {
       <div className='productList__header'>
         <h2 className='page-title'>Productos</h2>
         <div className='productList__functions button-list'>
-          <Link to='create' className='btn btn-primary' role="button">Añadir producto</Link>
+          <Link to='create' className='btn btn-success' role="button">
+            <i className="bi bi-plus-circle"></i>
+            Añadir producto
+          </Link>
           <Modal button={{ label: `Borrar ${selected.length} (seleccionados)`, className: 'btn-danger', icon: <i className="bi bi-trash"></i> }} modal={modalDelete} id='deleteProduct' acceptFunction={removeItems} />
         </div>
       </div>

@@ -24,7 +24,7 @@ const ProductFilter = () => {
   usePopOver();
 
   return (
-    <div className="accordion" id="accordionPanelsStayOpenExample">
+    <div className="accordion filter-container " id="accordionPanelsStayOpenExample">
       <div className="accordion-item">
         <h2 className="accordion-header">
           <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#searchFilter" aria-expanded="true" aria-controls="searchFilter">
