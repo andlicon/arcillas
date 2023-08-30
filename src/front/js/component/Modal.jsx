@@ -21,6 +21,7 @@ const Modal = ({
   return (
     <>
       <button type="button" className={"btn btn-primary " + button.className} data-bs-toggle="modal" data-bs-target={"#" + id}>
+        {button.icon}
         {button.label}
       </button>
 

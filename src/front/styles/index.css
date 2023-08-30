@@ -77,3 +77,14 @@ i {
   justify-content: center;
   align-items: center;
 }
+
+.btn-danger i {
+  color: white;
+}
+
+.button-list {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  gap: 1em;
+}
