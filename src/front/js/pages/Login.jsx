@@ -35,7 +35,7 @@ const Login = () => {
             Iniciar sesión
           </h2>
           <form
-            className='login__form needs-validation'
+            className='login__form needs-validation p-5'
             id='login'
             onSubmit={onSubmitHandler}
             noValidate >

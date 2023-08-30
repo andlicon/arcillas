@@ -1,8 +1,28 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+:root {
+  --color-yellow: #ffd21f;
+  --color-dark: #292841;
+  --color-white: #ffffff;
+  --color-brown: #6B0314;
+}
+
 .btn i {
   margin-right: .4rem;
+}
+
+body {
+  background-color: var(--color-dark);
+  color: black;
+}
+
+i {
+  color: var(--color-yellow);
+}
+
+.navbar {
+  background-color: var(--color-yellow) !important;
 }
 
 .help {
