@@ -48,7 +48,7 @@ const ProductForm = ({ action, children }) => {
   return (
     <form className='productCreate__form needs-validation' id='productCreate' noValidate onSubmit={onSubmitHandler}>
       <div className='button-list'>
-        <button className='btn' name='save' type='submit' disabled={isLoading}>
+        <button className='btn btn-success' name='save' type='submit' disabled={isLoading}>
           <i className="bi bi-save-fill"></i>
           Guardar
         </button>
