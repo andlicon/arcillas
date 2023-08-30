@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Context } from '../store/appContext.js';
 import { Link } from "react-router-dom";
+import '../../styles/productList.css';
 import useSelected from '../hooks/useSelected.jsx';
 import ItemPagination from '../component/ItemPagination.jsx';
 import ProductResults from '../component/ProductResults.jsx';
@@ -23,9 +24,9 @@ const ProductList = () => {
       <div className='productList__header'>
         <h2 className='page-title'>Productos</h2>
         <div className='productList__functions'>
-          <Link to='create'>Añadir producto</Link>
+          <Link to='create' className='btn btn-primary' role="button">Añadir producto</Link>
+          <Modal button={{ label: `Borrar ${selected.length} (seleccionados)`, className: 'btn-danger' }} modal={modalDelete} id='deleteProduct' acceptFunction={removeItems} />
         </div>
-        <Modal button={{ label: 'Borrar (seleccionados)' }} modal={modalDelete} id='deleteProduct' acceptFunction={removeItems} />
       </div>
       <ProductFilter />
       <ProductResults selectHandler={selectHandler} selected={selected} />
