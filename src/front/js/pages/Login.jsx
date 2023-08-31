@@ -33,7 +33,7 @@ const Login = () => {
         </div>
         <div className='login__logger col-sm-7 col-12'>
           <div className='center'>
-            <img src={logo} alt="logo" className='login__logo' />
+            <img src={logo} alt="logo" className='logo' />
             <h2 className='login__logger_title'>
               Iniciar sesión
             </h2>

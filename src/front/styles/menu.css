@@ -15,15 +15,6 @@
   grid-template-columns: minmax(0px, var(--sidebar-lg)) 1fr;
 }
 
-.sidebar-container .sidebar {
-  position: fixed;
-  top: 0;
-  width: var(--sidebar-lg);
-  padding: .875rem 1.25rem;
-  background-color: blue;
-  min-height: 100vh;
-}
-
 #menu-offcanvas {
   display: none;
 }
@@ -36,10 +27,6 @@
   .menu-container.has-menu {
     display: flex;
     flex-flow: row nowrap;
-  }
-
-  .sidebar-container .sidebar {
-    display: none;
   }
 
   #menu-offcanvas {

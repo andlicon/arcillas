@@ -7,6 +7,9 @@
   --color-dark-secondary: #E2E3E5;
   --color-white: #ffffff;
   --color-brown: #6B0314;
+  --navbar-height: 6vh;
+  --content-height: 86vh;
+  --footer-height: 6vh;
 }
 
 * {
@@ -28,6 +31,7 @@ i {
 
 .navbar {
   background-color: var(--color-yellow) !important;
+  height: var(--navbar-height);
 }
 
 .help {
@@ -58,15 +62,11 @@ i {
 }
 
 #app .navbar+.container {
-  min-height: 82vh;
-}
-
-.navbar {
-  height: 10vh;
+  min-height: var(--content-height);
 }
 
 .footer {
-  min-height: 6vh;
+  min-height: var(--footer-height);
 }
 
 .centrado {
@@ -126,4 +126,11 @@ i {
 
 .accordion-item {
   background-color: var(--color-dark-secondary);
+}
+
+.logo {
+  width: 100px;
+  border-radius: 100%;
+  background: #dbcc87;
+  border: 1px solid rgb(236, 236, 236);
 }
