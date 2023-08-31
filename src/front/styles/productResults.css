@@ -27,3 +27,7 @@
 .results__tr td {
   min-width: 100px;
 }
+
+.results__tr:nth-child(even) td {
+  background-color: #dddddd;
+}

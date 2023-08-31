@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Context } from '../store/appContext.js';
 import { Link } from "react-router-dom";
+import '../../styles/productList.css';
 import useSelected from '../hooks/useSelected.jsx';
 import ItemPagination from '../component/ItemPagination.jsx';
 import ProductResults from '../component/ProductResults.jsx';
@@ -18,14 +19,22 @@ const ProductList = () => {
   const { actions } = useContext(Context);
   const { selected, selectHandler, removeItems } = useSelected(actions.deleteProduct);
 
+  const deleteHandler = async () => {
+    await removeItems();
+    await actions.getProductPage();
+  };
+
   return (
     <div className='container'>
       <div className='productList__header'>
         <h2 className='page-title'>Productos</h2>
-        <div className='productList__functions'>
-          <Link to='create'>Añadir producto</Link>
+        <div className='productList__functions button-list'>
+          <Link to='create' className='btn btn-success' role="button">
+            <i className="bi bi-plus-circle"></i>
+            Añadir producto
+          </Link>
+          <Modal button={{ label: `Borrar ${selected.length} (seleccionados)`, className: 'btn-danger', icon: <i className="bi bi-trash"></i> }} modal={modalDelete} id='deleteProduct' acceptFunction={deleteHandler} />
         </div>
-        <Modal button={{ label: 'Borrar (seleccionados)' }} modal={modalDelete} id='deleteProduct' acceptFunction={removeItems} />
       </div>
       <ProductFilter />
       <ProductResults selectHandler={selectHandler} selected={selected} />

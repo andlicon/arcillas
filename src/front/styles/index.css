@@ -3,9 +3,14 @@
 */
 :root {
   --color-yellow: #ffd21f;
-  --color-dark: #292841;
+  --color-dark: #202124;
+  --color-dark-secondary: #E2E3E5;
   --color-white: #ffffff;
   --color-brown: #6B0314;
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
 }
 
 .btn i {
@@ -76,4 +81,49 @@ i {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+}
+
+.btn i {
+  color: white;
+}
+
+.button-list {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  gap: 1em;
+}
+
+.page-title {
+  color: white;
+}
+
+.filter-container,
+.results-container {
+  margin-bottom: 1em;
+}
+
+.bg-dark-secondary {
+  background-color: var(--color-dark-secondary);
+}
+
+.bg-yellow {
+  background-color: var(--color-yellow);
+}
+
+.table {
+  margin: 0;
+}
+
+.table>thead>*>* {
+  background-color: var(--color-yellow);
+}
+
+.accordion-header,
+.accordion-button {
+  background-color: var(--color-yellow);
+}
+
+.accordion-item {
+  background-color: var(--color-dark-secondary);
 }

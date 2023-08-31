@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { Context } from '../store/appContext';
+import { toast } from 'react-toastify';
 
 const useSelected = (removeFunction) => {
+  const { actions } = useContext(Context);
   const [selected, setSelected] = useState([]);
 
   const selectHandler = (toSelect) => {
@@ -15,9 +18,18 @@ const useSelected = (removeFunction) => {
     }
   };
 
-  const removeItems = () => {
-    selected.forEach((id) => removeFunction(id));
-  }
+  const removeItems = async () => {
+    let promisesList = [];
+    if (selected.length == 0) toast.error("No se han elegido elementos");
+    else {
+      selected.forEach(async (id) => {
+        promisesList.push(removeFunction(id));
+      });
+      setSelected([]);
+    }
+
+    return Promise.all(promisesList)
+  };
 
   return ({
     selected,

@@ -47,14 +47,14 @@ const ProductForm = ({ action, children }) => {
 
   return (
     <form className='productCreate__form needs-validation' id='productCreate' noValidate onSubmit={onSubmitHandler}>
-      <div className='d-flex justify-content-end'>
-        <button className='btn' name='save' type='submit' disabled={isLoading}>
+      <div className='button-list'>
+        <button className='btn btn-success' name='save' type='submit' disabled={isLoading}>
           <i className="bi bi-save-fill"></i>
           Guardar
         </button>
         {
           action == 'edit' &&
-          <Modal button={{ label: 'Borrar' }} modal={modalDelete} id='deleteProduct' acceptFunction={removeProduct} redirect='/admin/product' />
+          <Modal button={{ label: 'Borrar', className: 'btn-danger', icon: <i className="bi bi-trash"></i> }} modal={modalDelete} id='deleteProduct' acceptFunction={removeProduct} redirect='/admin/product' />
         }
       </div>
       {/* PRODUCT INFORMATION */}
