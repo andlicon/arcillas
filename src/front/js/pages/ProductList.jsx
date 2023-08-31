@@ -25,7 +25,7 @@ const ProductList = () => {
   };
 
   return (
-    <div className='container-fluid'>
+    <div className='container'>
       <div className='productList__header'>
         <h2 className='page-title'>Productos</h2>
         <div className='productList__functions button-list'>

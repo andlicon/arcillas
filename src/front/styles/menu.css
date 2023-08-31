@@ -6,4 +6,5 @@
 
 .menu.active {
     background-color: black;
+    width: 10em;
 }

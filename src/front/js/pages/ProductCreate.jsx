@@ -4,7 +4,7 @@ import BackTo from '../component/BackTo.jsx';
 
 const ProductCreate = () => {
   return (
-    <div className='container-fluid'>
+    <div className='container'>
       <div className='productCreate__header'>
         <h1 className='page-title'>Añade un nuevo producto</h1>
         <BackTo to='/admin/product' text='Volver a la lista de productos' />
