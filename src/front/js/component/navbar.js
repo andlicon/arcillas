@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useContext } from 'react';
+import { Context } from '../store/appContext';
 import { Link } from "react-router-dom";
 
 export const Navbar = () => {
+  const { store } = useContext(Context);
+  const { user } = store;
+
   return (
     <nav className="navbar navbar-light bg-light">
       <div className="container">
-        <button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" id='menu-offcanvas' data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Enable both scrolling & backdrop</button>
+        {
+          user?.role
+          && <button className="btn btn-primary"
+            type="button"
+            data-bs-toggle="offcanvas"
+            id='menu-offcanvas'
+            data-bs-target="#offcanvasWithBothOptions"
+            aria-controls="offcanvasWithBothOptions">
+            <i className="bi bi-list"></i>
+          </button>
+        }
         <Link to="/">
           <span className="navbar-brand mb-0 h1">React Boilerplate</span>
         </Link>

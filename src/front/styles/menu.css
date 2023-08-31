@@ -10,7 +10,7 @@
   /* z-index: 0; */
 }
 
-.menu-container {
+.menu-container.has-menu {
   display: grid;
   grid-template-columns: minmax(0px, var(--sidebar-lg)) 1fr;
 }
@@ -24,12 +24,16 @@
   min-height: 100vh;
 }
 
+#menu-offcanvas {
+  display: none;
+}
+
 @media (max-width: 1045px) {
   .offcanvas.offcanvas-start.show {
     width: var(--sidebar-lg);
   }
 
-  .menu-container {
+  .menu-container.has-menu {
     display: flex;
     flex-flow: row nowrap;
   }
@@ -38,6 +42,9 @@
     display: none;
   }
 
+  #menu-offcanvas {
+    display: block;
+  }
 }
 
 @media (max-width: 277px) {
