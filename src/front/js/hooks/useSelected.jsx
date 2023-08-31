@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const useSelected = (removeFunction) => {
   const [selected, setSelected] = useState([]);
@@ -15,9 +16,15 @@ const useSelected = (removeFunction) => {
     }
   };
 
-  const removeItems = () => {
-    selected.forEach((id) => removeFunction(id));
-  }
+  const removeItems = async () => {
+    if (selected.length == 0) toast.error("No se han elegido elementos");
+    else {
+      selected.forEach(async (id) => {
+        await removeFunction(id);
+      });
+      setSelected([]);
+    }
+  };
 
   return ({
     selected,

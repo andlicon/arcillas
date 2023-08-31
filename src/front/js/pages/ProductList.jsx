@@ -19,6 +19,11 @@ const ProductList = () => {
   const { actions } = useContext(Context);
   const { selected, selectHandler, removeItems } = useSelected(actions.deleteProduct);
 
+  const deleteHandler = async () => {
+    await removeItems();
+    await actions.getProductPage();
+  };
+
   return (
     <div className='container'>
       <div className='productList__header'>
@@ -28,7 +33,7 @@ const ProductList = () => {
             <i className="bi bi-plus-circle"></i>
             Añadir producto
           </Link>
-          <Modal button={{ label: `Borrar ${selected.length} (seleccionados)`, className: 'btn-danger', icon: <i className="bi bi-trash"></i> }} modal={modalDelete} id='deleteProduct' acceptFunction={removeItems} />
+          <Modal button={{ label: `Borrar ${selected.length} (seleccionados)`, className: 'btn-danger', icon: <i className="bi bi-trash"></i> }} modal={modalDelete} id='deleteProduct' acceptFunction={deleteHandler} />
         </div>
       </div>
       <ProductFilter />

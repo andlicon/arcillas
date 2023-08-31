@@ -110,13 +110,12 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
 
         try {
-          const product_list = await getAllProductsPromise(filters ? filters : filterString);
-
-          setStore({ 'productPage': product_list });
-          return product_list;
+          const productList = await getAllProductsPromise(filters ? filters : filterString);
+          setStore({ 'productPage': productList });
+          return productList;
         }
         catch (error) {
-          setStore({ 'productPage': [] });
+          setStore({ 'productPage': {} });
           console.log(error);
           return {};
         }
@@ -138,7 +137,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
         catch (error) {
           console.log(error);
-          return null;
         }
 
         return null;
@@ -177,7 +175,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                   return data
                 }
               }
-            }
+            },
           )
         }
         catch (error) {

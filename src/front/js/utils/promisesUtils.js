@@ -201,10 +201,10 @@ export const deleteProductPromise = async (id, token) => {
         }
       });
 
+      const data = await response.json();
       if (response.ok) resolve(true);
       else {
-        const data = await response.json();
-        reject(data.message)
+        reject(data.msg)
       }
     }
     catch (error) {
