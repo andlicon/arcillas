@@ -7,6 +7,7 @@ import { BackendURL } from "./component/backendURL";
 import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+import AdminMenu from './component/AdminMenu.jsx';
 // pages
 import Login from './pages/Login.jsx';
 import ProductCreate from './pages/ProductCreate.jsx';
@@ -15,53 +16,47 @@ import ProductEdit from './pages/ProductEdit.jsx';
 
 //create your first component
 const Layout = () => {
-    //the basename is used when your project is published in a subdirectory and not in the root of the domain
-    // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
-    const basename = process.env.BASENAME || "";
+  //the basename is used when your project is published in a subdirectory and not in the root of the domain
+  // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
+  const basename = process.env.BASENAME || "";
 
-    if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL />;
+  if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL />;
 
-    return (
-        <div>
-            <ToastContainer
-                position="bottom-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-            />
-            <BrowserRouter basename={basename}>
-                <ScrollToTop>
-                    {/* <div className="offcanvas offcanvas-start " tabIndex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-                        <div className="offcanvas-header">
-                            <h5 className="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                        </div>
-                        <div className="offcanvas-body">
-                            ...
-                        </div>
-                    </div> */}
-                    <div>
-                        <Navbar />
-                        <Routes>
-                            <Route element={<Login />} path="/" />
-                            <Route element={<Login />} path='/login' />
-                            <Route element={<ProductList />} path='/admin/product' />
-                            <Route element={<ProductCreate />} path='/admin/product/create' />
-                            <Route element={<ProductEdit />} path='/admin/product/edit/:productId' />
-                            <Route element={<h1>Not found!</h1>} />
-                        </Routes>
-                    </div>
-                    <Footer />
-                </ScrollToTop>
-            </BrowserRouter>
-        </div>
-    );
+  return (
+    <div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+      <BrowserRouter basename={basename}>
+        <ScrollToTop>
+          <div className='d-flex'>
+            <AdminMenu />
+            <div className='w-100'>
+              <Navbar />
+              <Routes>
+                <Route element={<Login />} path="/" />
+                <Route element={<Login />} path='/login' />
+                <Route element={<ProductList />} path='/admin/product' />
+                <Route element={<ProductCreate />} path='/admin/product/create' />
+                <Route element={<ProductEdit />} path='/admin/product/edit/:productId' />
+                <Route element={<h1>Not found!</h1>} />
+              </Routes>
+              <Footer />
+            </div>
+          </div>
+        </ScrollToTop>
+      </BrowserRouter>
+    </div>
+  );
 };
 
 export default injectContext(Layout);

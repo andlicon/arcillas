@@ -1,18 +1,18 @@
 import React from 'react';
+import '../../styles/menu.css';
 
 const AdminMenu = () => {
   return (
-    <>
-      <div class="offcanvas offcanvas-start " tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div className="menu" tabIndex="-1" id="menu">
+      {/* <div className='offcanvas-content'>
+        <div className="offcanvas-header">
+          <h5 className="offcanvas-title" id="offCanvasMenuLabel">Offcanvas right</h5>
         </div>
-        <div class="offcanvas-body">
+        <div className="offcanvas-body">
           ...
         </div>
-      </div>
-    </>
+      </div> */}
+    </div>
   );
 };
 export default AdminMenu;

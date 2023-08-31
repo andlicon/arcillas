@@ -1,0 +1,9 @@
+.menu {
+    position: relative;
+    width: 50px;
+    background-color: white;
+}
+
+.menu.active {
+    background-color: black;
+}
