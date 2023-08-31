@@ -166,7 +166,7 @@ def delete_product(id):
         print(error.args)
         return jsonify({'message', 'Ocurrio algun error interno'}), 500
 
-    return jsonify({}), 204
+    return jsonify({'msg': 'ok'}), 200
 
 
 @api.route('/products/<int:id>', methods=['PUT'])
