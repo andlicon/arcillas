@@ -37,15 +37,26 @@ const Layout = () => {
             />
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
-                    <Navbar />
-                    <Routes>
-                        <Route element={<Login />} path="/" />
-                        <Route element={<Login />} path='/login' />
-                        <Route element={<ProductList />} path='/admin/product' />
-                        <Route element={<ProductCreate />} path='/admin/product/create' />
-                        <Route element={<ProductEdit />} path='/admin/product/edit/:productId' />
-                        <Route element={<h1>Not found!</h1>} />
-                    </Routes>
+                    {/* <div className="offcanvas offcanvas-start " tabIndex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                        <div className="offcanvas-header">
+                            <h5 className="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div className="offcanvas-body">
+                            ...
+                        </div>
+                    </div> */}
+                    <div>
+                        <Navbar />
+                        <Routes>
+                            <Route element={<Login />} path="/" />
+                            <Route element={<Login />} path='/login' />
+                            <Route element={<ProductList />} path='/admin/product' />
+                            <Route element={<ProductCreate />} path='/admin/product/create' />
+                            <Route element={<ProductEdit />} path='/admin/product/edit/:productId' />
+                            <Route element={<h1>Not found!</h1>} />
+                        </Routes>
+                    </div>
                     <Footer />
                 </ScrollToTop>
             </BrowserRouter>

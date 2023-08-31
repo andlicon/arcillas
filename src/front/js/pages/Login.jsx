@@ -26,7 +26,7 @@ const Login = () => {
   };
 
   return (
-    <div className='container centrado login-container'>
+    <div className='container-fluid centrado login-container'>
       <div className='login row'>
         <div className='login__presentation col-sm-5 col-12'>
           presentation
