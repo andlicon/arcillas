@@ -4,10 +4,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
+
 import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import AdminMenu from './component/AdminMenu.jsx';
+import Menu from './component/Menu.jsx';
 // pages
 import Login from './pages/Login.jsx';
 import ProductCreate from './pages/ProductCreate.jsx';
@@ -38,21 +39,19 @@ const Layout = () => {
       />
       <BrowserRouter basename={basename}>
         <ScrollToTop>
-          <div className='d-flex'>
-            <AdminMenu />
-            <div className='w-100'>
-              <Navbar />
-              <Routes>
-                <Route element={<Login />} path="/" />
-                <Route element={<Login />} path='/login' />
-                <Route element={<ProductList />} path='/admin/product' />
-                <Route element={<ProductCreate />} path='/admin/product/create' />
-                <Route element={<ProductEdit />} path='/admin/product/edit/:productId' />
-                <Route element={<h1>Not found!</h1>} />
-              </Routes>
-              <Footer />
-            </div>
-          </div>
+          <Menu>
+            <Navbar />
+            <Routes>
+              <Route element={<Login />} path="/" />
+              <Route element={<Login />} path='/login' />
+              {/* <Route element={<Home />} path='/admin' /> */}
+              <Route element={<ProductList />} path='/admin/product' />
+              <Route element={<ProductCreate />} path='/admin/product/create' />
+              <Route element={<ProductEdit />} path='/admin/product/edit/:productId' />
+              <Route element={<h1>Not found!</h1>} />
+            </Routes>
+            <Footer />
+          </Menu>
         </ScrollToTop>
       </BrowserRouter>
     </div>

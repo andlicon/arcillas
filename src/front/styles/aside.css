@@ -1,0 +1,13 @@
+.aside {
+  padding: 1em;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.aside-header {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
