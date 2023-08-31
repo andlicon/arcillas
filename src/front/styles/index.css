@@ -138,3 +138,13 @@ i {
 .offcanvas {
   background-color: var(--color-dark-secondary);
 }
+
+ul,
+li {
+  list-style: none;
+  padding: 0;
+}
+
+.dropDown>* {
+  width: 100%;
+}

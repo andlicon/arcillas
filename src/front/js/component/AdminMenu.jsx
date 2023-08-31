@@ -6,7 +6,7 @@ import DropDown from './DropDown.jsx';
 
 const catalogItems = [
   { label: 'Productos', to: '/admin/product' },
-  { label: 'Categorias', to: '/admin/categor' }
+  { label: 'Categorias', to: '/admin/category' }
 ];
 
 
@@ -25,7 +25,7 @@ const AdminMenu = () => {
       <div className="menu">
         <ul>
           <li>
-            <Link to='/'>
+            <Link to='/admin/dashboard'>
               Dashboard
             </Link>
           </li>
