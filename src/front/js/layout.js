@@ -4,10 +4,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
-
-import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
-import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -45,7 +41,6 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Login />} path="/" />
                         <Route element={<Login />} path='/login' />
-                        {/* <Route element={<Home />} path='/admin' /> */}
                         <Route element={<ProductList />} path='/admin/product' />
                         <Route element={<ProductCreate />} path='/admin/product/create' />
                         <Route element={<ProductEdit />} path='/admin/product/edit/:productId' />
