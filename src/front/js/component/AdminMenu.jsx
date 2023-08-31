@@ -2,6 +2,13 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import '../../styles/aside.css';
 import logoUrl from '../../img/arcillas-logo.png';
+import DropDown from './DropDown.jsx';
+
+const catalogItems = [
+  { label: 'Productos', to: '/admin/product' },
+  { label: 'Categorias', to: '/admin/categor' }
+];
+
 
 const AdminMenu = () => {
   return (
@@ -16,12 +23,16 @@ const AdminMenu = () => {
         </Link>
       </div >
       <div className="menu">
-        <Link to='/'>
-          Dashboard
-        </Link>
-        <Link to='/'>
-          Products
-        </Link>
+        <ul>
+          <li>
+            <Link to='/'>
+              Dashboard
+            </Link>
+          </li>
+          <li>
+            <DropDown label={'catalog'} id='catologDropDown' items={catalogItems} />
+          </li>
+        </ul>
       </div>
     </div>
   );
