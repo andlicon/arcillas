@@ -4,7 +4,10 @@ import useProductDetail from '../hooks/useProductDetail.jsx';
 
 const ProductDetail = () => {
   const { productId } = useParams();
-  const { product } = useProductDetail(productId);
+  const {
+    product,
+    categoryHierarchy
+  } = useProductDetail(productId);
 
   return (
     <div className='container'>

@@ -214,3 +214,18 @@ export const getAllProductsPromise = async (filters = '') => {
     }
   });
 };
+
+export const getCategoryHierarchyParentsPromise = async (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(`${process.env.BACKEND_URL}/categorys/${id}/hierarchy-parents`);
+      const data = await response.json();
+      if (response.ok) resolve(data);
+      else reject(data);
+    }
+    catch (error) {
+      console.log(error);
+    }
+    reject('Ocurrió un error');
+  });
+};
