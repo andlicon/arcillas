@@ -23,7 +23,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
     actions: {
       login: async (credentials) => {
-        const { getCategorys, getUnits } = getActions();
+        const { getCategorys, getUnits, setMenu } = getActions();
 
         try {
           const data = await toast.promise(loginPromise(credentials),
