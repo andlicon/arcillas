@@ -7,3 +7,12 @@ def get_hierarchy(category, prevlist):
         get_hierarchy(category_child, prevlist=prevlist)
 
     return prevlist
+
+def get_hierarchy_parents(category, prevlist):
+    prevlist.append(category.serialize())
+    id_parent = category.category_parent
+
+    if id_parent is not None:
+        get_hierarchy_parents(category.parent, prevlist=prevlist)
+
+    return prevlist
