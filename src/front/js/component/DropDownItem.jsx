@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const DropDownItem = ({ label, to }) => {
   return (
-    <Link to={to}>
+    <Link to={to} className='btn dropDown__item'>
       {label}
     </Link>
   );

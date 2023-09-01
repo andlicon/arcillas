@@ -25,7 +25,7 @@ const AdminMenu = () => {
       <div className="menu">
         <ul>
           <li>
-            <Link to='/admin/dashboard'>
+            <Link to='/admin/dashboard' className='btn dropDown__item'>
               Dashboard
             </Link>
           </li>

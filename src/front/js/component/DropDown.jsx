@@ -1,10 +1,11 @@
 import React from 'react';
+import '../../styles/dropdown.css';
 import DropDownItem from './DropDownItem.jsx';
 
 const DropDown = ({ label, items, id }) => {
   return (
     <div className='dropDown'>
-      <button className="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target={'#' + id} aria-expanded="false" aria-controls="collapseExample">
+      <button className="btn btn-primary dropDown__button" type="button" data-bs-toggle="collapse" data-bs-target={'#' + id} aria-expanded="false" aria-controls="collapseExample">
         {label}
       </button>
       <div className="collapse" id={id}>
