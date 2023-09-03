@@ -25,7 +25,17 @@ const useProductDetail = (productId) => {
           setCategoryHierarchy(ordered);
         })
     }
-  }, [product?.category_id]);
+  }, [product.category_id]);
+
+  useEffect(() => {
+    if (product.name) {
+      document.title = product.name
+    }
+  }, [product.name]);
+
+  useEffect(() => {
+    document.title = 'Cargando...';
+  }, []);
 
   return ({
     product,
