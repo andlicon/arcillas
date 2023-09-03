@@ -4,6 +4,7 @@ import { Context } from '../store/appContext.js';
 const useProductDetail = (productId) => {
   const { actions } = useContext(Context);
   const { getOneProduct, getCategoryHierarchyParents } = actions;
+  const [found, setFound] = useState(true);
   const [product, setProduct] = useState({});
   const [categoryHierarchy, setCategoryHierarchy] = useState({});
 
@@ -11,7 +12,8 @@ const useProductDetail = (productId) => {
     getOneProduct(productId)
       .then(response => {
         if (response != null) setProduct(response);
-      })
+        else setFound(false);
+      });
   }, []);
 
   useEffect(() => {
@@ -23,7 +25,8 @@ const useProductDetail = (productId) => {
 
   return ({
     product,
-    categoryHierarchy
+    categoryHierarchy,
+    found
   });
 };
 export default useProductDetail;
