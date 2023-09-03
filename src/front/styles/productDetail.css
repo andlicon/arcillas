@@ -1,3 +1,8 @@
 .productDetail__header {
   gap: 1rem;
 }
+
+.productDetail__content {
+  margin-top: 1em;
+  background-color: white;
+}

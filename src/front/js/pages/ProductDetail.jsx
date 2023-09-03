@@ -25,7 +25,9 @@ const ProductDetail = () => {
         <span className='separator'>|</span>
         <CategoriesHierarchy categoryFamily={categoryHierarchy} />
       </div>
-      aaaaa
+      <div className='productDetail__content rounded'>
+        a
+      </div>
     </div>
   );
 };
