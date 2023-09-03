@@ -1,0 +1,13 @@
+.hierarchy__ol {
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.hierarchy__p {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  gap: .3em;
+  margin-right: .3em;
+}

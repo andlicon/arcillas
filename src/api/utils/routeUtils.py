@@ -15,4 +15,4 @@ def get_hierarchy_parents(category, prevlist):
     if id_parent is not None:
         get_hierarchy_parents(category.parent, prevlist=prevlist)
 
-    return prevlist
+    return prevlist.reverse()

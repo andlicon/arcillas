@@ -4,3 +4,7 @@ export const orderCategorys = (categorys) => {
   });
   return categorysSorted.sort();
 }
+
+export const orderCategoriesByParent = (categories) => {
+  return categories.sort((a, b) => a.category_parent - b.category_parent);
+}
