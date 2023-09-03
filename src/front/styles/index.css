@@ -148,3 +148,7 @@ li {
 .dropDown>* {
   width: 100%;
 }
+
+.separator {
+  color: white;
+}

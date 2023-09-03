@@ -7,10 +7,10 @@ const CategoriesHierarchy = ({ categoryFamily }) => {
       <ol className='hierarchy hierarchy__ol'>
         {
           categoryFamily.map((category, i, list) => {
-            let elementLeft = list.length - 1 - i;
+            let elementLeft = (list.length - 1 - i) > 0
             return (
               <li className='hierarchy__li' key={category.id}>
-                <p className='hierarchy__p'>
+                <span className={`hierarchy__span${!elementLeft ? ' hierarchy__span--current' : ''}`}>
                   {
                     category.name
                   }
@@ -19,13 +19,13 @@ const CategoriesHierarchy = ({ categoryFamily }) => {
                       ? <i className="bi bi-arrow-right-short hierarchy__icon"></i>
                       : null
                   }
-                </p>
+                </span>
               </li>
             )
           })
         }
       </ol>
-    </nav>
+    </nav >
   )
 }
 export default CategoriesHierarchy;
