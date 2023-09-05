@@ -11,7 +11,8 @@ const ProductDetail = () => {
   const {
     product,
     categoryHierarchy,
-    found
+    found,
+    loading
   } = useProductDetail(productId);
 
   useEffect(() => {
@@ -20,15 +21,23 @@ const ProductDetail = () => {
 
   return (
     <div className='container'>
-      <div className='d-flex align-items-center productDetail__header'>
-        <BackTo text='Volver' to='/' />
-        <span className='separator'>|</span>
-        <CategoriesHierarchy categoryFamily={categoryHierarchy} />
-      </div>
-      <div className='productDetail__content rounded'>
-        a
-      </div>
+      {
+        loading || !found
+          ?
+          <>Loading</>
+          :
+          <div className='container'>
+            <div className='d-flex align-items-center productDetail__header'>
+              <BackTo text='Volver' to='/' />
+              <span className='separator'>|</span>
+              <CategoriesHierarchy categoryFamily={categoryHierarchy} />
+            </div>
+            <div className='productDetail__content rounded'>
+              a
+            </div>
+          </div>
+      }
     </div>
-  );
+  )
 };
 export default ProductDetail;

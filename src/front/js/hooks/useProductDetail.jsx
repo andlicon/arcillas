@@ -8,13 +8,15 @@ const useProductDetail = (productId) => {
   const [found, setFound] = useState(true);
   const [product, setProduct] = useState({});
   const [categoryHierarchy, setCategoryHierarchy] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getOneProduct(productId)
       .then(response => {
+        setLoading(false);
         if (response != null) setProduct(response);
         else setFound(false);
-      });
+      })
   }, []);
 
   useEffect(() => {
@@ -40,7 +42,8 @@ const useProductDetail = (productId) => {
   return ({
     product,
     categoryHierarchy,
-    found
+    found,
+    loading
   });
 };
 export default useProductDetail;
