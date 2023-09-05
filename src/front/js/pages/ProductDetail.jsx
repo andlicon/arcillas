@@ -1,28 +1,23 @@
-import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import useProductDetail from '../hooks/useProductDetail.jsx';
 import '../../styles/productDetail.css';
 import CategoriesHierarchy from '../component/CategoriesHierarchy.jsx';
 import BackTo from '../component/BackTo.jsx';
+import ImageDisplay from '../component/ImageDisplay.jsx';
 
 const ProductDetail = () => {
-  const navigate = useNavigate();
   const { productId } = useParams();
   const {
     product,
     categoryHierarchy,
-    found,
-    loading
+    found
   } = useProductDetail(productId);
-
-  useEffect(() => {
-    if (!found) navigate('/not-found');
-  }, [found]);
 
   return (
     <div className='container'>
       {
-        loading || !found
+        !found
           ?
           <>Loading</>
           :
@@ -33,7 +28,7 @@ const ProductDetail = () => {
               <CategoriesHierarchy categoryFamily={categoryHierarchy} />
             </div>
             <div className='productDetail__content rounded'>
-              a
+              <ImageDisplay images={product?.image_url} />
             </div>
           </div>
       }
