@@ -11,8 +11,6 @@ const useProductDetail = (productId) => {
   const [found, setFound] = useState(false);
   const navigate = useNavigate();
 
-  console.log(product, categoryHierarchy, found)
-
   useEffect(() => {
     getOneProduct(productId)
       .then(response => {

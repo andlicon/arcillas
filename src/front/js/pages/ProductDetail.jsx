@@ -28,7 +28,7 @@ const ProductDetail = () => {
               <CategoriesHierarchy categoryFamily={categoryHierarchy} />
             </div>
             <div className='productDetail__content rounded'>
-              <ImageDisplay images={product?.image_url} />
+              <ImageDisplay images={[product?.image_url]} />
             </div>
           </div>
       }
