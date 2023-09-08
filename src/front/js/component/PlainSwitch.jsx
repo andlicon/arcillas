@@ -8,9 +8,6 @@ const PlainSwitch = ({
   label,
   setValues
 }) => {
-  const onChangeHandler = ({ target }) => {
-    if (setValues) setValues(target.name, target.checked);
-  }
 
   return (
     <div className='row formInput'>
@@ -22,7 +19,7 @@ const PlainSwitch = ({
       </div>
       <div className='col-9'>
         <div className="form-check form-switch">
-          <input className="form-check-input" type="checkbox" name={name} role="switch" value={value} onChange={onChangeHandler} id={id} />
+          <input className="form-check-input" type="checkbox" name={name} role="switch" value={value} onChange={setValues} id={id} />
         </div>
       </div>
     </div>

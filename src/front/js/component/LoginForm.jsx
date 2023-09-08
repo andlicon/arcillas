@@ -4,11 +4,15 @@ import { useField } from '../hooks/useField.jsx';
 import { useNavigate } from "react-router-dom";
 import AnimatedInput from '../component/AnimatedInput.jsx';
 import { validateLogin } from '../utils/validateUtils.js';
+import {
+  INPUT_TYPE_TEXT,
+  INPUT_TYPE_PASSWORD
+} from '../constant/inputConstant.js';
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const email = useField({ type: 'text' });
-  const password = useField({ type: 'password' });
+  const email = useField({ type: INPUT_TYPE_TEXT });
+  const password = useField({ type: INPUT_TYPE_PASSWORD });
   const { actions } = useContext(Context);
   const { login } = actions;
 

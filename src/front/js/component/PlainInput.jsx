@@ -11,15 +11,6 @@ const PlainInput = ({
   invalidFeedback,
   required
 }) => {
-  const onChangeHandler = ({ target }) => {
-    if (type == 'file') {
-      setValues(name, target.files[0]);
-    }
-    else {
-      setValues(name, target.value);
-    }
-  }
-
   return (
     <div className='row formInput'>
       <div className='col-3 d-flex justify-content-end align-items-center'>
@@ -28,7 +19,7 @@ const PlainInput = ({
           <button className="help btn" type="button" disabled>?</button>
         </span>
       </div>
-      <input className='col-9' id={id} name={name} type={type} onChange={onChangeHandler} value={value} required={required} />
+      <input className='col-9' id={id} name={name} type={type} onChange={setValues} value={value} required={required} />
       <div className="invalid-feedback">
         {
           invalidFeedback ? invalidFeedback : 'Input inválido'
