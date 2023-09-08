@@ -1,10 +1,7 @@
 import React from 'react';
-import usePopOver from '../hooks/usePopOver.jsx';
 import FilterForm from './FilterForm.jsx';
 
 const ProductFilter = () => {
-  usePopOver();
-
   return (
     <div className="accordion filter-container " id="accordionPanelsStayOpenExample">
       <div className="accordion-item">

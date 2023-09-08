@@ -1,23 +1,19 @@
 import React, { useContext } from 'react';
 import { Context } from '../store/appContext.js';
-import { useField } from '../hooks/useField.jsx';
+import useFilter from '../hooks/useFilter.jsx';
+import usePopOver from '../hooks/usePopOver.jsx';
 import PlainInput from './PlainInput.jsx';
 import PlainSelect from './PlainSelect.jsx';
 import PlainSwitch from './PlainSwitch.jsx';
-import {
-  INPUT_TYPE_SELECT,
-  INPUT_TYPE_SWITCH,
-  INPUT_TYPE_TEXT
-} from '../constant/inputConstant.js';
 
 const FilterForm = () => {
-  const name = useField({ type: INPUT_TYPE_TEXT });
-  const category = useField({ type: INPUT_TYPE_SELECT });
-  const subCategory = useField({ type: INPUT_TYPE_SWITCH });
-  const unit = useField({ type: INPUT_TYPE_SELECT });
   const { store, actions } = useContext(Context);
   const { getProductPage } = actions;
   const { categorys, units } = store;
+  const {
+    filter,
+    setFilterHandler,
+    saveFilter } = useFilter();
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
@@ -25,41 +21,44 @@ const FilterForm = () => {
     getProductPage();
   };
 
+  usePopOver();
+
   return (
     <form className="accordion-body" onSubmit={onSubmitHandler}>
       <div>
         <PlainInput
           id='name'
           name='name'
-          value={name.value}
+          value={filter['name']}
           label='Nombre'
-          type={name.type}
+          type='text'
           popOver='Nombre del producto'
-          setValues={name.onChange}
+          setValues={({ target }) => setFilterHandler(target.name, target.value)}
           required={false} />
         <PlainSelect
           id='category'
           name='category'
-          value={category.value}
-          label='Categoría' popOver='Categoría del producto, solo puede poseer 1'
-          setValues={category.onChange}
+          value={filter['category']}
+          label='Categoría'
+          popOver='Categoría del producto, solo puede poseer 1'
+          setValues={({ target }) => setFilterHandler(target.name, target.value)}
           required={false}
           list_items={categorys}
           initial={{ value: 'all', label: 'Todos' }} />
         <PlainSwitch
           name='subCategory'
           id='subCategory'
-          value={subCategory.value}
+          value={filter['subCategory']}
           popOver='Habilitar para buscar subcategorías'
-          setValues={subCategory.onChange}
+          setValues={({ target }) => setFilterHandler(target.name, target.checked)}
           label='Buscar subcategorías' />
         <PlainSelect
           id='unit'
           name='unit'
-          value={unit.value}
+          value={filter['unit']}
           label='Unidad'
           popOver='Unidad en la que se presenta el producto'
-          setValues={unit.onChange}
+          setValues={({ target }) => setFilterHandler(target.name, target.value)}
           required={false}
           list_items={units}
           initial={{ value: 'all', label: 'Todos' }} />
