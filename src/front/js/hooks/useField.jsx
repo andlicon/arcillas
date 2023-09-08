@@ -1,16 +1,15 @@
 import { useState } from 'react';
 
-export const useField = (type) => {
+export const useField = ({ type }) => {
   const [value, setValue] = useState('');
-  const type = type
 
-  const onChange = ({ target }) => {
-    setValue(target.value);
-  }
+  const onChange = event => {
+    setValue(event.target.value);
+  };
 
-  return (
+  return ({
     value,
     type,
     onChange
-  )
+  })
 };
