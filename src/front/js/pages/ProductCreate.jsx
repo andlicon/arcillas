@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Context } from '../store/appContext.js';
 import ProductForm from '../component/ProductForm.jsx';
 import BackTo from '../component/BackTo.jsx';
 
 const ProductCreate = () => {
+  const { actions } = useContext(Context);
+  const { postProduct } = actions;
+
+  const onSubmitCreate = async (product) => {
+    await postProduct(product);
+  };
+
   return (
     <div className='container'>
       <div className='productCreate__header'>
@@ -10,7 +18,10 @@ const ProductCreate = () => {
         <BackTo to='/admin/product' text='Volver a la lista de productos' />
       </div>
 
-      <ProductForm action='create' />
+      <ProductForm
+        action='create'
+        onSubmit={onSubmitCreate}
+        deletable={false} />
     </div >
   )
 };

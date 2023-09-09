@@ -12,9 +12,6 @@ const PlainSelect = ({
   list_items,
   initial
 }) => {
-  const onChangeHandler = ({ target }) => {
-    setValues(name, target.value);
-  }
 
   return (
     <div className='row formInput'>
@@ -24,7 +21,7 @@ const PlainSelect = ({
           <button className="help btn" type="button" disabled>?</button>
         </span>
       </div>
-      <select className='col-9' name={name} id={id} onChange={onChangeHandler} value={value} required={required}>
+      <select className='col-9' name={name} id={id} onChange={setValues} value={value} required={required}>
         {
           initial && <option value={initial.value} key={0}>{initial.label}</option>
         }
