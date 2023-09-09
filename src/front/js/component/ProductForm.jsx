@@ -19,8 +19,9 @@ const modalDelete = {
 const ProductForm = ({
   action,
   children,
-  onSubmit }) => {
-  const { store } = useContext(Context);
+  onSubmit,
+  deletable }) => {
+  const { store, actions } = useContext(Context);
   const { categorys, units } = store;
   const { productId } = useParams();
   const navigate = useNavigate();
@@ -29,9 +30,6 @@ const ProductForm = ({
     isLoading,
     formProduct,
     onChangeFormProduct,
-    createProduct,
-    updateProduct,
-    removeProduct,
     getForm
   } = useProductForm(productId);
 
@@ -39,10 +37,16 @@ const ProductForm = ({
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    // validar producto
+    if (!validateProductForm(getForm())) return
+
     await onSubmit(getForm());
 
     navigate('/admin/product');
+  }
+
+  const deleteItem = async () => {
+    const id = getForm().get('id');
+    await actions.deleteProduct(id);
   }
 
   return (
@@ -53,8 +57,19 @@ const ProductForm = ({
           Guardar
         </button>
         {
-          action == 'edit' &&
-          <Modal button={{ label: 'Borrar', className: 'btn-danger', icon: <i className="bi bi-trash"></i> }} modal={modalDelete} id='deleteProduct' acceptFunction={removeProduct} redirect='/admin/product' />
+          deletable ?
+            <Modal
+              button={{
+                label: 'Borrar',
+                className: 'btn-danger',
+                icon: <i className="bi bi-trash"></i>
+              }}
+              modal={modalDelete}
+              id='deleteProduct'
+              acceptFunction={deleteItem}
+              redirect='/admin/product'
+            />
+            : null
         }
       </div>
       {/* PRODUCT INFORMATION */}

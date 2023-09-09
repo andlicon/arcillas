@@ -20,7 +20,8 @@ const ProductCreate = () => {
 
       <ProductForm
         action='create'
-        onSubmit={onSubmitCreate} />
+        onSubmit={onSubmitCreate}
+        deletable={false} />
     </div >
   )
 };

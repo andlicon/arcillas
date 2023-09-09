@@ -39,12 +39,6 @@ const useFormProduct = (productId) => {
     return form;
   }
 
-  const removeProduct = async () => {
-    setIsLoading(true);
-    await deleteProduct(productId);
-    setIsLoading(false);
-  };
-
   useEffect(() => {
     if (productId == undefined || productId == undefined) {
       // Set default productForm
@@ -98,7 +92,6 @@ const useFormProduct = (productId) => {
     isLoading,
     formProduct,
     onChangeFormProduct,
-    removeProduct,
     getForm
   });
 };

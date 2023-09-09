@@ -21,7 +21,9 @@ const ProductEdit = () => {
 
       <ProductForm
         action='edit'
-        onSubmit={onSubmit} />
+        onSubmit={onSubmit}
+        deletable={true}
+      />
     </div >
   );
 };
