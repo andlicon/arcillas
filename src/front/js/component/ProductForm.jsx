@@ -16,7 +16,10 @@ const modalDelete = {
   cancel: 'Cancelar'
 }
 
-const ProductForm = ({ action, children }) => {
+const ProductForm = ({
+  action,
+  children,
+  onSubmit }) => {
   const { store } = useContext(Context);
   const { categorys, units } = store;
   const { productId } = useParams();
@@ -29,18 +32,15 @@ const ProductForm = ({ action, children }) => {
     createProduct,
     updateProduct,
     removeProduct,
+    getForm
   } = useProductForm(productId);
 
   usePopOver();
 
-  const onSubmitHandler = async (event) => {
-    event.preventDefault();
-
-    if (!validateProductForm(formProduct)) return null;
-
-    if (action.toLowerCase() == 'create') await createProduct();
-    else if (action.toLowerCase() == 'edit') await updateProduct();
-    else return null;
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    // validar producto
+    await onSubmit(getForm());
 
     navigate('/admin/product');
   }

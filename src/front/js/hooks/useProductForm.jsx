@@ -16,7 +16,7 @@ const useFormProduct = (productId) => {
   const [isLoading, setIsLoading] = useState(false);
   const [formProduct, setFormProduct] = useState(initialValue);
   const { actions, store } = useContext(Context);
-  const { postProduct, putProduct, getOneProduct, deleteProduct } = actions;
+  const { getOneProduct, deleteProduct } = actions;
   const { categorys, units, productPage } = store;
   const navigate = useNavigate();
 
@@ -35,27 +35,9 @@ const useFormProduct = (productId) => {
     form.append('category_id', formProduct['categoryId']);
     form.append('unit_id', formProduct['unitId']);
     form.append('image', formProduct['image']);
+    form.append('id', formProduct['id']);
     return form;
   }
-
-  const createProduct = async () => {
-    setIsLoading(true);
-
-    const form = getForm();
-
-    await postProduct(form);
-    setIsLoading(false);
-  };
-
-  const updateProduct = async () => {
-    setIsLoading(true);
-
-    const form = getForm();
-
-    await putProduct(productId, form);
-
-    setIsLoading(false);
-  };
 
   const removeProduct = async () => {
     setIsLoading(true);
@@ -116,9 +98,8 @@ const useFormProduct = (productId) => {
     isLoading,
     formProduct,
     onChangeFormProduct,
-    createProduct,
-    updateProduct,
-    removeProduct
+    removeProduct,
+    getForm
   });
 };
 export default useFormProduct;
