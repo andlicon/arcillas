@@ -16,8 +16,10 @@ const modalDelete = {
   cancel: 'Cancelar'
 }
 
-const ProductForm = ({ action, children }) => {
-  const { store } = useContext(Context);
+const ProductForm = ({
+  onSubmit,
+  deletable }) => {
+  const { store, actions } = useContext(Context);
   const { categorys, units } = store;
   const { productId } = useParams();
   const navigate = useNavigate();
@@ -26,23 +28,23 @@ const ProductForm = ({ action, children }) => {
     isLoading,
     formProduct,
     onChangeFormProduct,
-    createProduct,
-    updateProduct,
-    removeProduct
+    getForm
   } = useProductForm(productId);
 
   usePopOver();
 
-  const onSubmitHandler = async (event) => {
-    event.preventDefault();
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    if (!validateProductForm(getForm())) return
 
-    if (!validateProductForm(formProduct)) return null;
-
-    if (action.toLowerCase() == 'create') await createProduct();
-    else if (action.toLowerCase() == 'edit') await updateProduct();
-    else return null;
+    await onSubmit(getForm());
 
     navigate('/admin/product');
+  }
+
+  const deleteItem = async () => {
+    const id = getForm().get('id');
+    await actions.deleteProduct(id);
   }
 
   return (
@@ -53,8 +55,19 @@ const ProductForm = ({ action, children }) => {
           Guardar
         </button>
         {
-          action == 'edit' &&
-          <Modal button={{ label: 'Borrar', className: 'btn-danger', icon: <i className="bi bi-trash"></i> }} modal={modalDelete} id='deleteProduct' acceptFunction={removeProduct} redirect='/admin/product' />
+          deletable ?
+            <Modal
+              button={{
+                label: 'Borrar',
+                className: 'btn-danger',
+                icon: <i className="bi bi-trash"></i>
+              }}
+              modal={modalDelete}
+              id='deleteProduct'
+              acceptFunction={deleteItem}
+              redirect='/admin/product'
+            />
+            : null
         }
       </div>
       {/* PRODUCT INFORMATION */}

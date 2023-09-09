@@ -30,19 +30,19 @@ export const validateLogin = (idEmail, idPassword, idForm) => {
 
 export const validateProductForm = (form) => {
   const image = document.getElementById('image');
-  const imageValidate = form['image'] == null ? 'Se debe especificar una imagen' : '';
+  const imageValidate = form.get('image') == 'undefined' ? 'Se debe especificar una imagen' : '';
   image.setCustomValidity(imageValidate);
 
   const productCreate = document.getElementById('productCreate');
   productCreate.classList.add('was-validated');
   productCreate.checkValidity();
 
-  if (form['name'].length == 0
-    || form['description'].legnth == 0
-    || form['usage'].length == 0
-    || form['categoryId'] == undefined
-    || form['unitId'] == undefined
-    || form['image'] == undefined) {
+  if (form.get('name').length == 0
+    || form.get('description').length == 0
+    || form.get('usage').length == 0
+    || form.get('category_id') == undefined
+    || form.get('unit_id') == undefined
+    || form.get('image') == undefined) {
     return false;
   }
 

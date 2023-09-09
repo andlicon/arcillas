@@ -2,24 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../../styles/formInput.css';
 
-const AnimatedInput = ({ type,
+const AnimatedInput = ({
+  type,
   label,
   restriction,
   name,
   id,
   value,
-  setValue,
+  onChange,
   trim,
   isRequired,
   invalidFeedback,
   bootstrapIcon }) => {
 
-  const onChangeHandler = ({ target }) => {
+  const onChangeHandler = (e) => {
     if (restriction && !restriction()) {
       return null;
     }
 
-    setValue(name, (trim ? target.value.trim() : target.value))
+    onChange(e);
   };
 
   return (

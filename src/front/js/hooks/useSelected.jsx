@@ -1,9 +1,7 @@
-import { useState, useContext } from 'react';
-import { Context } from '../store/appContext';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 const useSelected = (removeFunction) => {
-  const { actions } = useContext(Context);
   const [selected, setSelected] = useState([]);
 
   const selectHandler = (toSelect) => {
