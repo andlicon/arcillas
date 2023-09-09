@@ -17,8 +17,6 @@ const modalDelete = {
 }
 
 const ProductForm = ({
-  action,
-  children,
   onSubmit,
   deletable }) => {
   const { store, actions } = useContext(Context);

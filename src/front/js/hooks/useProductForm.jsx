@@ -13,10 +13,9 @@ const initialValue = {
 }
 
 const useFormProduct = (productId) => {
-  const [isLoading, setIsLoading] = useState(false);
   const [formProduct, setFormProduct] = useState(initialValue);
   const { actions, store } = useContext(Context);
-  const { getOneProduct, deleteProduct } = actions;
+  const { getOneProduct } = actions;
   const { categorys, units, productPage } = store;
   const navigate = useNavigate();
 
@@ -39,22 +38,9 @@ const useFormProduct = (productId) => {
     return form;
   }
 
-  useEffect(() => {
-    if (productId == undefined || productId == undefined) {
-      // Set default productForm
-      setFormProduct({
-        name: '',
-        description: '',
-        usage: '',
-        categoryId: categorys[0]?.id,
-        unitId: units[0]?.id,
-        image: undefined,
-        id: undefined
-      })
-    }
-    else if (productPage?.results) {
-      // if product was looked before, then look for it inside page results
-      const product = productPage.results.filter((item) => item.id == productId)[0];
+  const getProductById = async () => {
+    const product = await getOneProduct(productId);
+    if (product) {
       setFormProduct({
         name: product.name,
         description: product.description,
@@ -66,30 +52,29 @@ const useFormProduct = (productId) => {
       })
     }
     else {
-      // query for product
-      const queryProduct = async () => {
-        const product = await getOneProduct(productId);
-        if (product) {
-          setFormProduct({
-            name: product.name,
-            description: product.description,
-            usage: product.usage,
-            categoryId: product.category_id,
-            unitId: product.unit_id,
-            image: product.image_url,
-            id: product.id
-          })
-        }
-        else {
-          navigate('/not-found');
-        }
-      }
-      queryProduct();
+      navigate('/not-found');
+    }
+  }
+
+  useEffect(() => {
+    if (productId == undefined) {
+      // Set default productForm
+      setFormProduct({
+        name: '',
+        description: '',
+        usage: '',
+        categoryId: categorys[0]?.id,
+        unitId: units[0]?.id,
+        image: undefined,
+        id: undefined
+      })
+    }
+    else {
+      getProductById();
     }
   }, []);
 
   return ({
-    isLoading,
     formProduct,
     onChangeFormProduct,
     getForm
