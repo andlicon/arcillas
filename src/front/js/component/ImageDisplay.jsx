@@ -5,11 +5,12 @@ import ImageSelect from '../component/ImageSelect.jsx';
 import ImageShowing from '../component/ImageShowing.jsx';
 
 const ImageDisplay = ({ images }) => {
+  // acá estará el useEffect
   return (
-    <div className='ImageDisplay row'>
+    <>
       <ImageSelect images={images} />
       <ImageShowing url={images[0]} />
-    </div>
+    </>
   );
 };
 ImageDisplay.propTypes = {
