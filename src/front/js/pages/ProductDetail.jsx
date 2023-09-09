@@ -32,18 +32,18 @@ const ProductDetail = () => {
             <div className='productDetail__content p-2 row rounded'>
               <ImageDisplay images={[product?.image_url]} />
               <div className='productDetail__product rounded col-md-4'>
-                <h2>{product.name}</h2>
+                <h2 className='productDetail__title'>
+                  {product.name}
+                </h2>
                 <p>
                   Categoría:
-                  {category?.name}
+                  <span className='separate'>{category?.name}</span>
                 </p>
                 <p>
                   Unidad:
-                  {
-                    unit?.name
-                  }
+                  <span className='separate'>{unit?.name}</span>
                 </p>
-                <button>
+                <button className='w-100'>
                   Añadir a lista de cotizar
                 </button>
               </div>

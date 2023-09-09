@@ -22,3 +22,11 @@
 .group {
   margin: 1em 0;
 }
+
+.productDetail__title {
+  text-align: center;
+}
+
+.productDetail p .separate {
+  margin-left: .3rem;
+}
