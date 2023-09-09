@@ -20,10 +20,10 @@ const useFormProduct = (productId) => {
   const { categorys, units, productPage } = store;
   const navigate = useNavigate();
 
-  const onChangeFormProduct = (name, value) => {
+  const onChangeFormProduct = ({ target }) => {
     setFormProduct({
       ...formProduct,
-      [name]: value
+      [target.name]: target.name != 'image' ? target.value : target.files[0]
     })
   };
 

@@ -28,7 +28,7 @@ const ProductForm = ({ action, children }) => {
     onChangeFormProduct,
     createProduct,
     updateProduct,
-    removeProduct
+    removeProduct,
   } = useProductForm(productId);
 
   usePopOver();
