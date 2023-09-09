@@ -12,7 +12,7 @@ const ImageSelect = ({ images }) => {
               key={index}
               src={url}
               alt="Product item"
-              className='imageSelect__img' />
+              className='imageSelect__img rounded' />
           )
         })
       }

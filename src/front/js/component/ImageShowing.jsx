@@ -10,7 +10,7 @@ const ImageShowing = ({ url }) => {
         <img
           src={url}
           alt="Product image"
-          className='image--showing' />
+          className='image--showing rounded' />
       }
     </div>
   );

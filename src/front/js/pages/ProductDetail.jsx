@@ -31,7 +31,7 @@ const ProductDetail = () => {
             </div>
             <div className='productDetail__content p-2 row rounded'>
               <ImageDisplay images={[product?.image_url]} />
-              <div className='productDetail__product col-md-4'>
+              <div className='productDetail__product rounded col-md-4'>
                 <h2>{product.name}</h2>
                 <p>
                   Categoría:
@@ -47,15 +47,19 @@ const ProductDetail = () => {
                   Añadir a lista de cotizar
                 </button>
               </div>
-              <div className='col-8'>
-                <h3>Descripción</h3>
-                {
-                  product?.description
-                }
-                <h3>Uso</h3>
-                {
-                  product?.usage
-                }
+              <div className='productDetails__more col-8'>
+                <div className="group">
+                  <h3>Descripción</h3>
+                  {
+                    product?.description
+                  }
+                </div>
+                <div clasName='group'>
+                  <h3>Uso</h3>
+                  {
+                    product?.usage
+                  }
+                </div>
               </div>
             </div>
           </div>

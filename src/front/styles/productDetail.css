@@ -5,6 +5,7 @@
 .productDetail__content {
   margin-top: 1em;
   background-color: white;
+  border-top: 1px solid lightgray;
 }
 
 .productDetail__product {
@@ -12,4 +13,12 @@
   top: 0;
   right: 0;
   border: 1px solid lightgray;
+}
+
+.productDetails__more {
+  padding: 1em;
+}
+
+.group {
+  margin: 1em 0;
 }
