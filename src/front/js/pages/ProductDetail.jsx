@@ -10,11 +10,11 @@ const ProductDetail = () => {
   const { productId } = useParams();
   const {
     product,
+    category,
+    unit,
     categoryHierarchy,
     found
   } = useProductDetail(productId);
-
-  const lastCategory = categoryHierarchy[categoryHierarchy?.length - 1];
 
   return (
     <div className='container'>
@@ -35,13 +35,19 @@ const ProductDetail = () => {
                 <h2>{product.name}</h2>
                 <p>
                   Categoría:
-                  {lastCategory?.name}
+                  {category?.name}
+                </p>
+                <p>
+                  Unidad:
+                  {
+                    unit?.name
+                  }
                 </p>
                 <button>
                   Añadir a lista de cotizar
                 </button>
               </div>
-              <div className='col-12'>
+              <div className='col-8'>
                 <h3>Descripción</h3>
                 {
                   product?.description
@@ -50,7 +56,6 @@ const ProductDetail = () => {
                 {
                   product?.usage
                 }
-                <h3>Unidad</h3>
               </div>
             </div>
           </div>

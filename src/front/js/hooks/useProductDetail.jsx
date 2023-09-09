@@ -4,12 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { orderCategoriesByParent } from '../utils/orderUtils.js';
 
 const useProductDetail = (productId) => {
-  const { actions } = useContext(Context);
+  const { actions, store } = useContext(Context);
   const { getOneProduct, getCategoryHierarchyParents } = actions;
   const [product, setProduct] = useState({});
   const [categoryHierarchy, setCategoryHierarchy] = useState([]);
   const [found, setFound] = useState(false);
   const navigate = useNavigate();
+
+  const category = store.categorys.filter((cate) => cate.id == product?.category_id)[0];
+  const unit = store.units.filter((unit) => unit.id == product?.unit_id)[0];
 
   useEffect(() => {
     getOneProduct(productId)
@@ -44,6 +47,8 @@ const useProductDetail = (productId) => {
 
   return ({
     product,
+    category,
+    unit,
     categoryHierarchy,
     found
   });

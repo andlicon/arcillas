@@ -6,3 +6,10 @@
   margin-top: 1em;
   background-color: white;
 }
+
+.productDetail__product {
+  position: sticky;
+  top: 0;
+  right: 0;
+  border: 1px solid lightgray;
+}
