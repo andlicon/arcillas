@@ -8,7 +8,7 @@ const ImageDisplay = ({ images }) => {
   return (
     <div className='ImageDisplay row'>
       <ImageSelect images={images} />
-      <ImageShowing images={images} />
+      <ImageShowing url={images[0]} />
     </div>
   );
 };

@@ -21,13 +21,13 @@ const ProductDetail = () => {
           ?
           <>Loading</>
           :
-          <div className='container'>
-            <div className='d-flex align-items-center productDetail__header'>
+          <div className='productDetail rounded'>
+            <div className='d-flex p-2 align-items-center productDetail__header'>
               <BackTo text='Volver' to='/' />
               <span className='separator'>|</span>
               <CategoriesHierarchy categoryFamily={categoryHierarchy} />
             </div>
-            <div className='productDetail__content rounded'>
+            <div className='productDetail__content p-2 row rounded'>
               <ImageDisplay images={[product?.image_url]} />
             </div>
           </div>

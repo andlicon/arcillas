@@ -1,0 +1,13 @@
+.imageSelect {
+    border: 1px solid lightgray;
+    border-radius: .5rem;
+    padding: .5rem;
+}
+
+.imageSelect__img {
+    width: 100%;
+}
+
+.image--showing {
+    width: 100%;
+}
