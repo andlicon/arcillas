@@ -199,7 +199,6 @@ export const getAllProductsPromise = async (filters = '') => {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await fetch(process.env.BACKEND_URL + '/products' + filters);
-      console.log('consultando a todos');
       const data = await response.json();
       if (response.ok) {
         resolve(data)
