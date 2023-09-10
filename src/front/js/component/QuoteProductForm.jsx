@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useField } from '../hooks/useField.jsx';
 import { INPUT_TYPE_SELECT } from '../constant/inputConstant.js';
+import SelectAmount from '../component/SelectAmount.jsx';
 
 const QuoteProductForm = ({ productId }) => {
   const amount = useField({ type: INPUT_TYPE_SELECT, initial: 1 });
@@ -13,14 +14,7 @@ const QuoteProductForm = ({ productId }) => {
 
   return (
     <form action="" onSubmit={onSubmitHandler}>
-      <select name="" id="" onChange={amount.onChange}>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="10">10</option>
-      </select>
+      <SelectAmount value={amount.value} onChange={amount.onChange} />
       <button className='btn btn--yellow w-100'>
         Añadir a lista de cotizar
       </button>
