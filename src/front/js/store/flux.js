@@ -8,7 +8,8 @@ import {
   getCategoryHierarchy,
   getOneProductPromise,
   patchProductPromise,
-  deleteProductPromise
+  deleteProductPromise,
+  getCategoryHierarchyParentsPromise
 } from '../utils/promisesUtils.js'
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -184,6 +185,15 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       setStoreFilter: (filters) => {
         setStore({ 'filterString': filters });
+      },
+      getCategoryHierarchyParents: async (id) => {
+        try {
+          return await getCategoryHierarchyParentsPromise(id);
+        }
+        catch (error) {
+          console.log(error);
+          return null;
+        }
       }
     }
   };

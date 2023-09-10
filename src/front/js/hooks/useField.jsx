@@ -4,8 +4,8 @@ import {
   INPUT_TYPE_FILE
 } from '../constant/inputConstant.js';
 
-export const useField = ({ type }) => {
-  const [value, setValue] = useState('');
+export const useField = ({ type, initial }) => {
+  const [value, setValue] = useState(initial ? initial : '');
 
   const onChange = event => {
     if (type == INPUT_TYPE_SWITCH) {

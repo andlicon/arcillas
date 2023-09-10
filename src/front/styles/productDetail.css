@@ -1,0 +1,31 @@
+.productDetail__header {
+  gap: 1rem;
+}
+
+.productDetail__content {
+  margin-top: 1em;
+  background-color: white;
+  border-top: 1px solid lightgray;
+}
+
+.productDetail__product {
+  position: sticky;
+  top: 0;
+  right: 0;
+}
+
+.productDetails__more {
+  padding: 1em;
+}
+
+.group {
+  margin: 1em 0;
+}
+
+.productDetail__title {
+  text-align: center;
+}
+
+.productDetail p .separate {
+  margin-left: .3rem;
+}

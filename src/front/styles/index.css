@@ -148,3 +148,17 @@ li {
 .dropDown>* {
   width: 100%;
 }
+
+.separator {
+  color: white;
+}
+
+.btn--yellow {
+  background-color: var(--color-yellow);
+  color: var(--color-dark);
+}
+
+.btn--yellow:hover {
+  background-color: #d6b11a;
+  color: white;
+}
