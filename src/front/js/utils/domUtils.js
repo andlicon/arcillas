@@ -5,3 +5,9 @@ export const activatePopOvers = () => {
     const popover = new bootstrap.Popover(pop, null);
   }
 };
+
+export const dontCloseDropDownItem = (id) => {
+  $("#" + id).click(function (e) {
+    e.stopPropagation();
+  });
+}
