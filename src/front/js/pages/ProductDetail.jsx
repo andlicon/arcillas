@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import useProductDetail from '../hooks/useProductDetail.jsx';
 import '../../styles/productDetail.css';
 import CategoriesHierarchy from '../component/CategoriesHierarchy.jsx';
+import QuoteProductForm from '../component/QuoteProductForm.jsx';
 import BackTo from '../component/BackTo.jsx';
 import ImageDisplay from '../component/ImageDisplay.jsx';
 
@@ -43,9 +44,7 @@ const ProductDetail = () => {
                   Unidad:
                   <span className='separate'>{unit?.name}</span>
                 </p>
-                <button className='w-100'>
-                  Añadir a lista de cotizar
-                </button>
+                <QuoteProductForm productId={product?.id} />
               </div>
               <div className='productDetails__more col-8'>
                 <div className="group">
@@ -54,7 +53,7 @@ const ProductDetail = () => {
                     product?.description
                   }
                 </div>
-                <div clasName='group'>
+                <div className='group'>
                   <h3>Uso</h3>
                   {
                     product?.usage
