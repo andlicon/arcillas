@@ -2,8 +2,6 @@ import React from 'react';
 
 const ImageShowing = ({ url }) => {
 
-  console.log(url)
-
   return (
     <div className='col-12 col-md-7'>
       {
