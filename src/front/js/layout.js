@@ -15,6 +15,7 @@ import ProductCreate from './pages/ProductCreate.jsx';
 import ProductList from './pages/ProductList.jsx';
 import ProductEdit from './pages/ProductEdit.jsx';
 import ProductDetail from './pages/ProductDetail.jsx';
+import ViewProduct from './pages/ViewProduct.jsx';
 
 //create your first component
 const Layout = () => {
@@ -43,7 +44,7 @@ const Layout = () => {
           <Menu>
             <Navbar />
             <Routes>
-              <Route element={<Login />} path="/" />
+              <Route element={<ViewProduct />} path="/" />
               <Route element={<Login />} path='/login' />
               {/* <Route element={<Home />} path='/admin' /> */}
               <Route element={<ProductDetail />} path='/product/:productId' />
