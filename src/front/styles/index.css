@@ -162,3 +162,7 @@ li {
   background-color: #d6b11a;
   color: white;
 }
+
+a {
+  text-decoration: none;
+}

@@ -1,16 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Context } from '../store/appContext.js';
 import VerticalItemNavigation from '../component/VerticalItemNavigation.jsx';
+import ProductCard from '../component/ProductCard.jsx';
 
 const ViewProduct = () => {
-  const { store } = useContext(Context);
+  const { store, actions } = useContext(Context);
+
+  useEffect(() => {
+    actions.getProductPage();
+  }, []);
 
   return (
     <div className='container'>
       <div className='row'>
-        <VerticalItemNavigation col='col-3' itemList={store.categorys} />
-        <div className="col-9">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga fugit blanditiis officia qui cumque asperiores harum modi iusto voluptates doloremque, optio maiores adipisci? Saepe repudiandae sed voluptatem, voluptatibus distinctio facere?
+        <VerticalItemNavigation col='col-3 col-lg-2' itemList={store.categorys} />
+        <div className="col-9 col-lg-10">
+          <div className="row g-2">
+            {
+              store?.productPage?.results?.map((element) => {
+                return (
+                  <ProductCard key={element.id} product={element} />
+                )
+              })
+            }
+          </div>
         </div>
       </div>
     </div>
