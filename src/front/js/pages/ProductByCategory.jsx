@@ -1,28 +1,34 @@
 import React, { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Context } from '../store/appContext.js';
 import VerticalItemNavigation from '../component/VerticalItemNavigation.jsx';
 import ProductCard from '../component/ProductCard.jsx';
 import PageNavigation from '../component/PageNavigation.jsx';
 
 const ProductByCategory = () => {
+  const navigate = useNavigate();
   const { store, actions } = useContext(Context);
   const { categoryId } = useParams();
 
   const perPage = 15;
 
   const lookForProducts = async () => {
-    let categoryFilter = '?per_page=' + perPage;
+    try {
+      let categoryFilter = '?per_page=' + perPage;
 
-    if (categoryId) {
-      const response = await actions.getCategoryHierarchy(categoryId);
-      categoryFilter += '&category='
-      response.forEach((category) => {
-        categoryFilter += category.id + ','
-      });
+      if (categoryId) {
+        const response = await actions.getCategoryHierarchy(categoryId);
+        categoryFilter += '&category='
+        response.forEach((category) => {
+          categoryFilter += category.id + ','
+        });
+      }
+
+      await actions.getProductPage(categoryFilter);
     }
-
-    await actions.getProductPage(categoryFilter);
+    catch (error) {
+      navigate('/not-found');
+    }
   }
 
   useEffect(() => {
