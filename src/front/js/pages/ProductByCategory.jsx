@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Context } from '../store/appContext.js';
 import VerticalItemNavigation from '../component/VerticalItemNavigation.jsx';
 import ProductCard from '../component/ProductCard.jsx';
+import ItemPagination from '../component/ItemPagination.jsx';
 
 const ProductByCategory = () => {
   const { store, actions } = useContext(Context);
@@ -40,6 +41,7 @@ const ProductByCategory = () => {
               })
             }
           </div>
+          <ItemPagination />
         </div>
       </div>
     </div>

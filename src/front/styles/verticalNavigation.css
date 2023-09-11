@@ -1,5 +1,6 @@
 .verticalNavigation {
   background-color: white;
+  height: fit-content;
 }
 
 .verticalNavigation ul {
