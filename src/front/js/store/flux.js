@@ -20,6 +20,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       categorys: JSON.parse(localStorage.getItem('categorys')) || null,
       units: JSON.parse(localStorage.getItem('units')) || null,
       productPage: {},
+      currentPager: 1,
+      perPage: 10,
       filterString: ''
     },
     actions: {
@@ -194,6 +196,12 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
           return null;
         }
+      },
+      setCurrentPage: (page) => {
+        setStore({ currentPage: page });
+      },
+      setPerPage: (page) => {
+        setStore({ perPage: page });
       }
     }
   };

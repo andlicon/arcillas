@@ -1,27 +1,20 @@
 import React, { useContext } from 'react';
 import { Context } from '../store/appContext.js';
-import usePagination from '../hooks/usePagination.jsx';
 import '../../styles/itemPagination.css';
 import PageNavigation from '../component/PageNavigation.jsx';
 import ItemPerPage from '../component/ItemPerPage.jsx';
 
 const ItemPagination = () => {
   const { store } = useContext(Context);
-  const { productPage } = store;
+  const { productPage, currentPage, perPage } = store;
   const { info, results } = productPage;
-  const {
-    perPage,
-    currentPage,
-    nextPageHandler,
-    perPageHandler
-  } = usePagination();
 
   return (
     <div className='itemPagination'>
       <div>
-        <PageNavigation perPage={perPage} />
+        <PageNavigation />
       </div>
-      <ItemPerPage perPage={perPage} />
+      <ItemPerPage />
       <div>
         <span className='itemPagination__count'>
           {
