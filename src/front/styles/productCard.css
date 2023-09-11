@@ -6,8 +6,13 @@
   text-align: left;
 }
 
+.productCard * {
+  text-decoration: none;
+}
+
 .productCard__image {
   width: 100%;
+  aspect-ratio: 3 / 2;
 }
 
 .productCard__content {
