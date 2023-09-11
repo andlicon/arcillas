@@ -26,6 +26,10 @@ const ProductByCategory = () => {
   }
 
   useEffect(() => {
+    actions.setPerPage(15);
+  }, []);
+
+  useEffect(() => {
     lookForProducts();
   }, [categoryId]);
 
@@ -43,7 +47,7 @@ const ProductByCategory = () => {
               })
             }
           </div>
-          <PageNavigation perPage={perPage} />
+          <PageNavigation />
         </div>
       </div>
     </div>

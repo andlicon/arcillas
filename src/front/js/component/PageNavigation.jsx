@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Context } from '../store/appContext.js';
 import { usePageNavigation } from '../hooks/usePageNavigation.jsx';
 
-const PageNavigation = ({ perPage }) => {
+const PageNavigation = () => {
   const {
     currentPage,
     prev,
     next,
     nextPageHandler,
     resultsCount,
-  } = usePageNavigation(perPage);
+  } = usePageNavigation();
+  const { store } = useContext(Context);
+  const { perPage } = store;
 
   return (
     <nav aria-label="Page navigation">

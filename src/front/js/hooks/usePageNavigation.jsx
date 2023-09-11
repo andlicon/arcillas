@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { Context } from '../store/appContext.js';
 
 export const usePageNavigation = () => {
