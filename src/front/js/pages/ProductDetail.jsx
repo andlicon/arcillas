@@ -7,7 +7,7 @@ import QuoteProductForm from '../component/QuoteProductForm.jsx';
 import BackTo from '../component/BackTo.jsx';
 import ImageDisplay from '../component/ImageDisplay.jsx';
 
-const ProductDetail = () => {
+const ProductDetail = ({ categoryId }) => {
   const { productId } = useParams();
   const {
     product,
@@ -26,7 +26,7 @@ const ProductDetail = () => {
           :
           <div className='productDetail rounded'>
             <div className='d-flex p-1 align-items-center productDetail__header'>
-              <BackTo text='Volver' to='/' />
+              <BackTo text='Volver' to={'/category/' + category?.id} />
               <span className='separator'>|</span>
               <CategoriesHierarchy categoryFamily={categoryHierarchy} />
             </div>
