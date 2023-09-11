@@ -3,18 +3,20 @@ import { useParams } from 'react-router-dom';
 import { Context } from '../store/appContext.js';
 import VerticalItemNavigation from '../component/VerticalItemNavigation.jsx';
 import ProductCard from '../component/ProductCard.jsx';
-import ItemPagination from '../component/ItemPagination.jsx';
+import PageNavigation from '../component/PageNavigation.jsx';
 
 const ProductByCategory = () => {
   const { store, actions } = useContext(Context);
   const { categoryId } = useParams();
 
+  const perPage = 15;
+
   const lookForProducts = async () => {
-    let categoryFilter = '';
+    let categoryFilter = '?per_page=' + perPage;
 
     if (categoryId) {
       const response = await actions.getCategoryHierarchy(categoryId);
-      categoryFilter += '?category='
+      categoryFilter += '&category='
       response.forEach((category) => {
         categoryFilter += category.id + ','
       });
@@ -41,7 +43,7 @@ const ProductByCategory = () => {
               })
             }
           </div>
-          <ItemPagination />
+          <PageNavigation perPage={perPage} />
         </div>
       </div>
     </div>
