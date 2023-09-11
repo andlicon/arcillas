@@ -31,11 +31,23 @@ const ProductByCategory = () => {
     }
   }
 
+  const setTitle = () => {
+    if (categoryId) {
+      const category = store.categorys.filter((category) => category.id == categoryId)[0];
+      document.title = category?.name + ' | Arcillas Puerto La Cruz';
+    }
+    else {
+      document.title = 'Arcillas Puerto La Cruz';
+    }
+  }
+
   useEffect(() => {
+    setTitle();
     actions.setPerPage(15);
   }, []);
 
   useEffect(() => {
+    setTitle();
     lookForProducts();
   }, [categoryId]);
 
