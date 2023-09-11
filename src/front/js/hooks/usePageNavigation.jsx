@@ -37,7 +37,7 @@ export const usePageNavigation = () => {
 
   useEffect(() => {
     setCurrentPage(info?.current_page);
-  }, [info]);
+  }, [info?.current_page]);
 
 
   return ({
