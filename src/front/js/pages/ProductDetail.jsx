@@ -30,7 +30,7 @@ const ProductDetail = ({ categoryId }) => {
               <span className='separator'>|</span>
               <CategoriesHierarchy categoryFamily={categoryHierarchy} />
             </div>
-            <div className='productDetail__content p-2 row rounded'>
+            <div className='productDetail__content box-shadow p-2 row rounded'>
               <ImageDisplay images={[product?.image_url]} />
               <div className='productDetail__product rounded col-md-4'>
                 <h2 className='productDetail__title'>

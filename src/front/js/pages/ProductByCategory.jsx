@@ -54,7 +54,7 @@ const ProductByCategory = () => {
   return (
     <div className='container'>
       <div className='row pt-3'>
-        <VerticalItemNavigation col='col-3 col-lg-2' itemList={store.categorys} />
+        <VerticalItemNavigation col='col-3 col-lg-2 box-shadow' itemList={store.categorys} />
         <div className="col-9 col-lg-10">
           <div className="row justify-content-between g-3 mt-0 product-row">
             {

@@ -6,6 +6,10 @@
   text-align: left;
 }
 
+.productCard:hover {
+  box-shadow: var(--box-shadow-hover);
+}
+
 .productCard * {
   text-decoration: none;
 }

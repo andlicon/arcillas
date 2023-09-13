@@ -39,7 +39,7 @@ const ProductResults = ({ selectHandler, selected }) => {
   };
 
   return (
-    <div className='table-responsive results-container'>
+    <div className='table-responsive box-shadow results-container'>
       <table className='table results table-secondary' >
         <thead>
           <tr>
