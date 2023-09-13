@@ -1,5 +1,5 @@
 .verticalNavigation {
-  background-color: white;
+  background-color: var(--color-light-secondary);
   height: fit-content;
 }
 

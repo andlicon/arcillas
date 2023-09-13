@@ -4,7 +4,10 @@
 :root {
   --color-yellow: #ffd21f;
   --color-dark: #202124;
-  --color-dark-secondary: #E2E3E5;
+  --bg-page: #eeeeee;
+  --bg-primary: white;
+  --color-dark-secondary: #fafafa;
+  --color-light-secondary: #fafafa;
   --color-white: #ffffff;
   --color-brown: #6B0314;
   --navbar-height: 6vh;
@@ -21,7 +24,7 @@
 }
 
 body {
-  background-color: var(--color-dark);
+  background-color: var(--bg-page);
   color: black;
 }
 
@@ -125,7 +128,7 @@ i {
 }
 
 .accordion-item {
-  background-color: var(--color-dark-secondary);
+  background-color: var(--color-light-secondary);
 }
 
 .logo {
@@ -136,7 +139,7 @@ i {
 }
 
 .offcanvas {
-  background-color: var(--color-dark-secondary);
+  background-color: var(--color-light-secondary);
 }
 
 ul,
