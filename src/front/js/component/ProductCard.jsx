@@ -4,7 +4,7 @@ import '../../styles/productCard.css';
 
 const ProductCard = ({ product }) => {
   return (
-    <Link className='col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3' to={`/product/${product.id}`}>
+    <Link className='col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4' to={`/product/${product.id}`}>
       <div className="productCard rounded">
         <img src={product.image_url} alt={product.name} className='productCard__image rounded' />
         <div className='productCard__content'>
