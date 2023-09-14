@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Context } from '../store/appContext';;
+import { Context } from '../store/appContext';
 import { useField } from '../hooks/useField.jsx';
 import { INPUT_TYPE_SELECT } from '../constant/inputConstant.js';
 import SelectAmount from '../component/SelectAmount.jsx';
@@ -11,7 +11,6 @@ const QuoteProductForm = ({ product }) => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     actions.addQuoteProduct({ product: product, amount: amount.value });
-    console.log('se Cotizaran ' + amount.value + ' del siguiente producto ' + product);
   }
 
 

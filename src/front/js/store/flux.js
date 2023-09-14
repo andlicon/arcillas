@@ -204,6 +204,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       addQuoteProduct: ({ product, amount }) => {
         const quoteList = getStore().quoteList;
+        if (quoteList.some((quote) => quote.product.id == product.id)) return
         setStore({ quoteList: [...quoteList, { product, amount }] })
       },
       removeQuoteProduct: (product) => {

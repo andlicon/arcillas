@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Context } from '../store/appContext';
 
 export const QuoteList = () => {
+  const { store } = useContext(Context);
+  const { quoteList } = store;
+
   return (
     <>
       <button className="btn offcanvas__opener" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
@@ -15,7 +19,17 @@ export const QuoteList = () => {
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div className="offcanvas-body">
-          <p>Try scrolling the rest of the page to see this option in action.</p>
+          {
+            quoteList.map((quote) => {
+              const product = quote.product;
+              const amount = quote.amount;
+              return (
+                <div key={product.id}>
+                  {product.name} x {amount}
+                </div>
+              )
+            })
+          }
         </div>
       </div>
     </>
