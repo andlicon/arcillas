@@ -154,7 +154,7 @@ li {
 }
 
 .separator {
-  color: white;
+  font-weight: 600;
 }
 
 .btn--yellow {
