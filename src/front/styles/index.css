@@ -200,7 +200,7 @@ a {
   background-color: transparent;
 }
 
-.offcanvas__opener i {
+.navbar i {
   margin: 0;
   font-size: 2rem;
   color: var(--color-main);
@@ -214,4 +214,8 @@ a {
 .navbar .container {
   display: flex;
   align-items: center;
+}
+
+.offcanvas {
+  background-color: var(--color-light-secondary);
 }

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Context } from '../store/appContext';
 import { Link } from "react-router-dom";
+import QuoteList from './QuoteList.jsx';
 
 const Navbar = () => {
   const { store } = useContext(Context);
@@ -25,7 +26,7 @@ const Navbar = () => {
 
         </Link>
         <div className="ml-auto">
-
+          <QuoteList />
         </div>
       </div>
     </nav>
