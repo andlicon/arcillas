@@ -47,8 +47,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           localStorage.setItem('token', token);
           setStore({ user: user });
           localStorage.setItem('user', JSON.stringify(user));
-          getCategorys();
-          getUnits();
           return user;
         }
         catch (error) {

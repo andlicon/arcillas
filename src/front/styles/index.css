@@ -180,3 +180,7 @@ a {
 .box-shadow {
   box-shadow: var(--box-shadow);
 }
+
+.navigation {
+  width: fit-content;
+}

@@ -10,7 +10,7 @@ const VerticalItemNavigation = ({ itemList, col }) => {
       </h3>
       <ul className=''>
         {
-          itemList.map((element) => {
+          itemList?.map((element) => {
             return (
               <li key={element.id} className='rounded'>
                 <Link to={'/category/' + element.id} className='rounded p-1'>

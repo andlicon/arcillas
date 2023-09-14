@@ -14,7 +14,7 @@ const PageNavigation = () => {
   const { perPage } = store;
 
   return (
-    <nav aria-label="Page navigation">
+    <nav aria-label="Page navigation" className='navigation'>
       <ul className="pagination box-shadow">
         <li className={`page-item${prev == null ? ' disabled' : ''}`}>
           <button className={"page-link"} name='prev' onClick={nextPageHandler}>Previous</button >
