@@ -204,7 +204,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       addQuoteProduct: ({ product, amount }) => {
         const quoteList = getStore().quoteList;
-        if (quoteList.some((quote) => quote.product.id == product.id)) return
+        if (quoteList.some((quote) => quote.product.id == product.id)) {
+          toast.warning('El producto ya está en tu cotización')
+          return
+        }
         setStore({ quoteList: [...quoteList, { product, amount }] })
       },
       removeQuoteProduct: (product) => {
