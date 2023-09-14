@@ -187,3 +187,31 @@ a {
 .accordion-header * {
   font-weight: 600;
 }
+
+.offcanvas__opener {
+  padding: 0;
+  height: fit-content;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.offcanvas__opener:hover {
+  background-color: transparent;
+}
+
+.offcanvas__opener i {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--color-main);
+  transition: all .15s ease-in-out;
+}
+
+.offcanvas__opener:hover i {
+  color: white;
+}
+
+.navbar .container {
+  display: flex;
+  align-items: center;
+}
