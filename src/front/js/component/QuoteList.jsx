@@ -7,10 +7,10 @@ export const QuoteList = () => {
         <i className="bi bi-cart4"></i>
       </button>
 
-      <div className="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+      <div className="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabIndex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
         <div className="offcanvas-header">
           <h5 className="offcanvas-title" id="offcanvasScrollingLabel">
-            Lista de productos a cotizar
+            Lista de productos a cotizar1
           </h5>
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>

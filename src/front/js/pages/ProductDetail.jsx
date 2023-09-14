@@ -44,7 +44,7 @@ const ProductDetail = ({ categoryId }) => {
                   Unidad:
                   <span className='separate'>{unit?.name}</span>
                 </p>
-                <QuoteProductForm productId={product?.id} />
+                <QuoteProductForm product={product} />
               </div>
               <div className='productDetails__more col-8'>
                 <div className="group">

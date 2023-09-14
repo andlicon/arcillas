@@ -22,7 +22,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       productPage: {},
       currentPager: 1,
       perPage: 10,
-      filterString: ''
+      filterString: '',
+      quoteList: []
     },
     actions: {
       login: async (credentials) => {
@@ -200,6 +201,15 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       setPerPage: (page) => {
         setStore({ perPage: page });
+      },
+      addQuoteProduct: ({ product, amount }) => {
+        const quoteList = getStore().quoteList;
+        setStore({ quoteList: [...quoteList, { product, amount }] })
+      },
+      removeQuoteProduct: (product) => {
+        const quoteList = getStore().quoteList;
+        const newQuoteList = quoteList.filter((quoteItem) => quoteItem.product.id != product.id)
+        setStore({ quoteList: newQuoteList });
       }
     }
   };

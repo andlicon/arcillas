@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Context } from '../store/appContext';;
 import { useField } from '../hooks/useField.jsx';
 import { INPUT_TYPE_SELECT } from '../constant/inputConstant.js';
 import SelectAmount from '../component/SelectAmount.jsx';
 
-const QuoteProductForm = ({ productId }) => {
+const QuoteProductForm = ({ product }) => {
+  const { actions } = useContext(Context);
   const amount = useField({ type: INPUT_TYPE_SELECT, initial: 1 });
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log('se Cotizaran ' + amount.value + ' del siguiente producto ' + productId);
+    actions.addQuoteProduct({ product: product, amount: amount.value });
+    console.log('se Cotizaran ' + amount.value + ' del siguiente producto ' + product);
   }
 
 
