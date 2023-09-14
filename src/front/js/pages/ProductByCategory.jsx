@@ -10,7 +10,7 @@ const ProductByCategory = () => {
   const { store, actions } = useContext(Context);
   const { categoryId } = useParams();
 
-  const perPage = 15;
+  const perPage = 12;
 
   const lookForProducts = async () => {
     try {
@@ -43,7 +43,7 @@ const ProductByCategory = () => {
 
   useEffect(() => {
     setTitle();
-    actions.setPerPage(15);
+    actions.setPerPage(perPage);
   }, []);
 
   useEffect(() => {
@@ -53,10 +53,10 @@ const ProductByCategory = () => {
 
   return (
     <div className='container'>
-      <div className='row'>
-        <VerticalItemNavigation col='col-3 col-lg-2' itemList={store.categorys} />
+      <div className='row pt-3'>
+        <VerticalItemNavigation col='col-3 col-lg-2 box-shadow' itemList={store.categorys} />
         <div className="col-9 col-lg-10">
-          <div className="row g-2">
+          <div className="row justify-content-between g-3 mt-0 product-row">
             {
               store?.productPage?.results?.map((element) => {
                 return (

@@ -73,7 +73,7 @@ const ProductForm = ({
       {/* PRODUCT INFORMATION */}
       <div className="accordion" id="accordionExample">
         <div className="accordion-item">
-          <h2 className="accordion-header">
+          <h2 className="accordion-header box-shadow">
             <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#info-collapse" aria-expanded="true" aria-controls="info-collapse">
               <i className="bi bi-info-lg productCreate__image"></i>
               Información del producto
@@ -91,7 +91,7 @@ const ProductForm = ({
         </div>
         {/* IMAGES */}
         <div className="accordion-item">
-          <h2 className="accordion-header">
+          <h2 className="accordion-header box-shadow">
             <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#multimedia-collapse" aria-expanded="true" aria-controls="multimedia-collapse">
               <i className="bi bi-images productCreate__image"></i>
               Multimedia
