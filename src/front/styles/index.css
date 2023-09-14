@@ -4,6 +4,7 @@
 :root {
   --color-yellow: #ffd21f;
   --color-dark: #202124;
+  --color-main: #494949;
   --bg-page: #eeeeee;
   --bg-primary: white;
   --color-dark-secondary: #fafafa;
@@ -17,7 +18,10 @@
   --box-shadow-hover: 0px 1px 5px 2px rgba(0, 0, 0, 0.12);
 }
 
-* {
+*,
+body *,
+.page-title {
+  color: var(--color-main);
   font-family: 'Roboto', sans-serif;
 }
 
@@ -27,7 +31,6 @@
 
 body {
   background-color: var(--bg-page);
-  color: black;
 }
 
 i {
@@ -97,10 +100,6 @@ i {
   flex-flow: row nowrap;
   justify-content: flex-end;
   gap: 1em;
-}
-
-.page-title {
-  color: white;
 }
 
 .filter-container,
@@ -183,4 +182,8 @@ a {
 
 .navigation {
   width: fit-content;
+}
+
+.accordion-header * {
+  font-weight: 600;
 }
