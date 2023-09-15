@@ -219,3 +219,18 @@ a {
 .offcanvas {
   background-color: var(--color-light-secondary);
 }
+
+.offcanvas__opener {
+  position: relative;
+}
+
+.offcanvas__opener.has-item::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  top: 10%;
+  right: 0;
+  border-radius: 100%;
+}

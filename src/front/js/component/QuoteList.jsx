@@ -8,7 +8,12 @@ export const QuoteList = () => {
 
   return (
     <>
-      <button className="btn offcanvas__opener" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+      <button
+        className={`btn offcanvas__opener ${quoteList.length > 0 ? 'has-item' : ''}`}
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasScrolling"
+        aria-controls="offcanvasScrolling">
         <i className="bi bi-cart4"></i>
       </button>
 
