@@ -211,12 +211,14 @@ const getState = ({ getStore, getActions, setStore }) => {
         const newQuoteList = [...quoteList, { product, amount }];
         setStore({ quoteList: newQuoteList });
         sessionStorage.setItem('quoteList', JSON.stringify(newQuoteList));
+        toast.success(`Has añadido exitosamente un nuevo producto a tu lista de cotización`);
       },
       removeQuoteProduct: (product) => {
         const quoteList = getStore().quoteList;
         const newQuoteList = quoteList.filter((quoteItem) => quoteItem.product.id != product.id)
         setStore({ quoteList: newQuoteList });
         sessionStorage.setItem('quoteList', JSON.stringify(newQuoteList));
+        toast.success(`Has eliminado exitosamente un producto de la lista de cotización`);
       }
     }
   };
