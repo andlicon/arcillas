@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Context } from '../store/appContext';
+import Quote from './Quote.jsx';
 
 export const QuoteList = () => {
   const { store } = useContext(Context);
@@ -14,7 +15,7 @@ export const QuoteList = () => {
       <div className="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabIndex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
         <div className="offcanvas-header">
           <h5 className="offcanvas-title" id="offcanvasScrollingLabel">
-            Lista de productos a cotizar1
+            Lista de productos a cotizar
           </h5>
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
@@ -25,7 +26,7 @@ export const QuoteList = () => {
               const amount = quote.amount;
               return (
                 <div key={product.id}>
-                  {product.name} x {amount}
+                  <Quote product={product} amount={amount} />
                 </div>
               )
             })

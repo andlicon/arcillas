@@ -23,7 +23,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       currentPager: 1,
       perPage: 10,
       filterString: '',
-      quoteList: []
+      quoteList: JSON.parse(sessionStorage.getItem('quoteList')) || []
     },
     actions: {
       login: async (credentials) => {
@@ -205,15 +205,18 @@ const getState = ({ getStore, getActions, setStore }) => {
       addQuoteProduct: ({ product, amount }) => {
         const quoteList = getStore().quoteList;
         if (quoteList.some((quote) => quote.product.id == product.id)) {
-          toast.warning('El producto ya está en tu cotización')
+          toast.warning('El producto ya está en tu cotización');
           return
         }
-        setStore({ quoteList: [...quoteList, { product, amount }] })
+        const newQuoteList = [...quoteList, { product, amount }];
+        setStore({ quoteList: newQuoteList });
+        sessionStorage.setItem('quoteList', JSON.stringify(newQuoteList));
       },
       removeQuoteProduct: (product) => {
         const quoteList = getStore().quoteList;
         const newQuoteList = quoteList.filter((quoteItem) => quoteItem.product.id != product.id)
         setStore({ quoteList: newQuoteList });
+        sessionStorage.setItem('quoteList', JSON.stringify(newQuoteList));
       }
     }
   };
