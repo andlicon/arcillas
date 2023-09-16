@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   gap: 5%;
-  margin-bottom: 1em;
 }
 
 .lateralCard__img {
@@ -17,6 +16,7 @@
   justify-content: space-evenly;
   align-items: flex-start;
   order: 2;
+  width: 100%;
 }
 
 .lateralCard__img.right {

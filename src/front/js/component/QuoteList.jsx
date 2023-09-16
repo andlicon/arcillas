@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Context } from '../store/appContext';
-import LateralCard from './LateralCard.jsx';
-import { TO_LEFT } from '../constant/positionalConstant.js';
+import Quote from './Quote.jsx';
 
 export const QuoteList = () => {
   const { store } = useContext(Context);
@@ -31,13 +30,10 @@ export const QuoteList = () => {
               const product = quote.product;
               const amount = quote.amount;
               return (
-                <div key={product.id}>
-                  <LateralCard item={product} img_side={TO_LEFT}>
-                    <p>
-                      <span className='highly'>Cantidad: </span>{amount}
-                    </p>
-                  </LateralCard>
-                </div>
+                <Quote
+                  product={product}
+                  amount={amount}
+                  key={product.id} />
               )
             })
           }
