@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Context } from '../store/appContext';
-import Quote from './Quote.jsx';
+import LateralCard from './LateralCard.jsx';
+import { TO_LEFT } from '../constant/positionalConstant.js';
 
 export const QuoteList = () => {
   const { store } = useContext(Context);
@@ -24,14 +25,18 @@ export const QuoteList = () => {
           </h5>
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div className="offcanvas-body">
+        <div className="offcanvas-body flex-column">
           {
             quoteList.map((quote) => {
               const product = quote.product;
               const amount = quote.amount;
               return (
                 <div key={product.id}>
-                  <Quote product={product} amount={amount} />
+                  <LateralCard item={product} img_side={TO_LEFT}>
+                    <p>
+                      <span className='highly'>Cantidad: </span>{amount}
+                    </p>
+                  </LateralCard>
                 </div>
               )
             })

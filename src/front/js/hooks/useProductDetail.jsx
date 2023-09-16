@@ -11,8 +11,8 @@ const useProductDetail = (productId) => {
   const [found, setFound] = useState(false);
   const navigate = useNavigate();
 
-  const category = store.categorys.filter((cate) => cate.id == product?.category_id)[0];
-  const unit = store.units.filter((unit) => unit.id == product?.unit_id)[0];
+  const category = store.categorys?.filter((cate) => cate.id == product?.category_id)[0];
+  const unit = store.units?.filter((unit) => unit.id == product?.unit_id)[0];
 
   useEffect(() => {
     getOneProduct(productId)
