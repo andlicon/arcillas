@@ -11,6 +11,7 @@ export const useQuote = ({ product, amount }) => {
 
   const setAmount = (newAmount) => {
     setProductAmount(newAmount);
+    actions.updateQuoteProduct({ product, amount: newAmount });
   }
 
   return ({

@@ -16,12 +16,18 @@ const modal = {
 const ModalAmount = ({ product, okFunction }) => {
   const [amount, setAmount] = useState(1);
 
+  const acceptFunctionHandler = ({ target }) => {
+    if (amount > 0) {
+      okFunction(amount)
+    }
+  }
+
   return (
     <Modal
       button={modalButton}
       modal={modal}
       id={`quote${product.id}`}
-      acceptFunction={() => okFunction(amount)}>
+      acceptFunction={acceptFunctionHandler}>
       <label
         htmlFor="new-amount">
         Nueva cantidad

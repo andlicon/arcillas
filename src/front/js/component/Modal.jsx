@@ -12,8 +12,8 @@ const Modal = ({
 }) => {
   const navigate = useNavigate();
 
-  const acceptHandler = async () => {
-    if (acceptFunction) await acceptFunction();
+  const acceptHandler = async (event) => {
+    if (acceptFunction) await acceptFunction(event);
 
     $('#' + id).modal('hide');
 
