@@ -1,9 +1,13 @@
 import React from 'react';
+import useSelected from '../hooks/useSelected.jsx';
+import ProductResults from '../component/ProductResults.jsx';
 
 const QuoteUser = () => {
+  const { selected, selectHandler, removeItems } = useSelected(null);
+
   return (
     <div className='container'>
-      Hola
+      <ProductResults selectHandler={selectHandler} selected={selected} />
     </div>
   )
 }
