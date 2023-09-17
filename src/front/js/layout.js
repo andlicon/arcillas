@@ -6,7 +6,7 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import injectContext from "./store/appContext";
-import { Navbar } from "./component/navbar";
+import Navbar from "./component/Navbar.jsx";
 import { Footer } from "./component/footer";
 import Menu from './component/Menu.jsx';
 // pages

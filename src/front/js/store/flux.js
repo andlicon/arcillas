@@ -22,7 +22,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       productPage: {},
       currentPager: 1,
       perPage: 10,
-      filterString: ''
+      filterString: '',
+      quoteList: JSON.parse(sessionStorage.getItem('quoteList')) || []
     },
     actions: {
       login: async (credentials) => {
@@ -200,6 +201,32 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       setPerPage: (page) => {
         setStore({ perPage: page });
+      },
+      addQuoteProduct: ({ product, amount }) => {
+        const quoteList = getStore().quoteList;
+        if (quoteList.some((quote) => quote.product.id == product.id)) {
+          toast.warning('El producto ya está en tu cotización');
+          return
+        }
+        const newQuoteList = [...quoteList, { product, amount }];
+        setStore({ quoteList: newQuoteList });
+        sessionStorage.setItem('quoteList', JSON.stringify(newQuoteList));
+        toast.success(`Has añadido exitosamente un nuevo producto a tu lista de cotización`);
+      },
+      removeQuoteProduct: (product) => {
+        const quoteList = getStore().quoteList;
+        const newQuoteList = quoteList.filter((quoteItem) => quoteItem.product.id != product.id)
+        setStore({ quoteList: newQuoteList });
+        sessionStorage.setItem('quoteList', JSON.stringify(newQuoteList));
+        toast.success(`Has eliminado exitosamente un producto de la lista de cotización`);
+      },
+      updateQuoteProduct: ({ product, amount }) => {
+        const quoteList = getStore().quoteList;
+        const quoteFiltered = quoteList.filter((quoteItem) => quoteItem.product.id != product.id);
+        const newQuoteList = [...quoteFiltered, { product, amount }];
+        console.log(newQuoteList);
+        setStore({ quoteList: newQuoteList });
+        sessionStorage.setItem('quoteList', JSON.stringify(newQuoteList));
       }
     }
   };
