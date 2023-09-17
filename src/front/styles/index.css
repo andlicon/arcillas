@@ -234,3 +234,7 @@ a {
   right: 0;
   border-radius: 100%;
 }
+
+.modal-backdrop {
+  z-index: 0;
+}
