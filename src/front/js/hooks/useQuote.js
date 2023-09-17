@@ -6,7 +6,7 @@ export const useQuote = ({ product, amount }) => {
   const [productAmount, setProductAmount] = useState(amount);
 
   const remove = () => {
-    actions.removeQuoteProduct(product);
+    actions.removeQuoteProduct(product.id);
   }
 
   const setAmount = (newAmount) => {

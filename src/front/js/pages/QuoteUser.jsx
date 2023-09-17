@@ -2,10 +2,18 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../store/appContext';
 import useSelected from '../hooks/useSelected.jsx';
 import ProductTable from '../component/ProductTable.jsx';
+import Modal from '../component/Modal.jsx';
+
+const modalDelete = {
+  body: '¿Estás seguro que quieres ejecutar esta función?',
+  title: '¿Estás seguro?',
+  accept: 'Borrar',
+  cancel: 'Cancelar'
+}
 
 const QuoteUser = () => {
-  const { store } = useContext(Context);
-  const { selected, selectHandler, removeItems } = useSelected(null);
+  const { store, actions } = useContext(Context);
+  const { selected, selectHandler, removeItems } = useSelected(actions.removeQuoteProduct);
   const [productList, setProductList] = useState([]);
   const [amountList, setAmountList] = useState([])
 
@@ -25,6 +33,13 @@ const QuoteUser = () => {
 
   return (
     <div className='container'>
+      <div className='productList__functions button-list'>
+        <Modal
+          button={{ label: `Borrar ${selected.length} (seleccionados)`, className: 'btn-danger', icon: <i className="bi bi-trash"></i> }}
+          modal={modalDelete}
+          id='deleteProduct'
+          acceptFunction={removeItems} />
+      </div>
       <ProductTable
         selectHandler={selectHandler}
         selected={selected}
