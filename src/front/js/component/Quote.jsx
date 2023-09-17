@@ -2,22 +2,9 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { useQuote } from '../hooks/useQuote';
 import LateralCard from './LateralCard.jsx';
-import Modal from './Modal.jsx';
+import ModalAmount from './ModalAmount.jsx';
 import { TO_LEFT } from '../constant/positionalConstant.js';
 import '../../styles/quote.css';
-
-const modalButton = {
-  icon: null,
-  label: 'Editar',
-  className: 'btn-warning'
-}
-
-const modal = {
-  title: '¿Deseas editar la cantidad del producto a cotizar?',
-  body: '¿Estás seguro?',
-  accept: 'Aceptar',
-  cancel: 'Cancelar'
-}
 
 const Quote = ({ product, amount }) => {
   const quote = useQuote({ product, amount });
@@ -37,10 +24,9 @@ const Quote = ({ product, amount }) => {
           onClick={() => quote.remove()}>
           Eliminar
         </button>
-        <Modal
-          button={modalButton}
-          modal={modal}
-          id={`quote${product.id}`} />
+        <ModalAmount
+          product={product}
+          okFunction={quote.setAmount} />
       </div>
     </div>
   )

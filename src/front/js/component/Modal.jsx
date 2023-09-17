@@ -7,7 +7,8 @@ const Modal = ({
   id,
   acceptFunction,
   redirect,
-  idItem
+  idItem,
+  children
 }) => {
   const navigate = useNavigate();
 
@@ -34,7 +35,12 @@ const Modal = ({
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
-              {modal?.body}
+              {
+                modal?.body
+              }
+              {
+                children
+              }
             </div>
             <div className="modal-footer">
               <button
