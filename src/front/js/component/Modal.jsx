@@ -37,8 +37,23 @@ const Modal = ({
               {modal?.body}
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">{modal?.cancel}</button>
-              <button id={'delete-' + idItem} type="button" className="btn btn-primary" onClick={acceptHandler}>{modal?.accept}</button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal">
+                {
+                  modal?.cancel
+                }
+              </button>
+              <button
+                id={'delete-' + idItem}
+                type="button"
+                className="btn btn-primary"
+                onClick={acceptHandler}>
+                {
+                  modal?.accept
+                }
+              </button>
             </div>
           </div>
         </div>

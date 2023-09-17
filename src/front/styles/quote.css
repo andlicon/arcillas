@@ -9,7 +9,7 @@
 	gap: .5em;
 }
 
-.quote__button button {
+.quote__button>button {
 	height: 50%;
 	width: 100%;
 }

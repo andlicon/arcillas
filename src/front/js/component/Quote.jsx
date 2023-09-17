@@ -14,7 +14,9 @@ const modalButton = {
 
 const modal = {
   title: '¿Deseas editar la cantidad del producto a cotizar?',
-  body: '¿Estás seguro?'
+  body: '¿Estás seguro?',
+  accept: 'Aceptar',
+  cancel: 'Cancelar'
 }
 
 const Quote = ({ product, amount }) => {
