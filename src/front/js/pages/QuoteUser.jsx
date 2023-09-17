@@ -33,9 +33,15 @@ const QuoteUser = () => {
 
   return (
     <div className='container'>
+      <h2>Cotizar</h2>
+      <p>Revisa detalladamente los productos que estás por cotizar</p>
       <div className='productList__functions button-list'>
         <Modal
-          button={{ label: `Borrar ${selected.length} (seleccionados)`, className: 'btn-danger', icon: <i className="bi bi-trash"></i> }}
+          button={{
+            label: `Borrar ${selected.length} (seleccionados)`,
+            className: 'btn-danger',
+            icon: <i className="bi bi-trash"></i>
+          }}
           modal={modalDelete}
           id='deleteProduct'
           acceptFunction={removeItems} />
