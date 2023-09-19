@@ -5,6 +5,8 @@ from .models.User import User
 from .models.Product import Product
 from .models.Category import Category
 from .models.Unit import Unit
+from .models.Quote import Quote
+from .models.QuoteItem import QuoteItem
 from flask_admin.contrib.sqla import ModelView
 
 def setup_admin(app):
@@ -17,3 +19,5 @@ def setup_admin(app):
     admin.add_view(ModelView(Product, db.session))
     admin.add_view(ModelView(Category, db.session))
     admin.add_view(ModelView(Unit, db.session))
+    admin.add_view(ModelView(Quote, db.session))
+    admin.add_view(ModelView(QuoteItem, db.session))
