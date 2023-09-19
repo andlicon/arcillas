@@ -3,6 +3,7 @@ import { Context } from '../store/appContext';
 import useSelected from '../hooks/useSelected.jsx';
 import ProductTable from '../component/ProductTable.jsx';
 import Modal from '../component/Modal.jsx';
+import QuoteForm from '../component/QuoteForm.jsx';
 
 const modalDelete = {
   body: '¿Estás seguro que quieres ejecutar esta función?',
@@ -51,6 +52,7 @@ const QuoteUser = () => {
         selected={selected}
         productList={productList}
         amountList={amountList} />
+      <QuoteForm />
     </div>
   )
 }

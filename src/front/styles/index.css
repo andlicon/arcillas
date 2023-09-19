@@ -238,3 +238,22 @@ a {
 .modal-backdrop {
   z-index: 0;
 }
+
+.quoteForm {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.quoteForm button {
+  display: block;
+  width: 50%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+  .quoteForm {
+    width: 50%;
+  }
+}
