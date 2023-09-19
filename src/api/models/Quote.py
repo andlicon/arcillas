@@ -20,7 +20,7 @@ class Quote(db.Model):
         return({
             'id': self.id,
             'user_id': self.user_id,
-            'products': list(map(lambda product: product.id, self.products)),
+            'quote_list': list(map(lambda quote: quote.id, self.products)),
             'created_at': self.created_at,
             'updated_at': self.updated_at,
         })

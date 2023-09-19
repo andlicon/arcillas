@@ -60,3 +60,12 @@ def post_quote():
             return jsonify({'msg': 'Some internal error'}), 500
 
     return jsonify({'msg': 'ok'}), 200
+
+
+# POST a quote
+@api.route('/quote', methods=['GET'])
+def get_all_quote():
+    quote_list = Quote.query.all()
+    serialized = list(map(lambda quote: quote.serialize(), quote_list))
+
+    return jsonify(serialized), 200
