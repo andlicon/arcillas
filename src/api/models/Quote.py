@@ -1,10 +1,9 @@
 from . import db
 from ..utils.hourUtils import venezuelaNow
 
-products = db.Table('products',
+quote_items = db.Table('quote_items',
     db.Column('quote_id', db.Integer, db.ForeignKey('quote.id'), primary_key=True),
-    db.Column('product_id', db.Integer, db.ForeignKey('product.id'), primary_key=True),
-    db.Column('amount', db.Integer)
+    db.Column('quote_item_id', db.Integer, db.ForeignKey('quote_item.id'), primary_key=True),
 )
 
 class Quote(db.Model):
@@ -14,7 +13,7 @@ class Quote(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=venezuelaNow())
     updated_at = db.Column(db.DateTime, default=venezuelaNow(), onupdate=venezuelaNow())
-    products = db.relationship('Product', secondary=products, lazy='subquery', backref=db.backref('quote', lazy=True))
+    items = db.relationship('QuoteItem', secondary=quote_items, lazy='subquery', backref=db.backref('quote', lazy=True))
 
     def serialize(self):
         return({
@@ -30,3 +29,11 @@ class Quote(db.Model):
         return(
             f'<Quote {self.id}>'
         )
+
+
+class QuoteItem(db.Model):
+    __tablename__ = 'quote_item'
+
+    id = db.Column(db.Integer, primary_key=True)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+    amount = db.Column(db.Integer, nullable=False)

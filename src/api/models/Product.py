@@ -19,6 +19,7 @@ class Product(db.Model):
     # relationships
     categorys = db.relationship('Category', backref='product')
     units = db.relationship('Unit', backref='product')
+    quote_items = db.relationship('QuoteItem', backref='product')
 
 
     def __repr__(self):
