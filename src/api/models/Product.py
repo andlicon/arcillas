@@ -11,7 +11,7 @@ class Product(db.Model):
     usage = db.Column(db.String(250))
     image_url = db.Column(db.String(250), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, default=venezuelaNow())
-    upgrated_at = db.Column(db.DateTime, default=venezuelaNow(), onupdate=venezuelaNow())
+    updated_at = db.Column(db.DateTime, default=venezuelaNow(), onupdate=venezuelaNow())
     # fk
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     unit_id = db.Column(db.Integer, db.ForeignKey('unit.id'), nullable=False)
@@ -35,5 +35,5 @@ class Product(db.Model):
             'unit_id': self.unit_id,
             'image_url': self.image_url,
             'created_at': self.created_at,
-            'upgrated_at': self.upgrated_at
+            'updated_at': self.updated_at
         }
