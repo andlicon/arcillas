@@ -257,6 +257,12 @@ a {
   margin-top: 1em;
 }
 
+.offcanvas-body {
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+}
+
 .navbar+.container {
   display: flex;
   flex-flow: column;

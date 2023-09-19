@@ -224,7 +224,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         const quoteList = getStore().quoteList;
         const quoteFiltered = quoteList.filter((quoteItem) => quoteItem.product.id != product.id);
         const newQuoteList = [...quoteFiltered, { product, amount }];
-        console.log(newQuoteList);
         setStore({ quoteList: newQuoteList });
         sessionStorage.setItem('quoteList', JSON.stringify(newQuoteList));
       }
