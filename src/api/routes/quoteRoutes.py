@@ -54,14 +54,25 @@ def post_quote():
         db.session.rollback()
         print(e)
         return jsonify({'msg': 'Some internal error ocurred'}), 500
-        
+
     return jsonify({'msg': 'ok'}), 200
 
 
-# POST a quote
+# GET all quote
 @api.route('/quote', methods=['GET'])
 def get_all_quote():
     quote_list = Quote.query.all()
     serialized = list(map(lambda quote: quote.serialize(), quote_list))
 
     return jsonify(serialized), 200
+
+
+# GET one quote
+@api.route('/quote/<int:quote_id>', methods=['GET'])
+def get_one_quote(quote_id):
+    quote = Quote.query.filter_by(id=quote_id).one_or_none()
+    
+    if quote is None:
+        return jsonify({'msg': 'Quote not found'}), 404
+
+    return jsonify(quote.serialize()), 200
