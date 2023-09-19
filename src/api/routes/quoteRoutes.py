@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify, url_for, Blueprint
 from . import api
 from ..models import db
-from ..models.Quote import Quote, QuoteItem
+from ..models.Quote import Quote
+from ..models.QuoteItem import QuoteItem
 from ..models.Product import Product
 from ..models.User import User
 
@@ -76,3 +77,5 @@ def get_one_quote(quote_id):
         return jsonify({'msg': 'Quote not found'}), 404
 
     return jsonify(quote.serialize()), 200
+
+

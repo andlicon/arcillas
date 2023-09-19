@@ -5,7 +5,8 @@ from .models.User import User
 from .models.Product import Product
 from .models.Category import Category
 from .models.Unit import Unit
-from .models.Quote import Quote, QuoteItem
+from .models.Quote import Quote
+from .models.QuoteItem import QuoteItem
 from flask_admin.contrib.sqla import ModelView
 
 def setup_admin(app):

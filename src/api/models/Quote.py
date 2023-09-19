@@ -1,4 +1,5 @@
 from . import db
+from .QuoteStatus import QuoteStatus
 from ..utils.hourUtils import venezuelaNow
 
 quote_items = db.Table('quote_items',
@@ -13,12 +14,14 @@ class Quote(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=venezuelaNow())
     updated_at = db.Column(db.DateTime, default=venezuelaNow(), onupdate=venezuelaNow())
+    status = db.Column(db.Enum(QuoteStatus), default=QuoteStatus.PENDING)
     items = db.relationship('QuoteItem', secondary=quote_items, lazy='subquery', backref=db.backref('quote', lazy=True))
 
     def serialize(self):
         return({
             'id': self.id,
             'user_id': self.user_id,
+            'status': self.status.value,
             'quote_items': list(map(lambda item: item.id, self.items)),
             'created_at': self.created_at,
             'updated_at': self.updated_at,
@@ -28,30 +31,4 @@ class Quote(db.Model):
     def __repr__(self):
         return(
             f'<Quote {self.id}>'
-        )
-
-
-class QuoteItem(db.Model):
-    __tablename__ = 'quote_item'
-
-    id = db.Column(db.Integer, primary_key=True)
-    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
-    created_at = db.Column(db.DateTime, default=venezuelaNow())
-    updated_at = db.Column(db.DateTime, default=venezuelaNow(), onupdate=venezuelaNow())
-    amount = db.Column(db.Integer, nullable=False)
-
-
-    def serialize(self):
-        return({
-            'id': self.id,
-            'product_id': self.product_id,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at,
-            'amount': self.amount
-        })
-
-
-    def __repr__(self):
-        return(
-            f'<QuoteItem {self.id}>'
         )
