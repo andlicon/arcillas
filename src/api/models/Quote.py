@@ -3,7 +3,8 @@ from ..utils.hourUtils import venezuelaNow
 
 products = db.Table('products',
     db.Column('quote_id', db.Integer, db.ForeignKey('quote.id'), primary_key=True),
-    db.Column('product_id', db.Integer, db.ForeignKey('product.id'), primary_key=True)
+    db.Column('product_id', db.Integer, db.ForeignKey('product.id'), primary_key=True),
+    db.Column('amount', db.Integer)
 )
 
 class Quote(db.Model):
@@ -18,6 +19,8 @@ class Quote(db.Model):
     def serialize(self):
         return({
             'id': self.id,
+            'user_id': self.user_id,
+            'products': list(map(lambda product: product.id, self.products)),
             'created_at': self.created_at,
             'updated_at': self.updated_at,
         })

@@ -8,3 +8,4 @@ from . import loginRoutes
 from . import productRoutes
 from . import categoryRoutes
 from . import unitsRoute
+from . import quoteRoutes
