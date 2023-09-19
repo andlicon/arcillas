@@ -34,8 +34,17 @@ const QuoteUser = () => {
 
   return (
     <div className='container'>
-      <h2>Cotizar</h2>
-      <p>Revisa detalladamente los productos que estás por cotizar</p>
+      <div className='rounded box-shadow block p-3'>
+        <h2>Cotizar productos</h2>
+        <p>
+          Aconsejamos revisar detalladamente cada <span className='bold'>producto</span> y <span className='bold'>cantidad</span>
+          dentro de esta lista antes de iniciar el proceso de cotización.
+        </p>
+        <p>
+          Para cotizar, deberá <span className='bold'>introducir</span> un <span className='bold'>correo electrónico</span>
+          al que se le enviará la cotización de todos los productos.
+        </p>
+      </div>
       <div className='productList__functions button-list'>
         <Modal
           button={{

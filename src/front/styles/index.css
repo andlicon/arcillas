@@ -245,6 +245,24 @@ a {
   margin: 0 auto;
 }
 
+.bold {
+  font-weight: 500;
+}
+
+.block {
+  background-color: var(--color-light-secondary);
+}
+
+.navbar+.container>*:first-child {
+  margin-top: 1em;
+}
+
+.navbar+.container {
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+}
+
 .quoteForm button {
   display: block;
   width: 50%;

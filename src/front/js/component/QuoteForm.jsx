@@ -14,7 +14,7 @@ const QuoteForm = () => {
       className='quoteForm'>
       <div className='form-group'>
         <label
-          className='form-label'
+          className='form-label bold'
           htmlFor="email">
           Email
         </label>
