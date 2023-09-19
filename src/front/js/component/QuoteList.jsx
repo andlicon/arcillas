@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Context } from '../store/appContext';
+import { Link } from "react-router-dom";
 import Quote from './Quote.jsx';
 
 export const QuoteList = () => {
@@ -24,7 +25,10 @@ export const QuoteList = () => {
           </h5>
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div className="offcanvas-body flex-column">
+        <div className="offcanvas-body">
+          <Link className='btn btn-success w-100 p-2' to='quote'>
+            Cotizar
+          </Link>
           {
             quoteList.map((quote) => {
               const product = quote.product;

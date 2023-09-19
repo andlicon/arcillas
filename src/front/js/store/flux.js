@@ -213,9 +213,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         sessionStorage.setItem('quoteList', JSON.stringify(newQuoteList));
         toast.success(`Has añadido exitosamente un nuevo producto a tu lista de cotización`);
       },
-      removeQuoteProduct: (product) => {
+      removeQuoteProduct: (productId) => {
         const quoteList = getStore().quoteList;
-        const newQuoteList = quoteList.filter((quoteItem) => quoteItem.product.id != product.id)
+        const newQuoteList = quoteList.filter((quoteItem) => quoteItem.product.id != productId)
         setStore({ quoteList: newQuoteList });
         sessionStorage.setItem('quoteList', JSON.stringify(newQuoteList));
         toast.success(`Has eliminado exitosamente un producto de la lista de cotización`);
@@ -224,7 +224,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         const quoteList = getStore().quoteList;
         const quoteFiltered = quoteList.filter((quoteItem) => quoteItem.product.id != product.id);
         const newQuoteList = [...quoteFiltered, { product, amount }];
-        console.log(newQuoteList);
         setStore({ quoteList: newQuoteList });
         sessionStorage.setItem('quoteList', JSON.stringify(newQuoteList));
       }

@@ -10,7 +10,7 @@ const Quote = ({ product, amount }) => {
   const quote = useQuote({ product, amount });
 
   return (
-    <div className='quote rounded p-2 mb-2'>
+    <div className='quote rounded p-2'>
       <Link to={`/product/` + product.id}>
         <LateralCard item={quote.product} img_side={TO_LEFT}>
           <p>
