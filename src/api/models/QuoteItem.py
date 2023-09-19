@@ -14,7 +14,7 @@ class QuoteItem(db.Model):
     def serialize(self):
         return({
             'id': self.id,
-            'product_id': self.product_id,
+            'product': self.product.serialize(),
             'created_at': self.created_at,
             'updated_at': self.updated_at,
             'amount': self.amount

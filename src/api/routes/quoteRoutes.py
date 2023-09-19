@@ -79,3 +79,12 @@ def get_one_quote(quote_id):
     return jsonify(quote.serialize()), 200
 
 
+# get one quoteItem
+@api.route('/quote/item/<int:item_id>', methods=['GET'])
+def get_one_quote_item(item_id):
+    item = QuoteItem.query.filter_by(id=item_id).one_or_none()
+    
+    if item is None:
+        return jsonify({'msg': 'Quote Item not found'}), 404
+
+    return jsonify(item.serialize()), 200
