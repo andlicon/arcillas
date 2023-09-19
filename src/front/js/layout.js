@@ -9,6 +9,7 @@ import injectContext from "./store/appContext";
 import Navbar from "./component/Navbar.jsx";
 import { Footer } from "./component/footer";
 import Menu from './component/Menu.jsx';
+import ProtectedRoute from './component/ProtectedRoute.jsx';
 // pages
 import Login from './pages/Login.jsx';
 import ProductCreate from './pages/ProductCreate.jsx';
@@ -17,6 +18,8 @@ import ProductEdit from './pages/ProductEdit.jsx';
 import ProductDetail from './pages/ProductDetail.jsx';
 import ProductByCategory from './pages/ProductByCategory.jsx';
 import QuoteUser from './pages/QuoteUser.jsx';
+
+import { ADMIN_ROLE } from './constant/role';
 
 //create your first component
 const Layout = () => {
@@ -45,15 +48,32 @@ const Layout = () => {
           <Menu>
             <Navbar />
             <Routes>
+              <Route element={<Login />} path='/login' />
               <Route element={<ProductByCategory />} path="/" />
               <Route element={<ProductByCategory />} path="/category/:categoryId" />
-              <Route element={<Login />} path='/login' />
               <Route element={<ProductDetail />} path='/product/:productId' />
               <Route element={<QuoteUser />} path='/quote' />
-              <Route element={<h1>Welcome to dashboard</h1>} path='/admin/dashboard' />
-              <Route element={<ProductList />} path='/admin/product' />
-              <Route element={<ProductCreate />} path='/admin/product/create' />
-              <Route element={<ProductEdit />} path='/admin/product/edit/:productId' />
+              <Route element={
+                <ProtectedRoute roleList={[ADMIN_ROLE]}>
+                  <h1>Welcome to dashboard</h1>
+                </ProtectedRoute>
+              } path='/admin/dashboard' />
+              <Route element={
+                <ProtectedRoute roleList={[ADMIN_ROLE]}>
+                  <ProductList />
+                </ProtectedRoute>}
+                path='/admin/product' />
+              <Route element={
+                <ProtectedRoute
+                  roleList={[ADMIN_ROLE]}>
+                  <ProductCreate />
+                </ProtectedRoute>}
+                path='/admin/product/create' />
+              <Route element={
+                <ProtectedRoute roleList={[ADMIN_ROLE]}>
+                  <ProductEdit />
+                </ProtectedRoute>}
+                path='/admin/product/edit/:productId' />
               <Route element={<h1>Not found!</h1>} />
             </Routes>
             <Footer />
