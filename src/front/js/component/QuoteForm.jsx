@@ -11,7 +11,7 @@ const QuoteForm = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className='quoteForm'>
+      className='quoteForm rounded p-3 box-shadow block'>
       <div className='form-group'>
         <label
           className='form-label bold'
