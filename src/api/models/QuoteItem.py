@@ -1,4 +1,5 @@
 from . import db
+from .QuoteStatus import QuoteStatus
 from ..utils.hourUtils import venezuelaNow
 
 class QuoteItem(db.Model):
@@ -9,6 +10,8 @@ class QuoteItem(db.Model):
     created_at = db.Column(db.DateTime, default=venezuelaNow())
     updated_at = db.Column(db.DateTime, default=venezuelaNow(), onupdate=venezuelaNow())
     amount = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Integer)
+    status = db.Column(db.Enum(QuoteStatus), nullable=False, default=QuoteStatus.PENDING)
 
 
     def serialize(self):
@@ -17,7 +20,9 @@ class QuoteItem(db.Model):
             'product': self.product.serialize(),
             'created_at': self.created_at,
             'updated_at': self.updated_at,
-            'amount': self.amount
+            'amount': self.amount,
+            'price': self.price,
+            'status': self.status.value
         })
 
 

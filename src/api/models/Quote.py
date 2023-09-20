@@ -11,7 +11,7 @@ class Quote(db.Model):
     __tablename__ = 'quote'
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    email = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, default=venezuelaNow())
     updated_at = db.Column(db.DateTime, default=venezuelaNow(), onupdate=venezuelaNow())
     status = db.Column(db.Enum(QuoteStatus), default=QuoteStatus.PENDING)
@@ -20,7 +20,7 @@ class Quote(db.Model):
     def serialize(self):
         return({
             'id': self.id,
-            'user_id': self.user_id,
+            'email': self.email,
             'status': self.status.value,
             'quote_items': list(map(lambda item: item.id, self.items)),
             'created_at': self.created_at,

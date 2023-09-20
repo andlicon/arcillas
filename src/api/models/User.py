@@ -11,8 +11,6 @@ class User(db.Model):
     role = db.Column(db.Enum(Role), unique=False, nullable=False)
     password = db.Column(db.String(110), unique=False, nullable=False)
     salt = db.Column(db.String(80), unique=False, nullable=False)
-    # relationship
-    quotes = db.relationship('Quote', backref='user')
 
     def __repr__(self):
         return f'<User {self.email}>'

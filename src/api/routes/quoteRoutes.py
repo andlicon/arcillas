@@ -15,20 +15,16 @@ def post_quote():
         return jsonify({'msg': 'Body must have a json item as body'}), 400
 
     body = request.get_json()
-    user_id = body.get("user_id")
+    email = body.get("email")
     quote_items = body.get("quote_items")
-    if None in [user_id, quote_items]:
+    if None in [email, quote_items]:
         return jsonify({'msg': 'Wrong properties'}), 400
 
     # quote List must be an array list of quotes {product_id, amount}
     if type(quote_items) is not list:
         return jsonify({'msg': 'quote_items must be a list'}), 400
 
-    user = User.query.filter_by(id=user_id).one_or_none()
-    if user is None:
-        return jsonify({'msg': 'User not found'}), 404
-
-    new_quote = Quote(user_id=user.id)
+    new_quote = Quote(email=email)
     
     try:
         db.session.add(new_quote)
