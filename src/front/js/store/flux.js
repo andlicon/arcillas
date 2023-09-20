@@ -228,13 +228,13 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ quoteList: newQuoteList });
         sessionStorage.setItem('quoteList', JSON.stringify(newQuoteList));
       },
-      postQuote: async (quote) => {
+      postQuote: async (body) => {
         try {
-          const data = toast.promise(
-            postQuotePromise(quote),
+          const data = await toast.promise(
+            postQuotePromise(body),
             {
               pending: 'Solicitud de cotización en proceso...',
-              resolve: 'Solicitud creada con éxito, recibirá un email con su cotización en breve',
+              success: 'Solicitud creada con éxito, recibirá un email con su cotización en breve',
               error: {
                 render({ data }) {
                   return data
@@ -242,6 +242,12 @@ const getState = ({ getStore, getActions, setStore }) => {
               }
             }
           );
+
+          if (data.msg == 'ok') {
+            const newQuoteList = [];
+            setStore({ quoteList: newQuoteList });
+            sessionStorage.setItem('quoteList', JSON.stringify(newQuoteList));
+          }
         }
         catch (error) {
           console.log(error);

@@ -6,8 +6,7 @@ const QuoteForm = () => {
   const { actions, store } = useContext(Context);
   const email = useField({ type: 'text', initial: '' });
 
-  const onSubmit = (event) => {
-    event.preventDefault();
+  const getQuote = () => {
     const quote_items = store.quoteList.map((quote) => {
       return (
         {
@@ -17,12 +16,15 @@ const QuoteForm = () => {
       )
     });
 
-    const body = {
+    return {
       quote_items,
-      user_id: null
+      email: email.value
     }
+  }
 
-    console.log(body)
+  const onSubmit = (event) => {
+    event.preventDefault();
+    actions.postQuote(getQuote());
   }
 
   return (
