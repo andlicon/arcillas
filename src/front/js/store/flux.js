@@ -9,7 +9,8 @@ import {
   getOneProductPromise,
   patchProductPromise,
   deleteProductPromise,
-  getCategoryHierarchyParentsPromise
+  getCategoryHierarchyParentsPromise,
+  postQuotePromise
 } from '../utils/promisesUtils.js'
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -226,6 +227,25 @@ const getState = ({ getStore, getActions, setStore }) => {
         const newQuoteList = [...quoteFiltered, { product, amount }];
         setStore({ quoteList: newQuoteList });
         sessionStorage.setItem('quoteList', JSON.stringify(newQuoteList));
+      },
+      postQuote: async (quote) => {
+        try {
+          const data = toast.promise(
+            postQuotePromise(quote),
+            {
+              pending: 'Solicitud de cotización en proceso...',
+              resolve: 'Solicitud creada con éxito, recibirá un email con su cotización en breve',
+              error: {
+                render({ data }) {
+                  return data
+                }
+              }
+            }
+          );
+        }
+        catch (error) {
+          console.log(error);
+        }
       }
     }
   };

@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Context } from '../store/appContext';
 import { useField } from '../hooks/useField.jsx';
 
 const QuoteForm = () => {
+  const { actions, store } = useContext(Context);
   const email = useField({ type: 'text', initial: '' });
 
   const onSubmit = (event) => {
     event.preventDefault();
+    const quote_items = store.quoteList.map((quote) => {
+      return (
+        {
+          amount: quote.amount,
+          product_id: quote.product.id
+        }
+      )
+    });
+
+    const body = {
+      quote_items,
+      user_id: null
+    }
+
+    console.log(body)
   }
 
   return (

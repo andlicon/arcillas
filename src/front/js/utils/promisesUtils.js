@@ -228,3 +228,25 @@ export const getCategoryHierarchyParentsPromise = async (id) => {
     reject('Ocurrió un error');
   });
 };
+
+export const postQuotePromise = async (body) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(`${process.env.BACKEND_URL}/quote`, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-type': 'application/json'
+        }
+      })
+
+      const data = await response.json();
+      if (response.ok) resolve(data);
+      else reject(data)
+    }
+    catch (e) {
+      console.log(e);
+    }
+    reject('Ocurrió un error');
+  })
+}
