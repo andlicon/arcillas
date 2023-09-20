@@ -244,7 +244,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
 
           if (data.msg == 'ok') {
-            setStore({ quoteList: [] });
+            const newQuoteList = [];
+            setStore({ quoteList: newQuoteList });
+            sessionStorage.setItem('quoteList', JSON.stringify(newQuoteList));
           }
         }
         catch (error) {
