@@ -19,10 +19,10 @@ const QuoteForm = () => {
 
     const body = {
       quote_items,
-      user_id: null
+      email: email.value
     }
 
-    console.log(body)
+    actions.postQuote(body);
   }
 
   return (
