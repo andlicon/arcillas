@@ -37,8 +37,8 @@ const QuoteUser = () => {
       <div className='rounded box-shadow block p-3'>
         <h2>Cotizar productos</h2>
         <p>
-          Aconsejamos revisar detalladamente cada <span className='bold'>producto</span> y <span className='bold'>cantidad</span>
-          dentro de esta lista antes de iniciar el proceso de cotización.
+          Aconsejamos revisar detalladamente cada <span className='bold'>producto</span> y <span className='bold'>cantidad</span> dentro
+          de esta lista antes de iniciar el proceso de cotización.
         </p>
         <p>
           Para cotizar, deberá <span className='bold'>introducir</span> un <span className='bold'>correo electrónico</span> al
