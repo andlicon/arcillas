@@ -279,6 +279,14 @@ a {
   margin: 0 auto;
 }
 
+.image--showing {
+  max-height: 500px;
+}
+
+.dropdown-item-amount:active {
+  background-color: var(--color-light-secondary);
+}
+
 @media screen and (min-width: 768px) {
   .quoteForm {
     width: 50%;

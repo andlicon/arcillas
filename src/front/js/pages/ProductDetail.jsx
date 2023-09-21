@@ -37,11 +37,11 @@ const ProductDetail = ({ categoryId }) => {
                   {product.name}
                 </h2>
                 <p>
-                  Categoría:
+                  <span className="bold">Categoría:</span>
                   <span className='separate'>{category?.name}</span>
                 </p>
                 <p>
-                  Unidad:
+                  <span className="bold">Unidad:</span>
                   <span className='separate'>{unit?.name}</span>
                 </p>
                 <QuoteProductForm product={product} />

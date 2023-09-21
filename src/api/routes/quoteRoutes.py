@@ -5,6 +5,7 @@ from ..models.Quote import Quote
 from ..models.QuoteItem import QuoteItem
 from ..models.Product import Product
 from ..models.User import User
+from ..utils.emailUtils import check_email
 
 
 # POST a quote
@@ -23,6 +24,11 @@ def post_quote():
     # quote List must be an array list of quotes {product_id, amount}
     if type(quote_items) is not list:
         return jsonify({'msg': 'quote_items must be a list'}), 400
+
+    is_valid_email = check_email(email)
+
+    if not is_valid_email:
+        return jsonify({'msg': 'Invalid email'}), 400
 
     new_quote = Quote(email=email)
     
