@@ -41,8 +41,8 @@ const QuoteUser = () => {
           dentro de esta lista antes de iniciar el proceso de cotización.
         </p>
         <p>
-          Para cotizar, deberá <span className='bold'>introducir</span> un <span className='bold'>correo electrónico</span>
-          al que se le enviará la cotización de todos los productos.
+          Para cotizar, deberá <span className='bold'>introducir</span> un <span className='bold'>correo electrónico</span> al
+          que se le enviará la cotización de todos los productos.
         </p>
       </div>
       <div className='productList__functions button-list'>
