@@ -9,6 +9,10 @@ const catalogItems = [
   { label: 'Categorias', to: '/admin/category' }
 ];
 
+const quoteItems = [
+  { label: 'Pendientes', to: '/admin/quote/pending' }
+];
+
 
 const AdminMenu = () => {
   return (
@@ -30,7 +34,10 @@ const AdminMenu = () => {
             </Link>
           </li>
           <li>
-            <DropDown label={'catalog'} id='catologDropDown' items={catalogItems} />
+            <DropDown label={'Catálogo'} id='catologDropDown' items={catalogItems} />
+          </li>
+          <li>
+            <DropDown label={'Quote'} id='quoteDropDown' items={quoteItems} />
           </li>
         </ul>
       </div>
