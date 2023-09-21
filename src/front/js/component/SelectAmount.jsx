@@ -34,16 +34,11 @@ const SelectAmount = ({ value, onChange }) => {
         <button className="dropdown-item" type='button' value={5} onClick={onChange}>
           5 unidades
         </button>
-        <div className='dropdown-items'>
-          <button className="dropdown-item" id='select-more' type='button'>
-            Especificar cantidad
+        <div className='dropdown-item dropdown-item-amount'>
+          <input type="text" placeholder='Cantidad...' value={more.value} onChange={more.onChange} />
+          <button value={more.value} type='button' onClick={onChange}>
+            Aplicar
           </button>
-          <div className='dropdown-item'>
-            <input type="text" placeholder='Cantidad...' value={more.value} onChange={more.onChange} />
-            <button value={more.value} type='button' onClick={onChange}>
-              Aplicar
-            </button>
-          </div>
         </div>
       </div>
     </div>
