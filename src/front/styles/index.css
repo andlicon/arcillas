@@ -279,6 +279,10 @@ a {
   margin: 0 auto;
 }
 
+.image--showing {
+  max-height: 500px;
+}
+
 @media screen and (min-width: 768px) {
   .quoteForm {
     width: 50%;
