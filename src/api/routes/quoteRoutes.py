@@ -64,6 +64,14 @@ def post_quote():
 # GET all quote
 @api.route('/quote', methods=['GET'])
 def get_all_quote():
+    args = request.args
+    status = args.get('status')
+    email = args.get('email')
+    month = args.get('month')
+    year = args.get('year')
+    item = args.get('item')
+    item_count = args.get('item_count')
+
     quote_list = Quote.query.all()
     serialized = list(map(lambda quote: quote.serialize(), quote_list))
 
