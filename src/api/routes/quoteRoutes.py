@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, url_for, Blueprint
-from sqlalchemy import func, and_
+from sqlalchemy import func, and_, extract
 from . import api
 from ..models import db
 from ..models.Quote import Quote, quote_items
@@ -85,13 +85,26 @@ def get_all_quote():
     else:
         product_query = Quote.items.any(QuoteItem.product_id != attributes.get('item_id'))
     
+    month_query = None
+    if attributes.get('month') is not None:
+        month_query = extract('month', Quote.created_at) == attributes.get('month')
+    else:
+        month_query = extract('month', Quote.created_at) != None
+
+    year_query = None
+    if attributes.get('year') is not None:
+        year_query = extract('year', Quote.created_at) == attributes.get('year')
+    else:
+        year_query = extract('year', Quote.created_at) != None
+
 
     query = db.session.query(Quote)\
         .filter(
             and_(
                 Quote.email.ilike(f'%{attributes.get("email")}%'),
                 Quote.status == quote_status if quote_status is not None else Quote.status != None,
-                product_query
+                month_query,
+                year_query
             )
         ).join(quote_items)\
         .group_by(Quote)\
