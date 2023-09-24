@@ -79,11 +79,19 @@ def get_all_quote():
 
     quote_status = QuoteStatus.get_value(attributes.get('status'))
 
+    product_query = None
+    if attributes.get('item_id') is not None:
+        product_query = Quote.items.any(QuoteItem.product_id == attributes.get('item_id'))
+    else:
+        product_query = Quote.items.any(QuoteItem.product_id != attributes.get('item_id'))
+    
+
     query = db.session.query(Quote)\
         .filter(
             and_(
                 Quote.email.ilike(f'%{attributes.get("email")}%'),
                 Quote.status == quote_status if quote_status is not None else Quote.status != None,
+                product_query
             )
         ).join(quote_items)\
         .group_by(Quote)\
