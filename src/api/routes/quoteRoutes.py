@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from sqlalchemy import func, and_
 from . import api
 from ..models import db
-from ..models.Quote import Quote
+from ..models.Quote import Quote, quote_items
 from ..models.QuoteItem import QuoteItem
 from ..models.Product import Product
 from ..models.User import User
@@ -71,7 +71,7 @@ def get_all_quote():
     attributes = {
         'email': args.get('email', '%'),
         'status': args.get('status', None),
-        'item_count': args.get('item_count', None),
+        'item_count': args.get('item_count', 0),
         'month': args.get('month', None),
         'year': args.get('year', None),
         'item_id': args.get('item_id', None)
@@ -85,6 +85,16 @@ def get_all_quote():
             Quote.status == quote_status if quote_status is not None else Quote.status != None,
         )
     )
+
+    query = db.session.query(Quote)\
+        .filter(
+            and_(
+                Quote.email.ilike(f'%{attributes.get("email")}%'),
+                Quote.status == quote_status if quote_status is not None else Quote.status != None,
+            )
+        ).join(quote_items)\
+        .group_by(Quote)\
+        .having(func.count(quote_items.c.quote_id) >= attributes.get('item_count'))
 
     pagination = generate_pagination(query, 10, 1, **attributes)
 
