@@ -79,13 +79,6 @@ def get_all_quote():
 
     quote_status = QuoteStatus.get_value(attributes.get('status'))
 
-    query = Quote.query.filter(
-        and_(
-            Quote.email.ilike(f'%{attributes.get("email")}%'),
-            Quote.status == quote_status if quote_status is not None else Quote.status != None,
-        )
-    )
-
     query = db.session.query(Quote)\
         .filter(
             and_(
@@ -94,7 +87,8 @@ def get_all_quote():
             )
         ).join(quote_items)\
         .group_by(Quote)\
-        .having(func.count(quote_items.c.quote_id) >= attributes.get('item_count'))
+        .having(func.count(quote_items.c.quote_id) >= attributes.get('item_count'))\
+        .order_by(Quote.created_at)
 
     pagination = generate_pagination(query, 10, 1, **attributes)
 
