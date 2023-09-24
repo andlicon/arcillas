@@ -1,11 +1,14 @@
 from flask import Flask, request, jsonify, url_for, Blueprint
+from sqlalchemy import func, and_, extract
 from . import api
 from ..models import db
-from ..models.Quote import Quote
+from ..models.Quote import Quote, quote_items
 from ..models.QuoteItem import QuoteItem
 from ..models.Product import Product
 from ..models.User import User
+from ..models.QuoteStatus import QuoteStatus
 from ..utils.emailUtils import check_email
+from ..utils.routeUtils import generate_pagination
 
 
 # POST a quote
@@ -64,10 +67,53 @@ def post_quote():
 # GET all quote
 @api.route('/quote', methods=['GET'])
 def get_all_quote():
-    quote_list = Quote.query.all()
-    serialized = list(map(lambda quote: quote.serialize(), quote_list))
+    args = request.args
+    attributes = {
+        'email': args.get('email', '%'),
+        'status': args.get('status', None),
+        'item_count': args.get('item_count', 0),
+        'month': args.get('month', None),
+        'year': args.get('year', None),
+        'item_id': args.get('item_id', None)
+    }
 
-    return jsonify(serialized), 200
+    quote_status = QuoteStatus.get_value(attributes.get('status'))
+
+    product_query = None
+    if attributes.get('item_id') is not None:
+        product_query = Quote.items.any(QuoteItem.product_id == attributes.get('item_id'))
+    else:
+        product_query = Quote.items.any(QuoteItem.product_id != attributes.get('item_id'))
+    
+    month_query = None
+    if attributes.get('month') is not None:
+        month_query = extract('month', Quote.created_at) == attributes.get('month')
+    else:
+        month_query = extract('month', Quote.created_at) != None
+
+    year_query = None
+    if attributes.get('year') is not None:
+        year_query = extract('year', Quote.created_at) == attributes.get('year')
+    else:
+        year_query = extract('year', Quote.created_at) != None
+
+
+    query = db.session.query(Quote)\
+        .filter(
+            and_(
+                Quote.email.ilike(f'%{attributes.get("email")}%'),
+                Quote.status == quote_status if quote_status is not None else Quote.status != None,
+                month_query,
+                year_query
+            )
+        ).join(quote_items)\
+        .group_by(Quote)\
+        .having(func.count(quote_items.c.quote_id) >= attributes.get('item_count'))\
+        .order_by(Quote.created_at)
+
+    pagination = generate_pagination(query, 10, 1, **attributes)
+
+    return jsonify(pagination), 200
 
 
 # GET one quote

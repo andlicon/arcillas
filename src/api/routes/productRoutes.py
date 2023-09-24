@@ -10,6 +10,7 @@ from ..models.Category import Category
 from ..models.Unit import Unit
 from ..models.User import User
 from ..models.Role import Role
+from ..utils.routeUtils import generate_pagination, get_category_list
 
 
 @api.route('/products/', methods=['GET'])
@@ -25,20 +26,7 @@ def get_all_products():
     category_args = args.get('category', default=None, type=str)
     unit_args = args.get('unit', default=None, type=int)
 
-    category_list = None
-
-    if category_args is not None and category_args.strip() != '':
-        category_list = []
-        for id in category_args.split(','):
-            if id is None or id == '':
-                continue
-            try:
-                category_list.append(int(id.strip()))
-            except Exception as e:
-                return jsonify({'msg': 'Se ha proporcionado una categoria inválida'}), 400
-    else:
-        all_categories = Category.query.all()
-        category_list = list(map(lambda item: item.id , all_categories))
+    category_list = get_category_list(category_args)
 
     product_query = Product.query.filter(
             and_(
@@ -49,36 +37,20 @@ def get_all_products():
                 Product.unit_id == unit_args if unit_args is not None else Product.unit_id != None
                 )).order_by(Product.name)
 
-    page = None
-    try:
-        page = product_query.paginate(page=page_args, per_page=per_page_args)
-    except:
-        page_args = 1
-        page = product_query.paginate(page=1, per_page=per_page_args)
-
-    product_list = list( map(lambda product: product.serialize(), page.items) )
-
-    name_parameter = f'name={name_args}' if name_args != '%' else 'name'
-    category_parameter = f'category={category_args}' if category_args != None else 'category'
-    page_parameter = f'page={page_args}'
-    per_page_parameter = f'per_page={per_page_args}' if per_page_args != 10 else 'per_page'
-    description_parameter = f'description={description_args}' if description_args != '%' else 'description'
-    usage_parameter = f'usage={usage_args}' if usage_args != '%' else 'usage'
-    unit_parameter = f'unit={unit_args}' if unit_args is not None else 'unit'
-
-    response ={
-        'info': {
-            'count': page.total,
-            'current_page': page_args,
-            'per_page': per_page_args,
-            'filters': f'{page_parameter}&{per_page_parameter}&{name_parameter}&{category_parameter}&{description_parameter}&{usage_parameter}&{unit_parameter}',
-            'next': f'{os.getenv("BACKEND_URL")}/products/?page={page.next_num}&{per_page_parameter}&{name_parameter}&{category_parameter}&{description_parameter}&{usage_parameter}&{unit_parameter}' if page.has_next else None,
-            'prev': f'{os.getenv("BACKEND_URL")}/products/?page={page.prev_num}&{per_page_parameter}&{name_parameter}&{category_parameter}&{description_parameter}&{usage_parameter}&{unit_parameter}' if page.has_prev else None
-        },
-        'results': product_list
+    if category_args is None or category_args.strip() == '':
+        category_args = None
+    
+    attributes = {
+        'name': name_args,
+        'category': category_args,
+        'description': description_args,
+        'usage': usage_args,
+        'unit' : unit_args
     }
 
-    return jsonify(response), 200
+    pagination = generate_pagination(product_query, per_page_args, page_args, **attributes)
+
+    return jsonify(pagination), 200
 
 
 @api.route('/products/<int:id>', methods=['GET'])
