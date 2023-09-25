@@ -71,7 +71,7 @@ def get_all_quote():
     attributes = {
         'email': args.get('email', '%'),
         'status': args.get('status', None),
-        'item_count': args.get('item_count', 0),
+        'item_count': args.get('item_count') if args.get('item_count') not in [None, ''] else 0,
         'month': args.get('month', None),
         'year': args.get('year', None),
         'item_id': args.get('item_id', None)

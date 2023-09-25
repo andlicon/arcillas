@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Context } from '../store/appContext';
 import useFilter from '../hooks/useFilter.js';
 import usePopOver from '../hooks/usePopOver.jsx';
 import PlainInput from './PlainInput.jsx';
@@ -12,6 +13,8 @@ const filterInitialValue = {
 };
 
 const FilterQuoteForm = () => {
+  const { actions } = useContext(Context);
+
   const {
     filter,
     getString,
@@ -20,7 +23,7 @@ const FilterQuoteForm = () => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(getString());
+    actions.getQuote(getString());
   };
 
   usePopOver();

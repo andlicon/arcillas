@@ -10,7 +10,8 @@ import {
   patchProductPromise,
   deleteProductPromise,
   getCategoryHierarchyParentsPromise,
-  postQuotePromise
+  postQuotePromise,
+  getQuotePromise
 } from '../utils/promisesUtils.js'
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -251,6 +252,15 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
         catch (error) {
           console.log(error);
+        }
+      },
+      getQuote: async (filter) => {
+        try {
+          const quote = await getQuotePromise(filter);
+          console.log(quote);
+        }
+        catch (e) {
+          console.log(e)
         }
       }
     }

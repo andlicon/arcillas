@@ -250,3 +250,19 @@ export const postQuotePromise = async (body) => {
     reject('Ocurrió un error');
   })
 }
+
+export const getQuotePromise = async (filter) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(`${process.env.BACKEND_URL}/quote${filter}`)
+      const data = await response.json();
+      if (response.ok) resolve(data);
+      else reject(data.msg);
+    }
+    catch (e) {
+      console.log(e);
+    }
+
+    reject('Ocurrió un error');
+  });
+};
