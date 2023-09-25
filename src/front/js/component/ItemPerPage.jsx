@@ -1,10 +1,10 @@
 import React from 'react';
 import { usePerPage } from '../hooks/usePerPage.jsx';
 
-const ItemPerPage = ({ label }) => {
+const ItemPerPage = ({ label, query }) => {
   const {
     perPageHandler
-  } = usePerPage();
+  } = usePerPage({ query });
 
   return (
     <div className='d-flex align-items-center'>

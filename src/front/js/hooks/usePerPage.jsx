@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { Context } from '../store/appContext.js';
 
-export const usePerPage = () => {
+export const usePerPage = ({ query }) => {
     const { store, actions } = useContext(Context);
     const { productPage, perPage } = store;
     const { info } = productPage;
@@ -12,7 +12,7 @@ export const usePerPage = () => {
         let filter = '/?' + info.filters.replace(regexPage, 'page' + '&');
         const regexPerPage = /per_page.{0,4}&/;
         filter = filter.replace(regexPerPage, 'per_page=' + perPageParameter + '&');
-        await actions.getProductPage(filter);
+        await query(filter);
         actions.setPerPage(parseInt(perPageParameter));
     };
 
