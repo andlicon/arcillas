@@ -1,7 +1,6 @@
 import React from 'react';
-import FilterForm from './FilterProductForm.jsx';
 
-const ProductFilter = () => {
+const Filter = ({ children }) => {
   return (
     <div className="accordion filter-container box-shadow" id="accordionPanelsStayOpenExample">
       <div className="accordion-item">
@@ -11,10 +10,12 @@ const ProductFilter = () => {
           </button>
         </h2>
         <div id="searchFilter" className="accordion-collapse collapse show">
-          <FilterForm />
+          {
+            children
+          }
         </div>
       </div>
     </div>
   )
 };
-export default ProductFilter;
+export default Filter;

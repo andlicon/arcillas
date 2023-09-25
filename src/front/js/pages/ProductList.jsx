@@ -5,8 +5,9 @@ import '../../styles/productList.css';
 import useSelected from '../hooks/useSelected.jsx';
 import ItemPagination from '../component/ItemPagination.jsx';
 import ProductResults from '../component/ProductResults.jsx';
-import ProductFilter from '../component/ProductFilter.jsx';
 import Modal from '../component/Modal.jsx';
+import Filter from '../component/Filter.jsx';
+import FilterProductForm from '../component/FilterProductForm.jsx';
 
 const modalDelete = {
   body: '¿Estás seguro que quieres ejecutar esta función?',
@@ -36,7 +37,9 @@ const ProductList = () => {
           <Modal button={{ label: `Borrar ${selected.length} (seleccionados)`, className: 'btn-danger', icon: <i className="bi bi-trash"></i> }} modal={modalDelete} id='deleteProduct' acceptFunction={deleteHandler} />
         </div>
       </div>
-      <ProductFilter />
+      <Filter>
+        <FilterProductForm />
+      </Filter>
       <ProductResults selectHandler={selectHandler} selected={selected} />
       <ItemPagination page={null} />
     </div>

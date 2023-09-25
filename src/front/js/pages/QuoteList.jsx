@@ -1,5 +1,6 @@
 import React from 'react';
-import ProductFilter from '../component/ProductFilter.jsx';
+import Filter from '../component/Filter.jsx';
+import FilterProductForm from '../component/FilterProductForm.jsx';
 
 const QuoteList = () => {
   return (
@@ -7,8 +8,9 @@ const QuoteList = () => {
       <div className='productList__header'>
         <h2 className='page-title'>Cotización</h2>
       </div>
-      <ProductFilter />
-
+      <Filter>
+        <FilterProductForm />
+      </Filter>
     </div>
   )
 }
