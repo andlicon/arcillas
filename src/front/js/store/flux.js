@@ -25,6 +25,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       currentPager: 1,
       perPage: 10,
       filterString: '',
+      quotePage: {},
       quoteList: JSON.parse(sessionStorage.getItem('quoteList')) || []
     },
     actions: {
@@ -257,7 +258,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       getQuote: async (filter) => {
         try {
           const quote = await getQuotePromise(filter);
-          console.log(quote);
+          setStore({ quotePage: quote });
         }
         catch (e) {
           console.log(e)
