@@ -19,6 +19,7 @@ import ProductDetail from './pages/ProductDetail.jsx';
 import ProductByCategory from './pages/ProductByCategory.jsx';
 import QuoteUser from './pages/QuoteUser.jsx';
 import QuotePending from './pages/QuotePending.jsx'
+import QuoteList from './pages/QuoteList.jsx'
 
 import { ADMIN_ROLE } from './constant/role';
 
@@ -77,9 +78,9 @@ const Layout = () => {
                 path='/admin/product/edit/:productId' />
               <Route element={
                 <ProtectedRoute roleList={[ADMIN_ROLE]}>
-                  <QuotePending />
+                  <QuoteList />
                 </ProtectedRoute>}
-                path='/admin/quote/pending' />
+                path='/admin/quote' />
               <Route element={<h1>Not found!</h1>} />
             </Routes>
             <Footer />

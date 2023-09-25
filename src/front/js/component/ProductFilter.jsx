@@ -1,5 +1,5 @@
 import React from 'react';
-import FilterForm from './FilterForm.jsx';
+import FilterForm from './FilterProductForm.jsx';
 
 const ProductFilter = () => {
   return (

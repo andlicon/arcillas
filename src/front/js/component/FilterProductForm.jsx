@@ -6,7 +6,7 @@ import PlainInput from './PlainInput.jsx';
 import PlainSelect from './PlainSelect.jsx';
 import PlainSwitch from './PlainSwitch.jsx';
 
-const FilterForm = () => {
+const FilterProductForm = () => {
   const { store, actions } = useContext(Context);
   const { getProductPage } = actions;
   const { categorys, units } = store;
@@ -69,4 +69,4 @@ const FilterForm = () => {
     </form>
   )
 }
-export default FilterForm;
+export default FilterProductForm;
