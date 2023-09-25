@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import { Context } from '../store/appContext.js';
+import useSelected from '../hooks/useSelected.jsx';
 import Filter from '../component/Filter.jsx';
 import FilterQuoteForm from '../component/FilterQuoteForm.jsx';
 import ItemPagination from '../component/ItemPagination.jsx';
-import ProductResults from '../component/ProductResults.jsx';
+import QuoteResults from '../component/QuoteResults.jsx';
 
 const QuoteList = () => {
   const { actions, store } = useContext(Context);
+  const { selected, selectHandler, removeItems } = useSelected(null);
 
   return (
     <div className='container'>
@@ -16,7 +18,7 @@ const QuoteList = () => {
       <Filter>
         <FilterQuoteForm />
       </Filter>
-      {/* <ProductResults selectHandler={selectHandler} selected={selected} /> */}
+      <QuoteResults selectHandler={selectHandler} selected={selected} />
       <ItemPagination page={store.quotePage} label='cotizaciones' query={actions.getQuote} />
     </div>
   )
