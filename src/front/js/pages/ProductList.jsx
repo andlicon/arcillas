@@ -17,7 +17,7 @@ const modalDelete = {
 }
 
 const ProductList = () => {
-  const { actions } = useContext(Context);
+  const { actions, store } = useContext(Context);
   const { selected, selectHandler, removeItems } = useSelected(actions.deleteProduct);
 
   const deleteHandler = async () => {
@@ -41,7 +41,7 @@ const ProductList = () => {
         <FilterProductForm />
       </Filter>
       <ProductResults selectHandler={selectHandler} selected={selected} />
-      <ItemPagination page={null} label='productos' query={actions.getProductPage} />
+      <ItemPagination page={store.productPage} label='productos' query={actions.getProductPage} />
     </div>
   )
 };
