@@ -1,7 +1,7 @@
 import React from 'react';
 import { usePerPage } from '../hooks/usePerPage.jsx';
 
-const ItemPerPage = () => {
+const ItemPerPage = ({ label }) => {
   const {
     perPageHandler
   } = usePerPage();
@@ -15,7 +15,9 @@ const ItemPerPage = () => {
         <option value={50}>50</option>
         <option value={100}>100</option>
       </select>
-      productos
+      {
+        label
+      }
     </div>
   )
 }

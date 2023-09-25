@@ -41,7 +41,7 @@ const ProductList = () => {
         <FilterProductForm />
       </Filter>
       <ProductResults selectHandler={selectHandler} selected={selected} />
-      <ItemPagination page={null} />
+      <ItemPagination page={null} label='productos' />
     </div>
   )
 };

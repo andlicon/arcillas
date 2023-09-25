@@ -4,7 +4,7 @@ import '../../styles/itemPagination.css';
 import PageNavigation from '../component/PageNavigation.jsx';
 import ItemPerPage from '../component/ItemPerPage.jsx';
 
-const ItemPagination = () => {
+const ItemPagination = ({ label }) => {
   const { store } = useContext(Context);
   const { productPage, currentPage, perPage } = store;
   const { info, results } = productPage;
@@ -14,11 +14,11 @@ const ItemPagination = () => {
       <div>
         <PageNavigation />
       </div>
-      <ItemPerPage />
+      <ItemPerPage label={label} />
       <div>
         <span className='itemPagination__count'>
           {
-            `${((currentPage - 1) * perPage) + 1} - ${((currentPage - 1) * perPage) + results?.length} de productos ${info?.count}`
+            `${((currentPage - 1) * perPage) + 1} - ${((currentPage - 1) * perPage) + results?.length} de ${label} ${info?.count}`
           }
         </span>
       </div>
