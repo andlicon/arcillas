@@ -1,15 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { Context } from '../store/appContext.js';
 
-const initialValue = {
-  name: '',
-  category: 'all',
-  unit: 'all',
-  subCategory: false,
-  hierarchy: []
-};
-
-const useFilter = (initial = initialValue) => {
+const useFilter = (initial) => {
   const [filter, setFilter] = useState(initial);
   const [isLoading, setIsLoading] = useState(false);
   const { actions } = useContext(Context);

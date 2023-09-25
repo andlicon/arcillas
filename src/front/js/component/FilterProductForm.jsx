@@ -6,6 +6,14 @@ import PlainInput from './PlainInput.jsx';
 import PlainSelect from './PlainSelect.jsx';
 import PlainSwitch from './PlainSwitch.jsx';
 
+const filterInitialValue = {
+  name: '',
+  category: 'all',
+  unit: 'all',
+  subCategory: false,
+  hierarchy: []
+};
+
 const FilterProductForm = () => {
   const { store, actions } = useContext(Context);
   const { getProductPage } = actions;
@@ -13,7 +21,7 @@ const FilterProductForm = () => {
   const {
     filter,
     setFilterHandler,
-    saveFilter } = useFilter();
+    saveFilter } = useFilter(filterInitialValue);
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
