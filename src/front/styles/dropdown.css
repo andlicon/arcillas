@@ -5,8 +5,19 @@
   text-align: left;
 }
 
+.dropDown__button {
+  background-color: inherit;
+  color: inherit;
+  border: none;
+}
+
+.dropDown__button:hover {
+  background-color: var(--color-yellow);
+}
+
 .dropDown__button[aria-expanded='true'] {
-  background-color: black;
+  background-color: var(--color-main);
+  color: white;
 }
 
 .dropDown .card.card-body {
@@ -20,6 +31,6 @@
 }
 
 .dropDown__item:hover {
-  background-color: var(--color-dark);
+  background-color: var(--color-yellow);
   color: white;
 }

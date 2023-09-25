@@ -9,16 +9,11 @@ const catalogItems = [
   { label: 'Categorias', to: '/admin/category' }
 ];
 
-const quoteItems = [
-  { label: 'Pendientes', to: '/admin/quote/pending' }
-];
-
-
 const AdminMenu = () => {
   return (
     <div className='aside'>
       <div className="aside-header">
-        <Link to='/admin/dashboard' className='aside__home'>
+        <Link to='/' className='aside__home'>
           <img
             className='aside__logo'
             src={logoUrl}
@@ -36,9 +31,9 @@ const AdminMenu = () => {
           <li>
             <DropDown label={'Catálogo'} id='catologDropDown' items={catalogItems} />
           </li>
-          <li>
-            <DropDown label={'Quote'} id='quoteDropDown' items={quoteItems} />
-          </li>
+          <Link to='/admin/quote' className='btn dropDown__item'>
+            Cotización
+          </Link>
         </ul>
       </div>
     </div>

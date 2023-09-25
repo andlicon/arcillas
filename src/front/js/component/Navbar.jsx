@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Context } from '../store/appContext';
 import { Link } from "react-router-dom";
 import QuoteList from './QuoteList.jsx';
+import logoUrl from '../../img/arcillas-logo.png';
 
 const Navbar = () => {
   const { store } = useContext(Context);
@@ -22,12 +23,14 @@ const Navbar = () => {
             </button>
             : null
         }
-        <Link to="/">
-
+        <Link to='/' className='aside__home'>
+          <img
+            className='aside__logo'
+            src={logoUrl}
+            alt="arcillas plc logo" />
+          <span className='aside__title'>Arcillas PLC</span>
         </Link>
-        <div className="ml-auto">
-          <QuoteList />
-        </div>
+        <QuoteList />
       </div>
     </nav>
   );
