@@ -22,7 +22,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       categorys: JSON.parse(localStorage.getItem('categorys')) || null,
       units: JSON.parse(localStorage.getItem('units')) || null,
       productPage: {},
-      currentPager: 1,
+      currentPage: 1,
       perPage: 10,
       filterString: '',
       quotePage: {},
@@ -255,7 +255,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
-      getQuote: async (filter) => {
+      getQuote: async (filter = '') => {
         try {
           const quote = await getQuotePromise(filter);
           setStore({ quotePage: quote });

@@ -4,10 +4,10 @@ import '../../styles/itemPagination.css';
 import PageNavigation from '../component/PageNavigation.jsx';
 import ItemPerPage from '../component/ItemPerPage.jsx';
 
-const ItemPagination = ({ label, query }) => {
+const ItemPagination = ({ label, query, page }) => {
   const { store } = useContext(Context);
-  const { productPage, currentPage, perPage } = store;
-  const { info, results } = productPage;
+  const { currentPage, perPage } = store;
+  const { info, results } = page;
 
   return (
     <div className='itemPagination'>
