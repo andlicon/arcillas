@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import useFilter from '../hooks/useFilter.js';
 import usePopOver from '../hooks/usePopOver.jsx';
 import PlainInput from './PlainInput.jsx';
 import PlainSelect from './PlainSelect.jsx';
@@ -11,37 +12,15 @@ const filterInitialValue = {
 };
 
 const FilterQuoteForm = () => {
-  const [filter, setFilter] = useState(filterInitialValue);
+  const {
+    filter,
+    getString,
+    setFilterHandler
+  } = useFilter(filterInitialValue);
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     console.log(getString());
-  };
-
-  const getString = (filterParameter = filter) => {
-    let filterString = '/?';
-
-    for (const attribute in filterParameter) {
-      const value = filterParameter[attribute];
-
-      filterString += attribute;
-
-      if (value != 'all' && value != '') filterString += `=${value}`;
-
-      filterString += '&';
-    }
-
-    return filterString;
-  }
-
-  const setFilterHandler = ({ target }) => {
-    const name = target.name;
-    const value = target.value;
-
-    setFilter({
-      ...filter,
-      [name]: value
-    });
   };
 
   usePopOver();
@@ -67,7 +46,7 @@ const FilterQuoteForm = () => {
           popOver='Cantidad de productos'
           setValues={setFilterHandler}
           required={false} />
-        <PlainSelect
+        {/* <PlainSelect
           id='status'
           name='status'
           // value={filter['category']}
@@ -76,7 +55,7 @@ const FilterQuoteForm = () => {
           // setValues={({ target }) => setFilterHandler(target.name, target.value)}
           required={false}
           // list_items={categorys}
-          initial={{ value: 'all', label: 'Todos' }} />
+          initial={{ value: 'all', label: 'Todos' }} /> */}
         <PlainInput
           id='date'
           name='date'

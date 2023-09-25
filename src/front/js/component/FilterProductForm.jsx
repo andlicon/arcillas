@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Context } from '../store/appContext.js';
-import useFilter from '../hooks/useFilter.jsx';
+import useProductFilter from '../hooks/useProductFilter.jsx';
 import usePopOver from '../hooks/usePopOver.jsx';
 import PlainInput from './PlainInput.jsx';
 import PlainSelect from './PlainSelect.jsx';
@@ -21,7 +21,7 @@ const FilterProductForm = () => {
   const {
     filter,
     setFilterHandler,
-    saveFilter } = useFilter(filterInitialValue);
+    saveFilter } = useProductFilter(filterInitialValue);
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
