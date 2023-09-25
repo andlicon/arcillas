@@ -1,15 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import usePopOver from '../hooks/usePopOver.jsx';
 import PlainInput from './PlainInput.jsx';
 import PlainSelect from './PlainSelect.jsx';
 
+const filterInitialValue = {
+  email: '',
+  status: 'all',
+  item_count: '',
+  date: ''
+};
+
 const FilterQuoteForm = () => {
-  // status Enum.status
+  const [filter, setFilter] = useState(filterInitialValue);
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    // saveFilter();
-    // getProductPage();
+    console.log(getString());
+  };
+
+  const getString = (filterParameter = filter) => {
+    let filterString = '/?';
+
+    for (const attribute in filterParameter) {
+      const value = filterParameter[attribute];
+
+      filterString += attribute;
+
+      if (value != 'all' && value != '') filterString += `=${value}`;
+
+      filterString += '&';
+    }
+
+    return filterString;
+  }
+
+  const setFilterHandler = ({ target }) => {
+    const name = target.name;
+    const value = target.value;
+
+    setFilter({
+      ...filter,
+      [name]: value
+    });
   };
 
   usePopOver();
@@ -20,24 +52,24 @@ const FilterQuoteForm = () => {
         <PlainInput
           id='email'
           name='email'
-          // value={filter['name']}
+          value={filter['email']}
           label='Email'
           type='text'
           popOver='Email de la cotización'
-          // setValues={({ target }) => setFilterHandler(target.name, target.value)}
+          setValues={setFilterHandler}
           required={false} />
         <PlainInput
           id='item_count'
           name='item_count'
-          // value={filter['name']}
+          value={filter['item_count']}
           label='Cantidad de productos'
           type='text'
           popOver='Cantidad de productos'
-          // setValues={({ target }) => setFilterHandler(target.name, target.value)}
+          setValues={setFilterHandler}
           required={false} />
         <PlainSelect
-          id='Estado'
-          name='Estado'
+          id='status'
+          name='status'
           // value={filter['category']}
           label='Estado de la cotización'
           popOver='Estado actual de la cotización'
@@ -48,17 +80,17 @@ const FilterQuoteForm = () => {
         <PlainInput
           id='date'
           name='date'
-          // value={filter['name']}
+          value={filter['date']}
           label='Fecha cotización'
           type='month'
           popOver='Año y mes en que se solicitó'
-          // setValues={({ target }) => setFilterHandler(target.name, target.value)}
+          setValues={setFilterHandler}
           required={false} />
       </div>
       <button>
         Buscar
       </button>
     </form>
-  )
-}
+  );
+};
 export default FilterQuoteForm;
