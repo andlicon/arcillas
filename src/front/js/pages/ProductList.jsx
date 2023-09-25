@@ -25,6 +25,8 @@ const ProductList = () => {
     await actions.getProductPage();
   };
 
+  console.log(store.perPage, store.currentPage)
+
   return (
     <div className='container'>
       <div className='productList__header'>

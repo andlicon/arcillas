@@ -257,11 +257,14 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       getQuote: async (filter = '') => {
         try {
-          const quote = await getQuotePromise(filter);
-          setStore({ quotePage: quote });
+          const quoteList = await getQuotePromise(filter);
+          setStore({ quotePage: quoteList });
+          return quoteList;
         }
         catch (e) {
+          setStore({ quotePage: {} });
           console.log(e)
+          return {};
         }
       }
     }

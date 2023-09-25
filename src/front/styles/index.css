@@ -221,6 +221,10 @@ a {
   height: 32px;
 }
 
+.navbar>.container>.offcanvas {
+  height: 100%;
+}
+
 .navbar>.container>button {
   height: 32px;
   display: block;
@@ -316,4 +320,8 @@ a {
   .quoteForm {
     width: 50%;
   }
+}
+
+.pagination {
+  margin-bottom: 0;
 }
