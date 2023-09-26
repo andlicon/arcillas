@@ -11,7 +11,8 @@ import {
   deleteProductPromise,
   getCategoryHierarchyParentsPromise,
   postQuotePromise,
-  getQuotePromise
+  getQuotePromise,
+  getQuoteStatusPromise
 } from '../utils/promisesUtils.js'
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -25,6 +26,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       currentPage: 1,
       perPage: 10,
       filterString: '',
+      quoteStatusList: [],
       quotePage: {},
       quoteList: JSON.parse(sessionStorage.getItem('quoteList')) || []
     },
@@ -264,6 +266,10 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(e)
           return {};
         }
+      },
+      getQuoteStatus: async () => {
+        const response = await getQuoteStatusPromise();
+        setStore({ quoteStatusList: response })
       }
     }
   };

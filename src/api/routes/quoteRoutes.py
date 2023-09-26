@@ -138,3 +138,11 @@ def get_one_quote_item(item_id):
         return jsonify({'msg': 'Quote Item not found'}), 404
 
     return jsonify(item.serialize()), 200
+
+
+# get all quote status
+@api.route('/quote/status', methods=['GET'])
+def get_all_quote_status():
+    status_list = [status.value for status in QuoteStatus]
+
+    return jsonify(status_list), 200

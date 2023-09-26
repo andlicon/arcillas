@@ -266,3 +266,19 @@ export const getQuotePromise = async (filter) => {
     reject('Ocurrió un error');
   });
 };
+
+export const getQuoteStatusPromise = async () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(`${process.env.BACKEND_URL}/quote/status`);
+      const data = await response.json();
+      if (response.ok) resolve(data);
+      else reject(data.msg);
+    }
+    catch (e) {
+      console.log(e);
+    }
+
+    reject('Ocurrió un error');
+  });
+};

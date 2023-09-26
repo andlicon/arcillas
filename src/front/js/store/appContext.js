@@ -20,6 +20,7 @@ const injectContext = PassedComponent => {
 		useEffect(() => {
 			state.actions.getCategorys();
 			state.actions.getUnits();
+			state.actions.getQuoteStatus();
 		}, []);
 
 		return (
