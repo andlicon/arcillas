@@ -30,8 +30,6 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
     actions: {
       login: async (credentials) => {
-        const { getCategorys, getUnits, setMenu } = getActions();
-
         try {
           const data = await toast.promise(loginPromise(credentials),
             {
@@ -147,7 +145,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         return null;
       },
       putProduct: async (id, form) => {
-        const { token, productPage } = getStore();
+        const { token } = getStore();
         let data = null;
 
         try {

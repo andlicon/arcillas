@@ -4,13 +4,9 @@ import '../../styles/productResults.css';
 import ProductTable from './ProductTable.jsx';
 
 const ProductResults = ({ selectHandler, selected }) => {
-  const { store, actions } = useContext(Context);
+  const { store } = useContext(Context);
   const { productPage } = store;
   const { results } = productPage;
-
-  useEffect(() => {
-    actions.getProductPage();
-  }, []);
 
   return (
     <ProductTable

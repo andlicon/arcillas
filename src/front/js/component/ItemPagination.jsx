@@ -12,7 +12,7 @@ const ItemPagination = ({ label, query, page }) => {
   return (
     <div className='itemPagination'>
       <PageNavigation page={page} />
-      <ItemPerPage label={label} query={query} />
+      <ItemPerPage label={label} query={query} page={page} />
       <div>
         <span className='itemPagination__count'>
           {

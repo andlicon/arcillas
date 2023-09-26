@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Context } from '../store/appContext.js';
 import { Link } from "react-router-dom";
 import '../../styles/productList.css';
@@ -25,7 +25,9 @@ const ProductList = () => {
     await actions.getProductPage();
   };
 
-  console.log(store.perPage, store.currentPage)
+  useEffect(() => {
+    actions.getProductPage();
+  }, []);
 
   return (
     <div className='container'>
