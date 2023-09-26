@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { Context } from '../store/appContext.js';
 
-export const usePageNavigation = ({ page }) => {
+export const usePageNavigation = ({ query, page }) => {
   const { store, actions } = useContext(Context);
   const { currentPage } = store;
 
@@ -29,7 +29,7 @@ export const usePageNavigation = ({ page }) => {
     }
 
     if (filter != null) {
-      await actions.getProductPage(filter);
+      await query(filter);
     }
   };
 

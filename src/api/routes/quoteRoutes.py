@@ -69,12 +69,12 @@ def post_quote():
 def get_all_quote():
     args = request.args
     attributes = {
-        'email': args.get('email', '%'),
-        'status': args.get('status', None),
+        'email': args.get('email', default='%', type=int),
+        'status': args.get('status', default=None, type=str),
         'item_count': args.get('item_count') if args.get('item_count') not in [None, ''] else 0,
-        'month': args.get('month', None),
-        'year': args.get('year', None),
-        'item_id': args.get('item_id', None)
+        'month': args.get('month', None) if args.get('month', None) not in [None, ''] else None,
+        'year': args.get('year', None) if args.get('year', None) not in [None, ''] else None,
+        'item_id': args.get('item_id', default=None, type=int)
     }
 
     quote_status = QuoteStatus.get_value(attributes.get('status'))
@@ -97,7 +97,6 @@ def get_all_quote():
     else:
         year_query = extract('year', Quote.created_at) != None
 
-
     query = db.session.query(Quote)\
         .filter(
             and_(
@@ -111,7 +110,10 @@ def get_all_quote():
         .having(func.count(quote_items.c.quote_id) >= attributes.get('item_count'))\
         .order_by(Quote.created_at)
 
-    pagination = generate_pagination(query, 10, 1, **attributes)
+    per_page = int(args.get('per_page')) if args.get('per_page') not in [None, ''] else 10
+    page = int(args.get('page')) if args.get('page') not in [None, ''] else 1
+
+    pagination = generate_pagination(query, per_page, page, **attributes)
 
     return jsonify(pagination), 200
 

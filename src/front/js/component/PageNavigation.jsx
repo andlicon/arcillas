@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Context } from '../store/appContext.js';
 import { usePageNavigation } from '../hooks/usePageNavigation.jsx';
 
-const PageNavigation = ({ page }) => {
+const PageNavigation = ({ page, query }) => {
   const { store } = useContext(Context);
   const { perPage } = store;
   const {
@@ -11,7 +11,7 @@ const PageNavigation = ({ page }) => {
     next,
     nextPageHandler,
     resultsCount,
-  } = usePageNavigation({ page: page });
+  } = usePageNavigation({ page, query });
 
   return (
     <nav aria-label="Page navigation" className='navigation'>

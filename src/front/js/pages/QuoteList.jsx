@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Context } from '../store/appContext.js';
 import useSelected from '../hooks/useSelected.jsx';
 import Filter from '../component/Filter.jsx';
@@ -9,6 +9,10 @@ import QuoteResults from '../component/QuoteResults.jsx';
 const QuoteList = () => {
   const { actions, store } = useContext(Context);
   const { selected, selectHandler, removeItems } = useSelected(null);
+
+  useEffect(() => {
+    actions.getQuote();
+  }, []);
 
   return (
     <div className='container'>
