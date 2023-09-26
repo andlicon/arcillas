@@ -65,7 +65,7 @@ const ProductByCategory = () => {
               })
             }
           </div>
-          <PageNavigation />
+          <PageNavigation page={store.productPage} query={actions.getProductPage} />
         </div>
       </div>
     </div>
