@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { Context } from '../store/appContext.js';
 
 const useFilter = (initial) => {
+  const { store } = useContext(Context);
   const [filter, setFilter] = useState(initial);
 
   const setFilterHandler = ({ target }) => {
@@ -14,7 +16,7 @@ const useFilter = (initial) => {
   }
 
   const getString = (filterParameter = filter) => {
-    let filterString = '/?';
+    let filterString = `/?page=${store.currentPage}&per_page=${store.perPage}&`;
 
     for (const attribute in filterParameter) {
 

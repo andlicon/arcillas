@@ -20,13 +20,14 @@ const FilterProductForm = () => {
   const { categorys, units } = store;
   const {
     filter,
+    getString,
     setFilterHandler,
     saveFilter } = useProductFilter(filterInitialValue);
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     saveFilter();
-    getProductPage();
+    getProductPage(getString());
   };
 
   usePopOver();

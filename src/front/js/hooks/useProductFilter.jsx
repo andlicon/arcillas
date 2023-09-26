@@ -4,7 +4,7 @@ import { Context } from '../store/appContext.js';
 const useFilter = (initial) => {
   const [filter, setFilter] = useState(initial);
   const [isLoading, setIsLoading] = useState(false);
-  const { actions } = useContext(Context);
+  const { actions, store } = useContext(Context);
   const { setStoreFilter, getCategoryHierarchy } = actions;
 
   const setFilterHandler = (name, value) => {
@@ -15,7 +15,7 @@ const useFilter = (initial) => {
   }
 
   const getString = (filterParameter = filter) => {
-    let filterString = '/?';
+    let filterString = `/?page=${store.currentPage}&per_page=${store.perPage}&`;
 
     for (const attribute in filterParameter) {
       if (attribute == 'hierarchy') continue;
@@ -58,6 +58,7 @@ const useFilter = (initial) => {
   return ({
     filter,
     isLoading,
+    getString,
     setFilterHandler,
     saveFilter
   });
