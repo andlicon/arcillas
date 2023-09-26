@@ -1,8 +1,8 @@
 from . import Enum
 
 class QuoteStatus(Enum):
-    PENDING = 'pendiente'
-    DONE = 'lista'
+    PENDING = {'id': 1, 'name': 'pendiente'}
+    DONE = {'id': 2, 'name': 'lista'}
 
     def get_value(string):
         if string is None:
@@ -10,9 +10,9 @@ class QuoteStatus(Enum):
 
         string = string.lower()
         
-        if string == 'pendiente':
+        if string == QuoteStatus.PENDING.name:
             return QuoteStatus.PENDING
-        elif string == 'lista':
+        elif string == QuoteStatus.DONE.name:
             return QuoteStatus.DONE
 
         return None

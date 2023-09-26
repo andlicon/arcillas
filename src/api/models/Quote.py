@@ -21,7 +21,7 @@ class Quote(db.Model):
         return({
             'id': self.id,
             'email': self.email,
-            'status': self.status.value,
+            'status': self.status.value['name'],
             'quote_items': list(map(lambda item: item.id, self.items)),
             'created_at': self.created_at,
             'updated_at': self.updated_at,

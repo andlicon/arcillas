@@ -13,7 +13,7 @@ const filterInitialValue = {
 };
 
 const FilterQuoteForm = () => {
-  const { actions } = useContext(Context);
+  const { actions, store } = useContext(Context);
 
   const {
     filter,
@@ -49,16 +49,16 @@ const FilterQuoteForm = () => {
           popOver='Cantidad de productos'
           setValues={setFilterHandler}
           required={false} />
-        {/* <PlainSelect
+        <PlainSelect
           id='status'
           name='status'
-          // value={filter['category']}
+          value={filter['status']}
           label='Estado de la cotización'
           popOver='Estado actual de la cotización'
-          // setValues={({ target }) => setFilterHandler(target.name, target.value)}
+          setValues={setFilterHandler}
           required={false}
-          // list_items={categorys}
-          initial={{ value: 'all', label: 'Todos' }} /> */}
+          list_items={store.quoteStatusList}
+          initial={{ value: 'all', label: 'Todos' }} />
         <PlainInput
           id='date'
           name='date'
