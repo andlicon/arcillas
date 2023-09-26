@@ -55,8 +55,7 @@ const QuoteTable = ({
         <tbody>
           {
             quoteList && quoteList?.map((quote, index) => {
-              // const category = categorys?.filter((element) => element?.id == product?.category_id);
-              // const unit = units?.filter((element) => element?.id == product?.unit_id);
+              const date = quote?.created_at.match(/[0-9]+\s[A-Za-z]+\s[0-9]+/);
               const isChecked = selected.includes(quote?.id);
 
               return (
@@ -71,7 +70,7 @@ const QuoteTable = ({
                     {quote?.status[0].toUpperCase() + quote?.status.substring(1)}
                   </td>
                   <td>
-                    {quote?.created_at}
+                    {date}
                   </td>
                   <td>
                     {
