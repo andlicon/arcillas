@@ -1,6 +1,12 @@
-
 import click
-from .models import db, User
+import os
+from base64 import b64encode
+from .models import db
+from .models.User import User
+from .models.User import User
+from .models.Role import Role
+from .models.UserStatus import UserStatus
+from .utils.passwordUtils import create_password
 
 """
 In this file, you can add as many commands as you want using the @app.cli.command decorator
@@ -32,3 +38,27 @@ def setup_commands(app):
     @app.cli.command("insert-test-data")
     def insert_test_data():
         pass
+
+    @app.cli.command("insert-admin-user")
+    def insert_admin_user():
+        email = os.getenv("ADMIN_EMAIL")
+        name = os.getenv("ADMIN_NAME")
+        role = Role.ADMIN
+        status = UserStatus.ACTIVE
+        password = os.getenv("ADMIN_PASSWORD")
+
+        admin = User.query.filter_by(email=email).one_or_none()
+        if admin is not None:
+            return
+
+        # creating user
+        salt = b64encode(os.urandom(32)).decode('utf-8')
+        password = create_password(password, salt)
+        new_user = User(email=email.lower(), name=name, status=status, role=role, password=password, salt=salt)
+
+        try:
+            db.session.add(new_user)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(e.args)
