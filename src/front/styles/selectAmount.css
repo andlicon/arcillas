@@ -1,0 +1,45 @@
+.selectAmount .form-select {
+  display: inline-block;
+  width: initial;
+  font-weight: bold;
+  background-color: none !important;
+  border: none;
+  outline: none;
+}
+
+.selectAmount .form-select:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.selectAmount .form-select * {
+  background-color: white;
+}
+
+.selectAmount .dropdown-toggle,
+.selectAmount .dropdown-toggle:active {
+  width: initial;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: black;
+}
+
+.selectAmount .dropdown-toggle::after {
+  color: #3483FA;
+  transition: transform .3s ease-in-out;
+}
+
+.selectAmount .dropdown-toggle:active::after {
+  transform: rotate(180deg);
+}
+
+.selectAmount .amount {
+  font-weight: bold;
+  display: inline-block;
+  margin: 0 .5rem;
+}
+
+.dropdown-menu {
+  cursor: pointer;
+}

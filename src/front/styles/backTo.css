@@ -1,0 +1,9 @@
+.back-to {
+    display: block;
+    font-weight: 500;
+}
+
+.back-to i {
+    margin-right: .5rem;
+    color: var(--color-yellow);
+}

@@ -1,0 +1,76 @@
+:root {
+  --label_no_focused_weight: normal;
+  --label_focused_weight: 600;
+  --label_focused_top: calc(-1em - 8px);
+  --label_no_focused_top: calc(50% - .6rem);
+  --input_focused_border-color: black;
+  --input_no_focused_border-color: lightgray;
+}
+
+.formInput {
+  width: 100%;
+  height: 2em;
+  margin-top: calc(1em + .5rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.formInput__label {
+  position: absolute;
+  left: 1rem;
+  top: var(--label_focused_top);
+  z-index: 2;
+  font-weight: var(--label_focused_weight);
+  transition: top .18s ease-in-out;
+}
+
+.formInput__input--empty+.formInput__label {
+  top: var(--label_no_focused_top);
+  font-weight: var(--label_no_focused_weight);
+}
+
+.formInput__input--empty:focus+.formInput__label {
+  top: var(--label_focused_top);
+  font-weight: var(--label_focused_weight);
+}
+
+.formInput__icon {
+  position: absolute;
+  font-size: 1.5rem;
+  margin-right: 0.5em;
+  right: 0;
+}
+
+.formInput__input {
+  width: 100%;
+  height: 2em;
+  padding: 1rem;
+  padding-right: calc(1em + 16px);
+  border-radius: .5em;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--input_focused_border-color);
+  outline: none;
+  transition: border-color .15s ease-in-out;
+}
+
+.was-validated .formInput__input:invalid {
+  border-color: red;
+}
+
+.formInput__input--empty {
+  border-color: var(--input_no_focused_border-color);
+}
+
+.formInput__input--empty:focus {
+  border-color: var(--input_focused_border-color);
+}
+
+.invalid-feedback {
+  position: absolute;
+  bottom: var(--label_focused_top);
+  text-align: end;
+  pointer-events: none;
+}

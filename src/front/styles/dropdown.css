@@ -1,0 +1,25 @@
+.dropDown {}
+
+.dropDown__button {
+  border-radius: 0;
+  text-align: left;
+}
+
+.dropDown__button[aria-expanded='true'] {
+  background-color: black;
+}
+
+.dropDown .card.card-body {
+  padding: 0;
+}
+
+.dropDown__item {
+  width: 100%;
+  border-radius: 0;
+  text-align: left;
+}
+
+.dropDown__item:hover {
+  background-color: var(--color-dark);
+  color: white;
+}

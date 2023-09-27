@@ -1,0 +1,33 @@
+.verticalNavigation {
+  background-color: var(--color-light-secondary);
+  height: fit-content;
+}
+
+.verticalNavigation ul {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: .5rem;
+}
+
+.verticalNavigation li {
+  width: 100%;
+}
+
+.verticalNavigation li a {
+  display: inline-block;
+  width: 100%;
+  text-decoration: none;
+  transition: all .1s ease-in-out;
+}
+
+.verticalNavigation li a:hover {
+  background-color: var(--color-yellow);
+  color: black;
+  font-weight: 500;
+}
+
+.verticalNavigation h3 {
+  margin-bottom: 1rem;
+}

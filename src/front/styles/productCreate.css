@@ -1,0 +1,45 @@
+.accordion-button:not(.collapsed) {
+  background-color: inherit;
+}
+
+.accordion-button .productCreate__image {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+.productCreate__h1 {
+  display: block;
+  margin-right: 1rem;
+}
+
+.productCreate__header {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.productCreate__form label {
+  text-align: right;
+}
+
+.productCreate__header>* {
+  margin-right: .5rem;
+}
+
+.productCreate__form>* {
+  margin-bottom: .5rem;
+}
+
+@media (max-width: 320px) {
+  .accordion-button .productCreate__image {
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+@media (max-width: 182px) {
+  .accordion-button .productCreate__image {
+    display: none;
+  }
+}

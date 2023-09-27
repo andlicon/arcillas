@@ -1,0 +1,41 @@
+.results {
+  border-collapse: collapse;
+}
+
+.results * {
+  color: var(--color-main);
+}
+
+.results td {
+  border: .1em solid rgb(223, 223, 223);
+  padding: 8px;
+}
+
+.results thead td {
+  font-weight: 600;
+}
+
+.results tbody img {
+  width: 100px;
+  height: 100px;
+}
+
+.results__tr td:first-child {
+  min-width: 25px;
+}
+
+.results__tr td:last-child {
+  min-width: 100px;
+}
+
+.results__tr td {
+  min-width: 100px;
+}
+
+.results__tr:nth-child(even) td {
+  background-color: var(--color-light-secondary);
+}
+
+.results__tr:nth-child(odd) td {
+  background-color: #ececec;
+}

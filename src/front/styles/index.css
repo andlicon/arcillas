@@ -1,3 +1,294 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+:root {
+  --color-yellow: #ffd21f;
+  --color-dark: #202124;
+  --color-main: #494949;
+  --bg-page: #eeeeee;
+  --bg-primary: white;
+  --color-dark-secondary: #fafafa;
+  --color-light-secondary: #fafafa;
+  --color-white: #ffffff;
+  --color-brown: #6B0314;
+  --navbar-height: 6vh;
+  --content-height: 86vh;
+  --footer-height: 6vh;
+  --box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+  --box-shadow-hover: 0px 1px 5px 2px rgba(0, 0, 0, 0.12);
+}
+
+*,
+body *,
+.page-title {
+  color: var(--color-main);
+  font-family: 'Roboto', sans-serif;
+}
+
+.btn i {
+  margin-right: .4rem;
+}
+
+body {
+  background-color: var(--bg-page);
+}
+
+i {
+  color: var(--color-yellow);
+}
+
+.navbar {
+  background-color: var(--color-yellow) !important;
+  height: var(--navbar-height);
+}
+
+.help {
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: white !important;
+  border-radius: 100%;
+  width: 16px;
+  height: 16px;
+  background-color: blue !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: .3rem;
+}
+
+.accordion-body>.row {
+  margin-bottom: 1em;
+}
+
+.results .btn-primary {
+  padding: .3rem;
+}
+
+.results .btn-primary i {
+  font-size: .8rem;
+}
+
+#app .navbar+.container {
+  min-height: var(--content-height);
+}
+
+.footer {
+  min-height: var(--footer-height);
+}
+
+.centrado {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.center {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn i {
+  color: white;
+}
+
+.button-list {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  gap: 1em;
+}
+
+.filter-container,
+.results-container {
+  margin-bottom: 1em;
+}
+
+.bg-dark-secondary {
+  background-color: var(--color-dark-secondary);
+}
+
+.bg-yellow {
+  background-color: var(--color-yellow);
+}
+
+.table {
+  margin: 0;
+}
+
+.table>thead>*>* {
+  background-color: var(--color-yellow);
+}
+
+.accordion-header,
+.accordion-button {
+  background-color: var(--color-yellow);
+}
+
+.accordion-item {
+  background-color: var(--color-light-secondary);
+}
+
+.logo {
+  width: 100px;
+  border-radius: 100%;
+  background: #dbcc87;
+  border: 1px solid rgb(236, 236, 236);
+}
+
+.offcanvas {
+  background-color: var(--color-light-secondary);
+}
+
+ul,
+li {
+  list-style: none;
+  padding: 0;
+}
+
+.dropDown>* {
+  width: 100%;
+}
+
+.separator {
+  font-weight: 600;
+}
+
+.btn--yellow {
+  background-color: var(--color-yellow);
+  color: var(--color-dark);
+}
+
+.btn--yellow:hover {
+  background-color: #d6b11a;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+}
+
+.product-row>* {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.box-shadow {
+  box-shadow: var(--box-shadow);
+}
+
+.navigation {
+  width: fit-content;
+}
+
+.accordion-header * {
+  font-weight: 600;
+}
+
+.offcanvas__opener {
+  padding: 0;
+  height: fit-content;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.offcanvas__opener:hover {
+  background-color: transparent;
+}
+
+.navbar i {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--color-main);
+  transition: all .15s ease-in-out;
+}
+
+.offcanvas__opener:hover i {
+  color: white;
+}
+
+.navbar .container {
+  display: flex;
+  align-items: center;
+}
+
+.offcanvas {
+  background-color: var(--color-light-secondary);
+}
+
+.offcanvas__opener {
+  position: relative;
+}
+
+.offcanvas__opener.has-item::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  top: 10%;
+  right: 0;
+  border-radius: 100%;
+}
+
+.modal-backdrop {
+  z-index: 0;
+}
+
+.quoteForm {
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.bold {
+  font-weight: 500;
+}
+
+.block {
+  background-color: var(--color-light-secondary);
+}
+
+.navbar+.container>*:first-child {
+  margin-top: 1em;
+}
+
+.offcanvas-body {
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+}
+
+.navbar+.container {
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+}
+
+.quoteForm button {
+  display: block;
+  width: 50%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.image--showing {
+  max-height: 500px;
+}
+
+.dropdown-item-amount:active {
+  background-color: var(--color-light-secondary);
+}
+
+@media screen and (min-width: 768px) {
+  .quoteForm {
+    width: 50%;
+  }
+}

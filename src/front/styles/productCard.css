@@ -1,0 +1,40 @@
+.productCard {
+  background-color: var(--color-light-secondary);
+  text-decoration: none;
+  font-weight: normal;
+  color: black;
+  text-align: left;
+}
+
+.productCard:hover {
+  box-shadow: var(--box-shadow-hover);
+}
+
+.productCard * {
+  text-decoration: none;
+}
+
+.productCard__image {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+}
+
+.productCard__content {
+  padding: 0.5em;
+  position: relative;
+}
+
+.productCard__name {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+.productCard__brand {
+  font-weight: 600;
+}
+
+@media (max-width: 400px) {
+  .col-6 {
+    width: 100%;
+  }
+}
